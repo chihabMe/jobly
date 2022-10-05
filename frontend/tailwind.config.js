@@ -10,7 +10,7 @@ module.exports = {
         "title-light": "#ffc82c",
         primary: "#2563EB",
         secondary: "#ff7849",
-        bg: "#F2F6FD",
+        bg: "#1C1F20",
         "bg-light": "#8492a6",
       },
     },
