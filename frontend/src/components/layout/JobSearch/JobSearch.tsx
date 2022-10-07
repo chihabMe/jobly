@@ -27,7 +27,7 @@ const JobSearch = () => {
   const [editing,setEditing]=useState(false)
   
   return (
-    <form onSubmit={submitHandler} className={`w-full    outline-1 ${editing && 'outline-2'}  outline outline-primary  bg-bg flex flex-col  px-4 py-3  md:flex-row gap-2 md:gap-0 justify-between items-center  rounded-lg`}>
+    <form onSubmit={submitHandler} className={`w-full max-w-3xl mx-auto     outline-1 ${editing && 'outline-2'}  outline outline-primary  bg-bg flex flex-col  px-4 py-3  md:flex-row gap-2 md:gap-0 justify-between items-center  rounded-lg`}>
         {/* industries */}
         <SelectMenu fields={industries}  Icon={BriefcaseIcon} />
         <SelectMenu fields={locations} Icon={MapPinIcon}  />

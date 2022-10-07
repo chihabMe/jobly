@@ -18,7 +18,7 @@ const SelectMenu = ({
                 {fields.map(item=>(
                 <Listbox.Option as={Fragment} key={item.id} value={item}>
                     {({active,selected})=>(
-                    <li className={` ${(active|| selected) && "bg-primary"} px-2 rounded-md py-2 cursor-pointer`}>
+                    <li className={` ${(active|| selected) && "bg-primary"} text-title m-1 px-2 rounded-md py-2 cursor-pointer`}>
                         {item.name}
                     </li>
                     )}
