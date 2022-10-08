@@ -1,15 +1,16 @@
 import { Menu, Transition } from "@headlessui/react";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import Button from "src/components/ui/Button";
 import NavLink from "src/components/ui/NavLink";
+import { useSelector } from "react-redux";
+
 import {
-  ChevronDownIcon,
-  ChevronUpDownIcon,
   Bars3Icon,
 } from "@heroicons/react/24/outline";
 import NavMenu from "src/components/ui/NavMenu";
 import linkObject from "src/models/linkObject";
 import Link from "next/link";
+import { AuthContext } from "src/context/AuthContext";
 
 const categoriesLinks: linkObject[] = [
   { name: "software engineer", path: "jobs/category?=software_engineer" },
@@ -17,23 +18,28 @@ const categoriesLinks: linkObject[] = [
   { name: "graphic designer", path: "jobs/category?=graphic_designer" },
 ];
 const links = [
-  <NavMenu text="job type" linksObjects={categoriesLinks} />,
-  <NavMenu text="employers" linksObjects={categoriesLinks} />,
-  <NavMenu text="categories" linksObjects={categoriesLinks} />,
+  <NavMenu key={1} text="job type" linksObjects={categoriesLinks} />,
+  <NavMenu key={2} text="employers" linksObjects={categoriesLinks} />,
+  <NavMenu key={3} text="categories" linksObjects={categoriesLinks} />,
   <NavLink
+    key={4}
     href="/blogs"
     text="blogs"
     className=" text-title font-medium capitalize cursor-pointer hover:text-blue-300      "
   />,
 ];
 const Header = () => {
+  const {isAuthenticated,isLoading,login,logout,verify} = useContext(AuthContext);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  try{
-
+  try {
     window.addEventListener("resize", () => {
       setShowMobileMenu(false);
     });
-  }catch(err){}
+  } catch (err) {}
+  useEffect(()=>{
+  verify()
+  },[])
+  if(isLoading)return <div>loading</div>
   return (
     <>
       <div className="py-4 px-2 text-white  flex  justify-between items-center  w-full">
@@ -51,15 +57,23 @@ const Header = () => {
         </div>
         {/* */}
         <div className="flex gap-4 items-center">
-          <Link href="/signup">
-            <Button
-              text="sign up"
-              className="capitalize  hover:border-blue-500 border-transparent border  px-3"
-            />
-          </Link>
-          <Link href="/login">
-            <Button text="login" className="capitalize bg-blue-500 px-3 " />
-          </Link>
+          {!isAuthenticated && (
+            <>
+            <button className="text-white rounded-md px-3 py-1 bg-green-300" onClick={()=>{login("chihab@email.com","chihabMg")}}>login</button>
+              <Link href="/signup">
+                <Button
+                  text="sign up"
+                  className="capitalize  hover:border-blue-500 border-transparent border  px-3"
+                />
+              </Link>
+              <Link href="/login">
+                <Button text="login" className="capitalize bg-blue-500 px-3 " />
+              </Link>
+            </>
+          )}
+          {isAuthenticated && 
+          <button className="text-white rounded-md px-3 py-1 bg-red-300" onClick={()=>{logout()}}>logout</button>
+          }
           {/* menu toggler */}
           <div
             className="sm:hidden"

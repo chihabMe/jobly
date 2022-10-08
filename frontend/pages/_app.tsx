@@ -1,16 +1,19 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import Header from "src/components/layout/Header/Header";
 import Container from "src/components/layout/Container";
-import Footer from "src/components/layout/Footer/Footer";
+import { Provider } from "react-redux";
+import { store } from "src/store";
+import { AuthContextProvider } from "src/context/AuthContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Container>
-      <Header />
-      <Component {...pageProps} />
-      <Footer/>
-    </Container>
+    <Provider store={store}>
+      <AuthContextProvider>
+        <Container>
+          <Component {...pageProps} />
+        </Container>
+      </AuthContextProvider>
+    </Provider>
   );
 }
 

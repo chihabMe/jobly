@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import JobSearch from "src/components/layout/JobSearch/JobSearch";
+import { useDispatch } from "react-redux";
+import { authAction } from "src/store/slices/authSlice";
 const Home = () => {
+  
   return (
     <main>
       {/* home top */}
@@ -16,7 +19,7 @@ const Home = () => {
             Each month, more than 3 million job seekers turn to website in their
             search for work, making over 140,000 applications every single day
           </p>
-          <JobSearch/>
+          <JobSearch />
         </div>
         <div className="hidden md:block relative w-full md:w-1/3  ">
           <div className="w-96 h-96">
