@@ -12,20 +12,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if ((response.status = 200)) {
       const current = req.headers.cookie;
       res.setHeader(
-        "Set-Cookie",
+        "Set-Cookie",[
         cookie.serialize("refresh", response.data.refresh, {
           httpOnly: true,
           path: "/",
+          sameSite:"strict",
+          secure:process.env.mode!='devMode',
           maxAge: refreshTokenAge,
-        })
-      );
-      res.setHeader(
-        "Set-Cookie",
+        }),
         cookie.serialize("access", response.data.access, {
           httpOnly: true,
           path: "/",
+          sameSite:"strict",
+          secure:process.env.mode!='devMode',
           maxAge: accessTokenAge,
         })
+        ]
       );
       return res.status(response.status).json({ message: "refreshed" });
     }

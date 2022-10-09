@@ -62,7 +62,9 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({
   };
   const logout = async () => {
     console.log("logging out");
-    const response = await fetch("/api/logout")
+    const response = await fetch("/api/logout");
+    const data  = await response.json();
+    console.log(data)
     setUser(null);
     setIsAuthenticated(false);
     setIsLoading(false);

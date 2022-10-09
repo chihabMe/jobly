@@ -1,4 +1,3 @@
-import { router } from "next/client";
 import Link from "next/link";
 import React, { FormEvent, useEffect, useState } from "react";
 import Button from "src/components/ui/Button";
@@ -7,12 +6,14 @@ import Input from "src/components/ui/Input";
 import UseFetch from "src/hooks/use-fetch";
 import { useDispatch } from "react-redux";
 import { authAction } from "src/store/slices/authSlice";
+import { useRouter } from "next/router";
 
 const initialState = {
   email: "",
   password: "",
 };
 const Login = () => {
+  const router = useRouter()
   const [form, setForm] = useState(initialState);
 
   //redux 

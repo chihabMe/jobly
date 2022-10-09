@@ -4,9 +4,7 @@ import Button from "src/components/ui/Button";
 import NavLink from "src/components/ui/NavLink";
 import { useSelector } from "react-redux";
 
-import {
-  Bars3Icon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import NavMenu from "src/components/ui/NavMenu";
 import linkObject from "src/models/linkObject";
 import Link from "next/link";
@@ -29,17 +27,14 @@ const links = [
   />,
 ];
 const Header = () => {
-  const {isAuthenticated,isLoading,login,logout,verify} = useContext(AuthContext);
+  const { isAuthenticated, isLoading, login, logout, verify } =
+    useContext(AuthContext);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   try {
     window.addEventListener("resize", () => {
       setShowMobileMenu(false);
     });
   } catch (err) {}
-  useEffect(()=>{
-  verify()
-  },[])
-  if(isLoading)return <div>loading</div>
   return (
     <>
       <div className="py-4 px-2 text-white  flex  justify-between items-center  w-full">
@@ -59,7 +54,14 @@ const Header = () => {
         <div className="flex gap-4 items-center">
           {!isAuthenticated && (
             <>
-            <button className="text-white rounded-md px-3 py-1 bg-green-300" onClick={()=>{login("chihab@email.com","chihabMg")}}>login</button>
+              <button
+                className="text-white rounded-md px-3 py-1 bg-green-300"
+                onClick={() => {
+                  login("chihab@email.com", "chihabMg");
+                }}
+              >
+                login
+              </button>
               <Link href="/signup">
                 <Button
                   text="sign up"
@@ -71,9 +73,21 @@ const Header = () => {
               </Link>
             </>
           )}
-          {isAuthenticated && 
-          <button className="text-white rounded-md px-3 py-1 bg-red-300" onClick={()=>{logout()}}>logout</button>
-          }
+          {isAuthenticated && (
+            <>
+              <button
+                className="text-white rounded-md px-3 py-1 bg-red-300"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                logout
+              </button>
+              <Link href="/profile">
+                <span className="bg-white rounded-full w-10 h-10">profile</span>
+              </Link>
+            </>
+          )}
           {/* menu toggler */}
           <div
             className="sm:hidden"

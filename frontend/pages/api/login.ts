@@ -16,19 +16,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const response = await fetch(loginEndpoint, config);
     const data = await response.json();
     if (response.status == 200) {
-      res.setHeader(
-        "Set-Cookie",
+      res.setHeader("Set-Cookie", [
         cookie.serialize("refresh", data.refresh, {
           httpOnly: true,
+          sameSite:"strict",
+          secure:process.env.mode!='devMode',
           path: "/",
           maxAge: refreshTokenAge,
         }),
         cookie.serialize("access", data.access, {
           httpOnly: true,
+          sameSite:"strict",
+          secure:process.env.mode!='devMode',
           path: "/",
           maxAge: accessTokenAge,
-        })
-      );
+        }),
+      ]);
     }
 
     return res.status(response.status).json(data);
