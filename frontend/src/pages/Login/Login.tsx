@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useContext, useEffect, useState } from "react";
 import Button from "src/components/ui/Button";
 import Controller from "src/components/ui/Controller";
 import Input from "src/components/ui/Input";
@@ -7,6 +7,9 @@ import UseFetch from "src/hooks/use-fetch";
 import { useDispatch } from "react-redux";
 import { authAction } from "src/store/slices/authSlice";
 import { useRouter } from "next/router";
+import { verify } from "crypto";
+import { AuthContext } from "src/context/AuthContext";
+import PageIsLoading from "src/components/ui/PageIsLoading";
 
 const initialState = {
   email: "",
@@ -15,11 +18,8 @@ const initialState = {
 const Login = () => {
   const router = useRouter()
   const [form, setForm] = useState(initialState);
-
-  //redux 
-  const dispatch = useDispatch()
+  const {login} = useContext(AuthContext);
   //
-
   const { request, status, data, error, isLoading } = UseFetch();
   const onChangeHandler = (e: any) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -30,8 +30,8 @@ const Login = () => {
   };
   useEffect(()=>{
     if(status==200){
-      dispatch(authAction.login())
-      router.replace("/")
+      login(form.email,"chihab");
+      router.replace("/");
       }
   },[status])
   return (
@@ -53,8 +53,8 @@ const Login = () => {
           />
         </Controller>
         <Button
-          text="login"
-          className="w-full rounded-md bg-blue-300  flex justify-center font-medium  "
+          text={isLoading ? <PageIsLoading size={7} />:"login"}
+          className="w-full rounded-md bg-blue-300    flex justify-center font-medium  "
         />
         <Link href="/signup">
           <span className=" hover:text-blue-300 cursor-pointer">

@@ -12,9 +12,7 @@ const Button: React.FC<{
       className={`${className}  text-white  px-2 py-2 rounded-md cursor-pointer hover:shadow-sm flex gap-2 items-center  `}
     >
       {children}
-      <span>
-      {text}
-      </span>
+      <span>{text}</span>
     </button>
   );
 };

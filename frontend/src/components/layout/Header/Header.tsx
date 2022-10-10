@@ -54,14 +54,6 @@ const Header = () => {
         <div className="flex gap-4 items-center">
           {!isAuthenticated && (
             <>
-              <button
-                className="text-white rounded-md px-3 py-1 bg-green-300"
-                onClick={() => {
-                  login("chihab@email.com", "chihabMg");
-                }}
-              >
-                login
-              </button>
               <Link href="/signup">
                 <Button
                   text="sign up"
@@ -83,9 +75,6 @@ const Header = () => {
               >
                 logout
               </button>
-              <Link href="/profile">
-                <span className="bg-white rounded-full w-10 h-10">profile</span>
-              </Link>
             </>
           )}
           {/* menu toggler */}
