@@ -79,7 +79,7 @@ const Signup = () => {
         </Controller>
         <Button
           text={isLoading ? "signing up " : " sign up "}
-          className="w-full  capitalize rounded-md bg-primary  flex justify-center font-medium  "
+          className="w-full mt-3  capitalize rounded-md bg-primary  flex justify-center font-medium  "
         />
         <Link href="/login">
           <span className=" hover:text-blue-300 cursor-pointer">

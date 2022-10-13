@@ -18,7 +18,6 @@ const SearchPage = ({
 }) => {
   return (
     <>
-      <Header/>
       <Search
         location={location}
         industry={industry}

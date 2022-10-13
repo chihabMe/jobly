@@ -5,7 +5,6 @@ import Signup from "src/pages/Signup/Signup";
 const SignupPage = () => {
   return (
     <>
-      <Header />
       <Signup />
     </>
   );

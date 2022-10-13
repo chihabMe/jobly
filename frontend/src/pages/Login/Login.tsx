@@ -3,15 +3,11 @@ import React, { FormEvent, useContext, useEffect, useState } from "react";
 import Button from "src/components/ui/Button";
 import Controller from "src/components/ui/Controller";
 import Input from "src/components/ui/Input";
-import UseFetch from "src/hooks/use-fetch";
 import { useDispatch, useSelector } from "react-redux";
-import { authAction } from "src/store/slices/authSlice";
 import { useRouter } from "next/router";
 import { verify } from "crypto";
-import { AuthContext } from "src/context/AuthContext";
 import PageIsLoading from "src/components/ui/PageIsLoading";
 import { authActions } from "src/store/slices/authSlice";
-import { authSliceState } from "src/store/slices/authSlice";
 
 const initialState = {
   email: "",
@@ -22,14 +18,11 @@ const Login = () => {
   const dispatch = useDispatch();
   const { isLogged, registeredEmail,isLoading,loggingFailed } = useSelector((state) => state.auth);
   const [form, setForm] = useState({...initialState,email:registeredEmail??""});
-  // const {login} = useContext(AuthContext);
-  //const { request, status, data, error, isLoading } = UseFetch();
   const onChangeHandler = (e: any) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
-    //request("POST", "/api/login", JSON.stringify(form));
     dispatch(authActions.login(form));
   };
   useEffect(()=>{

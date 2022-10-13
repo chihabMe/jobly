@@ -1,14 +1,16 @@
 import { Menu, Transition } from "@headlessui/react";
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment,  useEffect, useState } from "react";
 import Button from "src/components/ui/Button";
 import NavLink from "src/components/ui/NavLink";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import NavMenu from "src/components/ui/NavMenu";
 import linkObject from "src/models/linkObject";
 import Link from "next/link";
 import { AuthContext } from "src/context/AuthContext";
+import { authActions } from "src/store/slices/authSlice";
+import PageIsLoading from "src/components/ui/PageIsLoading";
 
 const categoriesLinks: linkObject[] = [
   { name: "software engineer", path: "jobs/category?=software_engineer" },
@@ -27,20 +29,23 @@ const links = [
   />,
 ];
 const Header = () => {
-  const { isAuthenticated, isLoading, login, logout, verify } =
-    useContext(AuthContext);
+  const dispatch = useDispatch();
+  const {isLogged,isLoading} = useSelector(state=>state.auth);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   useEffect(()=>{
-  // try {
-  //   window.addEventListener("resize", () => {
-  //     setShowMobileMenu(false);
-  //   });
-  // } catch (err) {}
+    if(window!=undefined && window!=null){
+    window.addEventListener("resize", () => {
+      setShowMobileMenu(false);
+    });
+    }
 
+  },[])
+  useEffect(()=>{
+    dispatch(authActions.verify())
   },[])
   return (
     <>
-      <div className="py-4 px-2 text-white  flex  justify-between items-center  w-full">
+      <div className="py-4 sticky top-0 px-2 text-white  flex  justify-between items-center  w-full">
         {/* logo */}
         <div className="text-white text-4xl font-bold capitalize cursor-pointer">
           <Link href="/">
@@ -54,8 +59,8 @@ const Header = () => {
           {links}
         </div>
         {/* */}
-        <div className="flex gap-4 items-center">
-          {!isAuthenticated && (
+        <div className="flex  min-w-[100px] gap-4 items-center">
+          {!isLogged &&!isLoading && (
             <>
               <Link href="/signup">
                 <Button
@@ -68,12 +73,12 @@ const Header = () => {
               </Link>
             </>
           )}
-          {isAuthenticated && (
+          {isLogged && !isLoading && (
             <>
               <button
                 className="text-white rounded-md px-3 py-1 bg-red-300"
                 onClick={() => {
-                  logout();
+                  dispatch(authActions.logout())
                 }}
               >
                 logout

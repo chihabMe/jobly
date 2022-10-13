@@ -7,7 +7,6 @@ import Footer from "src/components/layout/Footer/Footer";
 const HomePage: NextPage = () => {
   return (
     <>
-      <Header />
       <Home  />
       <Footer />
     </>

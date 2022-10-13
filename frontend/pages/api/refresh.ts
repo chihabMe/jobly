@@ -9,8 +9,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (!cookies) return res.status(403).json({ message: "unauthorized" });
     const refresh = cookie.parse(cookies).refresh;
     const response = await refreshAuth(refresh);
-    if ((response.status = 200)) {
+    if (response.status == 200 && response.data.code!="token_not_valid") {
       const current = req.headers.cookie;
+      console.log("------------")
+      console.log(response)
+      console.log("------------")
       res.setHeader(
         "Set-Cookie",[
         cookie.serialize("refresh", response.data.refresh, {

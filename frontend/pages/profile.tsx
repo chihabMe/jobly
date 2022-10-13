@@ -4,10 +4,11 @@ import ProtectedRoute from "src/wrappers/ProtectedRoute";
 
 const ProfilePage = () => {
   return (
-    <ProtectedRoute>
-      <Header />
-      <div>ProfilePage</div>
-    </ProtectedRoute>
+    <>
+      <ProtectedRoute>
+        <div>ProfilePage</div>
+      </ProtectedRoute>
+    </>
   );
 };
 

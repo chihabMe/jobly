@@ -1,12 +1,4 @@
-import {
-  Action,
-  ActionCreator,
-  AnyAction,
-  AsyncThunkAction,
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FulfilledActionFromAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
 import User from "src/models/User";
 export type authSliceState = {
@@ -17,15 +9,19 @@ export type authSliceState = {
   loggingFailed: boolean;
   registeredSuccessfully: boolean;
   registeredEmail: string;
+  verifyFailed: boolean;
+  refreshFailed: boolean;
   errors: any;
   user: User | null;
 };
 const initialState: authSliceState = {
   hasErrors: false,
-  isLoading: false,
+  isLoading: true,
   isLogged: false,
   loggedIntSuccessfully: false,
   loggingFailed: false,
+  verifyFailed: false,
+  refreshFailed: false,
   registeredSuccessfully: false,
   user: null,
   registeredEmail: "",
@@ -42,17 +38,38 @@ const generateAConfig = (method: string, credentials: string) => {
 };
 const signup = createAsyncThunk(
   "auth/signup",
-  async (
-    credentials,
-    thunkApi
-  ) => {
+  async (credentials, thunkApi) => {
     const config = generateAConfig("POST", JSON.stringify(credentials));
     const response = await fetch("/api/register", config);
     const data = await response.json();
-    if (response.status == 201) return data.email; 
+    if (response.status == 201) return data.email;
     return thunkApi.rejectWithValue(data);
   }
 );
+const verify = createAsyncThunk("auth/verify", async (data, thunkApi) => {
+  const config = generateAConfig("POST", "");
+  const response = await fetch("/api/verify", config);
+  if (response.status == 200) return true;
+  const state = thunkApi.getState();
+  if (state.auth.refreshFailed) {
+    thunkApi.dispatch(logout());
+  } else {
+    thunkApi.dispatch(refresh());
+  }
+  return thunkApi.rejectWithValue(false);
+});
+const refresh = createAsyncThunk("auth/refresh", async (data, thunkApi) => {
+  const config = generateAConfig("POST", "");
+  const response = await fetch("/api/refresh", config);
+  if (response.status == 200) {
+    thunkApi.dispatch(verify());
+    thunkApi.fulfillWithValue(true);
+    return;
+  }
+  thunkApi.dispatch(logout());
+  thunkApi.rejectWithValue(false);
+  return;
+});
 const login = createAsyncThunk(
   "auth/login",
   async (
@@ -65,15 +82,18 @@ const login = createAsyncThunk(
     return thunkApi.rejectWithValue("rejected");
   }
 );
+const logout = createAsyncThunk("auth/logout", async (data, thunkApi) => {
+  const config = generateAConfig("POST", "");
+  const response = await fetch("/api/logout", config);
+  if (response.status == 200) return await response.json();
+  return thunkApi.rejectWithValue("rejected");
+});
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: (state) => {
-      (state.user = null), (state.isLogged = false);
-    },
-    consumeEmailAfterEnteringTheLoggingPage:(state)=>{
-        state.registeredSuccessfully=false;
+    consumeEmailAfterEnteringTheLoggingPage: (state) => {
+      state.registeredSuccessfully = false;
     },
   },
   extraReducers: (builder) => {
@@ -94,6 +114,15 @@ const authSlice = createSlice({
         state.registeredSuccessfully = false;
         state.registeredEmail = "";
       });
+    //logout
+
+    //builder.addCase(login.rejected, (state) => {}),
+    // builder.addCase(login.pending, (state) => {}),
+    builder.addCase(logout.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isLogged = false;
+      state.user = null;
+    });
     //signup
     builder.addCase(signup.rejected, (state, action) => {
       state.errors = action.payload;
@@ -112,7 +141,35 @@ const authSlice = createSlice({
         state.errors = {};
         state.registeredSuccessfully = true;
       });
+    //verify
+    builder.addCase(verify.pending, (state) => {
+      state.isLoading = true;
+    }),
+      builder.addCase(verify.rejected, (state) => {
+        state.isLoading = false;
+        state.verifyFailed = true;
+      }),
+      builder.addCase(verify.fulfilled, (state) => {
+        state.isLogged = true;
+        state.isLoading=false;
+        state.verifyFailed = false;
+      }),
+      //refresh
+      builder.addCase(refresh.rejected, (state) => {
+        state.refreshFailed = true;
+      }),
+      builder.addCase(refresh.pending, (state) => {}),
+      builder.addCase(refresh.fulfilled, (state) => {
+        state.refreshFailed = false;
+      });
   },
 });
 export const authReducer = authSlice.reducer;
-export const authActions = { ...authSlice.actions, login, signup };
+export const authActions = {
+  ...authSlice.actions,
+  login,
+  signup,
+  refresh,
+  verify,
+  logout,
+};
