@@ -32,11 +32,13 @@ const JobSearch = ({industry,location,query}:{industry?:string,location?:string,
 
   const router = useRouter();
   const [form,setForm] = useState({
-    industry: industry ? {name:industry,id:getIndex(industries,industry)}:{name:"",id:0},
-    location: location ? {name:location,id:getIndex(locations,location)}:{name:"",id:0},
+    industry: industry ? {name:industry,id:getIndex(industries,industry)}:{name:"chose",id:0},
+    location: location ? {name:location,id:getIndex(locations,location)}:{name:"chose",id:0},
     query:query||"",
   })
+  console.log("0000000000000")
   console.log(form)
+  console.log("0000000000000")
   //const searchValues = useSelector(state=>state.search);
   const submitHandler = (e:FormEvent)=>{
     e.preventDefault();

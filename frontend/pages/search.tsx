@@ -18,7 +18,7 @@ const SearchPage = ({
 }) => {
   return (
     <>
-    <h1 className="text-blue-300 text-2xl">{query}</h1>
+      <Header/>
       <Search
         location={location}
         industry={industry}

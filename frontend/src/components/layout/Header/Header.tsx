@@ -30,11 +30,14 @@ const Header = () => {
   const { isAuthenticated, isLoading, login, logout, verify } =
     useContext(AuthContext);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  try {
-    window.addEventListener("resize", () => {
-      setShowMobileMenu(false);
-    });
-  } catch (err) {}
+  useEffect(()=>{
+  // try {
+  //   window.addEventListener("resize", () => {
+  //     setShowMobileMenu(false);
+  //   });
+  // } catch (err) {}
+
+  },[])
   return (
     <>
       <div className="py-4 px-2 text-white  flex  justify-between items-center  w-full">

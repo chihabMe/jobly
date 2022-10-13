@@ -4,9 +4,9 @@ import { verifyAuth } from "src/services/verifyAuth";
 
 export default async (req:NextApiRequest,res:NextApiResponse) =>{
     if(req.method=="POST"){
-        const cookies = req.headers.cookie;
-        if(!cookies)return res.status(403).json({message:"unauthorized"})
-        const access = cookie.parse(cookies).access
+        const cookies = cookie.parse(req.headers.cookie??"");
+        const access = cookies?.access
+        if(!access)return res.status(403).json({message:"unauthorized"})
         const response =  await verifyAuth(access);
         return res.status(response.status).json(response)
 

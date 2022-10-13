@@ -9,11 +9,6 @@ import NextNProgress from "nextjs-progressbar";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <NextNProgress
-        options={{ showSpinner: false }}
-        height={2}
-        color="#2563EB"
-      />
       <AuthContextProvider>
         <Container>
           <Component {...pageProps} />

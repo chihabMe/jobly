@@ -1,30 +1,38 @@
 import Link from "next/link";
 import router from "next/router";
 import React, { FormEvent, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "src/components/ui/Button";
 import Controller from "src/components/ui/Controller";
 import Input from "src/components/ui/Input";
 import UseFetch from "src/hooks/use-fetch";
+import { authActions } from "src/store/slices/authSlice";
 
 const initialState = {
-  email: "",
   username: "",
+  email: "",
   password: "",
   re_password: "",
 };
 const Signup = () => {
-  const { request,status, isLoading, data, error } = UseFetch();
+  //const { request,status, isLoading, data, error } = UseFetch();
   const [form, setForm] = useState(initialState);
+  const dispatch = useDispatch();
+  const {isLoading, registeredSuccessfully,hasErrors,errors}= useSelector(state=>state.auth);
   const onChangeHandler = (e: any) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
-    request("POST", "/api/register", JSON.stringify(form));
+    //request("POST", "/api/register", JSON.stringify(form));
+    dispatch(authActions.signup(form))
   };
   useEffect(() => {
-    if(status==201)router.replace("/login")
-  }, [status]);
+    if(registeredSuccessfully){
+      router.push("/login");
+      return ;
+    }
+  }, [registeredSuccessfully]);
   return (
     <div className="  pt-10 md:pt-20   ">
       <form
@@ -35,7 +43,7 @@ const Signup = () => {
           <Input value={form.email} name="email" onChange={onChangeHandler} />
         </Controller>
         <Controller
-          error={error["username"]}
+          error={errors["username"]}
           htmlFor="username"
           text="username"
         >
@@ -46,7 +54,7 @@ const Signup = () => {
           />
         </Controller>
         <Controller
-          error={error["password"]}
+          error={errors["password"]}
           htmlFor="password"
           text="password"
         >
@@ -58,7 +66,7 @@ const Signup = () => {
           />
         </Controller>
         <Controller
-          error={error["re_password"]}
+          error={errors["re_password"]}
           htmlFor="re_password"
           text="password confirmation"
         >
