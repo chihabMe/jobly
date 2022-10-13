@@ -1,6 +1,9 @@
+from distutils.command.upload import upload
+from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
+from django.forms import SlugField
 
 # Create your models here.
 class CustomManager(BaseUserManager):
@@ -40,6 +43,16 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     REQUIRED_FIELDS = ["username"]
     class Meta:
         verbose_name=("user")
-        
+
+
+def fileNamer(instance ,filename):
+    return instance.user.username+"/profile/"+filename
+class Profile(models.Model):
+    user = models.OneToOneField(CustomUser,related_name='profile');
+    name = models.CharField(max_length=250)
+    slug = SlugField()
+    image = models.ImageField(upload_to=fileNamer)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 
