@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
+from locations.models import Location
 
 User = get_user_model()
 
@@ -20,6 +21,10 @@ class Job(models.Model):
     description = models.TextField()
     salary = models.IntegerField('monthly salary')
     active = models.BooleanField(default=True)
+    location = models.ForeignKey(Location,
+                                 default=1,
+                                 related_name='jobs',
+                                 on_delete=models.CASCADE)
     user = models.ForeignKey(User,
                              related_name='posted_jobs',
                              on_delete=models.CASCADE)
