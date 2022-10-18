@@ -1,7 +1,22 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from .models import Profile
 User = get_user_model()
+class ProfileSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+    employees_count = serializers.CharField(source='get_employees_count')
+    slug = serializers.SlugField('slug')
+    open_jobs_count = serializers.CharField(source='get_open_jobs_count')
 
+    class Meta:
+        model = Profile
+        fields = ("name",'image','slug','description','employees_count','open_jobs_count')
+    def get_image(self,profile):
+        request = self.context.get("request")
+        if request:
+            if profile.image:
+                return request.build_absolute_uri(profile.image.url)
+        return None
 class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     re_password = serializers.CharField(write_only=True)

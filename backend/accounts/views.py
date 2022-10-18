@@ -2,8 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from rest_framework import generics
 
+from accounts.models import Profile
 
-from .serializers import RegistrationSerializer
+
+from .serializers import ProfileSerializer, RegistrationSerializer
 
 User = get_user_model()
 # Create your views here.
@@ -15,3 +17,7 @@ class UsersList(generics.ListAPIView):
     serializer_class = RegistrationSerializer
 
 
+class ProfileView(generics.RetrieveAPIView):
+    queryset = Profile.objects.all() 
+    lookup_field='name'
+    serializer_class = ProfileSerializer

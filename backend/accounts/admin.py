@@ -13,7 +13,8 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ("name","created","updated")
-    search_fields = ("name")
+    list_display = ("name","slug","created","updated")
+    search_fields = ("name",)
     list_filter  = ()
+    prepopulated_fields = {"slug":["name"]}
 

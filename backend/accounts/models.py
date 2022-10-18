@@ -1,9 +1,12 @@
 from distutils.command.upload import upload
-from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
+from django.dispatch import receiver
 from django.forms import SlugField
+from django.db.models.signals import post_save
+from django.utils.text import slugify
+
 
 # Create your models here.
 class CustomManager(BaseUserManager):
@@ -48,11 +51,32 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
 def fileNamer(instance ,filename):
     return instance.user.username+"/profile/"+filename
 class Profile(models.Model):
-    user = models.OneToOneField(CustomUser,related_name='profile');
+    user = models.OneToOneField(CustomUser,related_name='profile',on_delete=models.CASCADE);
     name = models.CharField(max_length=250)
-    slug = SlugField()
+    description = models.TextField()
+    slug = models.SlugField()
     image = models.ImageField(upload_to=fileNamer)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    def save(self,*args,**kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args,**kwargs)
 
+    def get_open_jobs_count(self):
+        self.jobs = None
+        if self.jobs:
+            return self.jobs.count()
+        return 0 
+    def get_employees_count(self):
+        self.employees=None
+        if self.employees:
+            return self.employees.count()
+        return 0 
+
+
+
+@receiver(post_save,sender=CustomUser)
+def crate_a_profile(sender,instance ,**kwargs):
+    profile = Profile(name=instance.username,user=instance)
+    profile.save()
