@@ -26,7 +26,7 @@ class Job(models.Model):
     salary = models.IntegerField('monthly salary')
     active = models.BooleanField(default=True)
     location = models.ForeignKey(Location,
-                                 default=1,
+                                 default=16,
                                  related_name='jobs',
                                  on_delete=models.CASCADE)
     user = models.ForeignKey(User,
