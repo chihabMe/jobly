@@ -8,14 +8,14 @@ import NextNProgress from "nextjs-progressbar";
 import Header from "src/components/layout/Header/Header";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <Provider store={store}>
-      <Container>
-        <Header/>
-        <Component {...pageProps} />
-      </Container>
-    </Provider>
-  );
+    return (
+        <Provider store={store}>
+            <Container>
+                <Header />
+                <Component {...pageProps} />
+            </Container>
+        </Provider>
+    );
 }
 
 export default MyApp;

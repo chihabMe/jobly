@@ -1,28 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 type SearchSliceType = {
-    industry:{name:string,id:number},
-    location :{name:string,id:number},
-    q:string,
+    industry: { name: string, id: number },
+    location: { name: string, id: number },
+    q: string,
 }
 
-const initialState:SearchSliceType ={
-    industry:{name:"",id:0},
-    location:{name:"",id:0},
-    q:""
+const initialState: SearchSliceType = {
+    industry: { name: "", id: 0 },
+    location: { name: "", id: 0 },
+    q: ""
 }
 
 const searchSlice = createSlice({
-    name:"search",
+    name: "search",
     initialState,
-    reducers:{
-        addIndustry:(state,action)=>{
-            state.industry=action.payload
+    reducers: {
+        addIndustry: (state, action) => {
+            state.industry = action.payload
         },
-        addQuery:(state,action)=>{
-            state.q=action.payload
+        addQuery: (state, action) => {
+            state.q = action.payload
         },
-        addLocation:(state,action)=>{
-            state.location=action.payload
+        addLocation: (state, action) => {
+            state.location = action.payload
         },
     }
 })

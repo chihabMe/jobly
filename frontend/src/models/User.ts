@@ -1,5 +1,11 @@
 
 export default interface {
-    username:string;
-    email:string;
+    name: string;
+    email: string;
+    slug:string;
+    image:string;
+    cv:string;
+    appliedCount:number;
+    rejectedCount:number;
+
 }

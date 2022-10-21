@@ -1,5 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
-import React, { Fragment,  useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Button from "src/components/ui/Button";
 import NavLink from "src/components/ui/NavLink";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +10,7 @@ import linkObject from "src/models/linkObject";
 import Link from "next/link";
 import { AuthContext } from "src/context/AuthContext";
 import { authActions } from "src/store/slices/authSlice";
-import PageIsLoading from "src/components/ui/PageIsLoading";
+import Image from "next/image";
 
 const categoriesLinks: linkObject[] = [
   { name: "software engineer", path: "jobs/category?=software_engineer" },
@@ -30,19 +30,19 @@ const links = [
 ];
 const Header = () => {
   const dispatch = useDispatch();
-  const {isLogged,isLoading} = useSelector(state=>state.auth);
+  const { isLogged, isLoading, user } = useSelector((state) => state.auth);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  useEffect(()=>{
-    if(window!=undefined && window!=null){
-    window.addEventListener("resize", () => {
-      setShowMobileMenu(false);
-    });
+  useEffect(() => {
+    if (window != undefined && window != null) {
+      window.addEventListener("resize", () => {
+        setShowMobileMenu(false);
+      });
     }
-
-  },[])
-  useEffect(()=>{
-    dispatch(authActions.verify())
-  },[])
+  }, []);
+  useEffect(() => {
+    dispatch(authActions.verify());
+    dispatch(authActions.loadUser());
+  }, []);
   return (
     <>
       <div className="py-4 sticky top-0 px-2 text-white  flex  justify-between items-center  w-full">
@@ -60,7 +60,7 @@ const Header = () => {
         </div>
         {/* */}
         <div className="flex  min-w-[100px] gap-4 items-center">
-          {!isLogged &&!isLoading && (
+          {!isLogged && !isLoading && (
             <>
               <Link href="/signup">
                 <Button
@@ -75,10 +75,15 @@ const Header = () => {
           )}
           {isLogged && !isLoading && (
             <>
+              <Link href={"/profile"}>
+                <div>
+                  <span>{user?.name}</span>
+                </div>
+              </Link>
               <button
                 className="text-white rounded-md px-3 py-1 bg-red-300"
                 onClick={() => {
-                  dispatch(authActions.logout())
+                  dispatch(authActions.logout());
                 }}
               >
                 logout

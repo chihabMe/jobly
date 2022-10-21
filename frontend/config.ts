@@ -9,3 +9,7 @@ export const loginEndpoint = API+"api/v1/accounts/token/"
 //token
 export const verifyEndpoint = API+"api/v1/accounts/token/verify/"
 export const refreshEndpoint = API+"api/v1/accounts/token/refresh/"
+//user
+export const currentUserEndpoint = API+"api/v1/accounts/me/"
+//locations
+export const locationsEndpoint = API+"api/v1/locations"

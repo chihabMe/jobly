@@ -6,77 +6,77 @@ import Job from "src/models/Job";
 import Search from "src/pages/Search/Search";
 
 const SearchPage = ({
-  results,
-  location,
-  industry,
-  query,
+    results,
+    location,
+    industry,
+    query,
 }: {
-  results: Job[];
-  location: Field;
-  industry: Field;
-  query: string;
+    results: Job[];
+    location: Field;
+    industry: Field;
+    query: string;
 }) => {
-  return (
-    <>
-      <Search
-        location={location}
-        industry={industry}
-        query={query}
-        results={results}
-      />
-    </>
-  );
+    return (
+        <>
+            <Search
+                location={location}
+                industry={industry}
+                query={query}
+                results={results}
+            />
+        </>
+    );
 };
 export const getServerSideProps = async (context: NextPageContext) => {
-  const { query, industry, location } = context.query;
-  console.log(context.query)
-  const results: Job[] = [
-    {
-      companyName: "facebook",
-      description: "software enineer job (web developer)",
-      downVotes: 3,
-      upVotes: 21,
-      slug: "facebook-web-developer-job",
-      title: "web developer",
-      tags: [{ name: "django" }, { name: "python" }],
-    },
-    {
-      companyName: "facebook",
-      description: "software enineer job (web developer)",
-      downVotes: 3,
-      upVotes: 21,
-      slug: "facebook-web-developer-job",
-      title: "web developer",
-      tags: [{ name: "django" }, { name: "python" }],
-    },
-    {
-      companyName: "facebook",
-      description: "software enineer job (web developer)",
-      downVotes: 3,
-      upVotes: 21,
-      slug: "facebook-web-developer-job",
-      title: "web developer",
-      tags: [{ name: "django" }, { name: "python" }],
-    },
-    {
-      companyName: "facebook",
-      description: "software enineer job (web developer)",
-      downVotes: 3,
-      upVotes: 21,
-      slug: "facebook-web-developer-job",
-      title: "web developer",
-      tags: [{ name: "django" }, { name: "python" }],
-    },
-  ];
-  return {
-    props: {
-      results:results.filter(item=>item.description.includes(query)),
-      industry:industry||null,
-      location:location||null,
-      query:query||null,
+    const { query, industry, location } = context.query;
+    console.log(context.query)
+    const results: Job[] = [
+        {
+            companyName: "facebook",
+            description: "software enineer job (web developer)",
+            downVotes: 3,
+            upVotes: 21,
+            slug: "facebook-web-developer-job",
+            title: "web developer",
+            tags: [{ name: "django" }, { name: "python" }],
+        },
+        {
+            companyName: "facebook",
+            description: "software enineer job (web developer)",
+            downVotes: 3,
+            upVotes: 21,
+            slug: "facebook-web-developer-job",
+            title: "web developer",
+            tags: [{ name: "django" }, { name: "python" }],
+        },
+        {
+            companyName: "facebook",
+            description: "software enineer job (web developer)",
+            downVotes: 3,
+            upVotes: 21,
+            slug: "facebook-web-developer-job",
+            title: "web developer",
+            tags: [{ name: "django" }, { name: "python" }],
+        },
+        {
+            companyName: "facebook",
+            description: "software enineer job (web developer)",
+            downVotes: 3,
+            upVotes: 21,
+            slug: "facebook-web-developer-job",
+            title: "web developer",
+            tags: [{ name: "django" }, { name: "python" }],
+        },
+    ];
+    return {
+        props: {
+            results: results.filter(item => item.description.includes(query)),
+            industry: industry || null,
+            location: location || null,
+            query: query || null,
 
-    },
-  };
+        },
+    };
 };
 
 export default SearchPage;
