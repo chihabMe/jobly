@@ -1,13 +1,19 @@
 from distutils.command.upload import upload
+
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.contrib.auth.models import BaseUserManager
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.forms import SlugField
-from django.db.models.signals import post_save
 from django.utils.text import slugify
 
+from .validators import validate_file_extension
 
+#from locations.models import Location
+
+
+#from employees.models import Employee
 # Create your models here.
 class CustomManager(BaseUserManager):
 
@@ -37,6 +43,14 @@ class CustomManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+
+    class Types(models.TextChoices):
+        EMPLOYEE = "EMPLOYEE", 'Employee'
+        COMPANY = "COMPANY", "Company"
+
+    type = models.CharField(max_length=100,
+                            default=Types.EMPLOYEE,
+                            choices=Types.choices)
     email = models.EmailField(null=False, blank=False, unique=True)
     username = models.CharField(max_length=140,
                                 null=False,
@@ -54,6 +68,79 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name = ("user")
 
 
+class EmployeeManager(BaseUserManager):
+
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(
+            *args, **kwargs).filter(type=CustomUser.Types.EMPLOYEE)
+
+
+class Employee(CustomUser):
+    objects = EmployeeManager()
+    type = CustomUser.Types.COMPANY
+
+    class Meta:
+        proxy = True
+
+
+def cvFileNamer(instance, filename):
+    return instance.user.username + "/cv/" + filename
+
+
+def imageFileNamer(instance, filename):
+    return instance.user.username + "/profile_image/" + filename
+
+
+class EmployeeProfile(models.Model):
+
+    user = models.OneToOneField(CustomUser,
+                                related_name='employee_profile',
+                                on_delete=models.CASCADE)
+    name = models.CharField(max_length=250)
+    image = models.ImageField(upload_to=imageFileNamer)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    location = models.ForeignKey('locations.Location',
+                                 related_name='employees',
+                                 default=15,
+                                 on_delete=models.SET_NULL,
+                                 null=True)
+    cv = models.FileField(upload_to=cvFileNamer,
+                          null=True,
+                          validators=[validate_file_extension])
+
+
+class CompanyManager(BaseUserManager):
+
+    def get_queryset(self):
+        return super().get_queryset().filter(type=CustomUser.Types.COMPANY)
+
+
+class Company(CustomUser):
+    objects = CompanyManager()
+    type = CustomUser.Types.COMPANY
+
+    class Meta:
+        proxy = True
+
+
+class CompanyProfile(models.Model):
+
+    user = models.OneToOneField(CustomUser,
+                                related_name='company_profile',
+                                on_delete=models.CASCADE)
+    name = models.CharField(max_length=250)
+    image = models.ImageField(upload_to=imageFileNamer)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    location = models.ForeignKey("locations.Location",
+                                 related_name='companies',
+                                 default=15,
+                                 on_delete=models.SET_NULL,
+                                 null=True)
+    number_of_employees = models.PositiveIntegerField(default=1)
+
+
 def fileNamer(instance, filename):
     return instance.user.username + "/profile/" + filename
 
@@ -69,27 +156,11 @@ class Profile(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 
-class Company(Profile):
-    description = models.TextField()
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
-
-    def get_open_jobs_count(self):
-        self.jobs = None
-        if self.jobs:
-            return self.jobs.count()
-        return 0
-
-    def get_employees_count(self):
-        self.employees = None
-        if self.employees:
-            return self.employees.count()
-        return 0
-
-
 @receiver(post_save, sender=CustomUser)
-def crate_a_profile(sender, instance, **kwargs):
-    profile = Profile(name=instance.username, user=instance)
-    profile.save()
+def crate_a_profile(sender, instance, created, **kwargs):
+    if created and instance.type == CustomUser.Types.EMPLOYEE:
+        employee = EmployeeProfile(name=instance.username, user=instance)
+        employee.save()
+    elif created and instance.type == CustomUser.Types.COMPANY:
+        company = CompanyProfile(name=instance.username, user=instance)
+        company.save()
