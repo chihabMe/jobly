@@ -141,19 +141,6 @@ class CompanyProfile(models.Model):
     number_of_employees = models.PositiveIntegerField(default=1)
 
 
-def fileNamer(instance, filename):
-    return instance.user.username + "/profile/" + filename
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(CustomUser,
-                                related_name='profile',
-                                on_delete=models.CASCADE)
-    name = models.CharField(max_length=250)
-    slug = models.SlugField()
-    image = models.ImageField(upload_to=fileNamer)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
 
 
 @receiver(post_save, sender=CustomUser)

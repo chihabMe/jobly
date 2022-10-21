@@ -1,34 +1,43 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import Profile
+from .models import EmployeeProfile,CompanyProfile
 
 User = get_user_model()
 
 
-class ProfileSerializer(serializers.ModelSerializer):
+class EmployeeProfileSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
-    slug = serializers.SlugField('slug')
+    cv = serializers.SerializerMethodField()
+    email = serializers.CharField(source="user.email",read_only=True)
+    location = serializers.CharField(source="location.name",read_only=True)
 
     class Meta:
-        model = Profile
-        fields = ("name", 'image', 'slug')
+        model = EmployeeProfile
+        fields = ("name", 'image',"cv","email","location" )
 
     def get_image(self, profile):
         request = self.context.get("request")
-        if request:
-            if profile.image:
-                return request.build_absolute_uri(profile.image.url)
+        if profile.image:
+            return request.build_absolute_uri(profile.image.url)
+        return None
+    def get_cv(self, profile):
+        request = self.context.get("request")
+        if profile.cv:
+            return request.build_absolute_uri(profile.cv.url)
         return None
 
 
-class CompanySerializer(ProfileSerializer):
-    employees_count = serializers.CharField(source='get_employees_count')
-    open_jobs_count = serializers.CharField(source='get_open_jobs_count')
+class CompanySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Profile
-        fields = ("name", 'image', 'slug', 'description', 'employees_count',
-                  'open_jobs_count')
+        model = CompanyProfile
+        fields = ("name", 'image', 'slug', 'description', 'number_of_employees',
+                  )
+    def get_image(self, profile):
+        request = self.context.get("request")
+        if profile.image:
+            return request.build_absolute_uri(profile.image.url)
+        return None
 
 
 class RegistrationSerializer(serializers.ModelSerializer):

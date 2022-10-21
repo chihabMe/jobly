@@ -1,4 +1,4 @@
-from accounts.models import CompanyProfile, EmployeeProfile, Profile
+from accounts.models import CompanyProfile, EmployeeProfile
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 
@@ -14,12 +14,6 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ("is_staff", "is_superuser", "is_active")
 
 
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ("name", "slug", "created", "updated")
-    search_fields = ("name", )
-    list_filter = ()
-    prepopulated_fields = {"slug": ["name"]}
 
 
 @admin.register(EmployeeProfile)
