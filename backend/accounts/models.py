@@ -7,8 +7,10 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.forms import SlugField
 from django.utils.text import slugify
+from PIL import Image
 
 from .validators import validate_file_extension
+
 
 #from locations.models import Location
 
@@ -108,6 +110,14 @@ class EmployeeProfile(models.Model):
     cv = models.FileField(upload_to=cvFileNamer,
                           null=True,
                           validators=[validate_file_extension])
+    def save(self,*args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.image.path)
+        if img.height >400 or img.width>400:
+            new_size = (400,400)
+            img.thumbnail(new_size)
+            img.save(self.image.path)
+
 
 
 class CompanyManager(BaseUserManager):

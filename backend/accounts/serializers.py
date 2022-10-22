@@ -1,30 +1,31 @@
+from pkg_resources import require
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import EmployeeProfile,CompanyProfile
+from .validators import validate_file_extension
 
 User = get_user_model()
 
 
 class EmployeeProfileSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
-    cv = serializers.SerializerMethodField()
+    image = serializers.ImageField(required=False)
+    cv = serializers.FileField(required=False,validators=[validate_file_extension])
+    name = serializers.CharField(required=False)
     email = serializers.CharField(source="user.email",read_only=True)
-    location = serializers.CharField(source="location.name",read_only=True)
+    location = serializers.CharField(required=False,source="location.name",read_only=False)
 
     class Meta:
         model = EmployeeProfile
         fields = ("name", 'image',"cv","email","location" )
 
-    def get_image(self, profile):
-        request = self.context.get("request")
-        if profile.image:
-            return request.build_absolute_uri(profile.image.url)
-        return None
-    def get_cv(self, profile):
-        request = self.context.get("request")
-        if profile.cv:
-            return request.build_absolute_uri(profile.cv.url)
-        return None
+    def update(self, instance, validated_data):
+        print(validated_data)
+        instance.cv = validated_data.get('cv',instance.cv)
+        instance.name = validated_data.get('name',instance.name)
+        instance.image = validated_data.get('name',instance.image)
+        instance.save()
+        return instance
+    
 
 
 class CompanySerializer(serializers.ModelSerializer):
