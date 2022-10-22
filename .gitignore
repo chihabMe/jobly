@@ -6,6 +6,8 @@
 ./backend/db.sqlite3
 ./backend/media
 backend/media/*
+/media/
+*/media/
 
 # Backup files # 
 ./backend/*.bak 
