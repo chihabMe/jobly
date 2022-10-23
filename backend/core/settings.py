@@ -176,5 +176,6 @@ MEDIA_URL = "media/"
 #algolia settings 
 ALGOLIA = {
     'APPLICATION_ID': os.getenv("ALGOLIA_ID"),
-    'API_KEY':os.getenv("ALGOLIA_KEY") 
+    'API_KEY':os.getenv("ALGOLIA_KEY") ,
+    "INDEX_PREFIX":"jobly"
 }
