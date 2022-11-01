@@ -112,11 +112,15 @@ class EmployeeProfile(models.Model):
                           validators=[validate_file_extension])
     def save(self,*args, **kwargs):
         super().save(*args, **kwargs)
-        img = Image.open(self.image.path)
-        if img.height >400 or img.width>400:
-            new_size = (400,400)
-            img.thumbnail(new_size)
-            img.save(self.image.path)
+        if self.image:
+            print('------')
+            print(self.image.path)
+            print('------')
+            img = Image.open(self.image.path)
+            if img.height >400 or img.width>400:
+                new_size = (400,400)
+                img.thumbnail(new_size)
+                img.save(self.image.path)
 
 
 

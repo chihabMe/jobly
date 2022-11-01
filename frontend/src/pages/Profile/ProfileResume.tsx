@@ -23,8 +23,6 @@ const ProfileResume = ({ user }: { user: User }) => {
   const updateResume = ()=>{
     const formData = new FormData();
     formData.set("cv",resume)
-    formData.set("name","chihabsdf")
-    //const contentType  = "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW" 
     request("PUT","/api/profile/update",formData,null)
     setSelected(false)
     

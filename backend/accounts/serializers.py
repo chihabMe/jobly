@@ -19,7 +19,6 @@ class EmployeeProfileSerializer(serializers.ModelSerializer):
         fields = ("name", 'image',"cv","email","location" )
 
     def update(self, instance, validated_data):
-        print(validated_data)
         instance.cv = validated_data.get('cv',instance.cv)
         instance.name = validated_data.get('name',instance.name)
         instance.image = validated_data.get('name',instance.image)
