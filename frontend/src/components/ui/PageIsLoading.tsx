@@ -1,12 +1,12 @@
 import React from 'react';
-import { SyncLoader,CircleLoader } from 'react-spinners';
+import { PuffLoader   } from 'react-spinners';
 
-const PageIsLoading = ({ size }: { size?: number }) => {
-    const spinnerSize = size || 10;
+const PageIsLoading = ({ size ,color}: { size?: number ,color?:string}) => {
+    const spinnerSize = size || 25;
     return (
         <div className='w-full  h-full flex items-center justify-center'>
             <span className=''>
-                <CircleLoader size={spinnerSize} color="#2563EB" />
+                <PuffLoader   size={spinnerSize} color={color||"#2563EB"} />
             </span>
         </div>
     )

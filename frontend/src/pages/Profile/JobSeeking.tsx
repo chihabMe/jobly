@@ -8,12 +8,12 @@ const JobSeeking = ({user}:{user:User}) => {
     <>
       <ProfileTitle>job seeking </ProfileTitle>
 
-      <div className="flex p-4 rounded-md flex-col  bg-gray-200 ">
-        <ul className=" grid md:grid-cols-2 gap-4 text-sm">
+      <div className="flex p-4 rounded-md flex-col  bg-bg ">
+        <ul className=" grid md:grid-cols-2 gap-4 text-sm text-title">
 
           <li className="flex gap-2 items-center">
-            <span  className='flex items-center gap-1'>
-                    <BriefcaseIcon className='w-4 h-4'/>
+            <span  className='flex  items-center gap-1'>
+                    <BriefcaseIcon className='w-4 h-4 text-primary'/>
                  applied jobs
             </span>
             <span>{user?.appliedCount||0}</span>
@@ -21,10 +21,10 @@ const JobSeeking = ({user}:{user:User}) => {
 
           <li className="flex gap-2 items-center">
             <span   className='flex gap-2 items-center'>
-                    <FaceFrownIcon className='w-4 h-4'/>
+                    <FaceFrownIcon className='w-4 h-4  text-red-500 '/>
                 rejected jobs
             </span>
-            <span>{user?.rejectedCount||0}</span>
+            <span className=''>{user?.rejectedCount||0}</span>
           </li>
 
         </ul>

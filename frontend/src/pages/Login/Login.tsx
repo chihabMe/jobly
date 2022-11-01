@@ -57,9 +57,10 @@ const Login = () => {
                 </Controller>
                 {loggingFailed && <div className="text-red-300">invalid credentials please try again</div>}
                 <Button
-                    text={isLoading ? <PageIsLoading size={7} /> : "login"}
                     className="w-full rounded-md bg-blue-300    flex justify-center font-medium  "
-                />
+                >
+                    {isLoading ? <PageIsLoading size={7} /> : "login"}1
+                </Button>
                 <Link href="/signup">
                     <span className=" hover:text-blue-300 cursor-pointer">
                         create an account

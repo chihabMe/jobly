@@ -6,16 +6,19 @@ import { store } from "src/store";
 import { AuthContextProvider } from "src/context/AuthContext";
 import NextNProgress from "nextjs-progressbar";
 import Header from "src/components/layout/Header/Header";
+import { ThemeProvider } from "@material-tailwind/react";
 
 function MyApp({ Component, pageProps }: AppProps) {
-    return (
-        <Provider store={store}>
-            <Container>
-                <Header />
-                <Component {...pageProps} />
-            </Container>
-        </Provider>
-    );
+  return (
+    <Provider store={store}>
+      <Container>
+        <ThemeProvider>
+          <Header />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </Container>
+    </Provider>
+  );
 }
 
 export default MyApp;

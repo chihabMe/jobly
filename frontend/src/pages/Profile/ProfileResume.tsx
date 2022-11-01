@@ -55,9 +55,7 @@ const ProfileResume = ({ user }: { user: User }) => {
         </form>
         <Button
           onClick={uploadClickHandler}
-          className={`  w-full border ${
-            selected && "border-primary"
-          }   border-white capitalize h-10 md:h-18   justify-center font-bold text-primary hover:bg-gray-100 transition-all duration-200 hover:border-primary `}
+          className={`  w-full    capitalize h-10 md:h-18    font-bold      `}
           text=""
         >
           { !isLoading && (user?.cv ? "update your resume" : "upload your cv")}

@@ -1,19 +1,21 @@
 import React, { ReactNode } from "react";
+import {Button as DefaultButton} from "@material-tailwind/react"
 
 const Button: React.FC<{
     className?: string;
-    text: string;
+    text?: string;
     children?: ReactNode;
     onClick?: () => void;
 }> = ({ className, text, onClick, children }) => {
     return (
-        <button
+        <DefaultButton
             onClick={onClick}
-            className={`${className}  text-white  px-2 py-2 rounded-md cursor-pointer hover:shadow-sm flex gap-2 items-center  `}
+            type='submit'
+            className={`${className}  lowercase text-title bg-primary    hover:shadow-sm  hover:opacity-90   transition-all duration-100 `}
         >
             {children}
             <span>{text}</span>
-        </button>
+        </DefaultButton>
     );
 };
 

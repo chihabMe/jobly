@@ -11,6 +11,7 @@ import Link from "next/link";
 import { AuthContext } from "src/context/AuthContext";
 import { authActions } from "src/store/slices/authSlice";
 import Image from "next/image";
+import HeaderAuthDisplay from "./HeaderAuthDisplay";
 
 const categoriesLinks: linkObject[] = [
   { name: "software engineer", path: "jobs/category?=software_engineer" },
@@ -45,7 +46,7 @@ const Header = () => {
   }, []);
   return (
     <>
-      <div className="py-4 sticky top-0 px-2 text-white  flex  justify-between items-center  w-full">
+      <div className="py-4 bg-bg z-10  sticky top-0 px-2 text-white  flex  justify-between items-center  w-full">
         {/* logo */}
         <div className="text-white text-4xl font-bold capitalize cursor-pointer">
           <Link href="/">
@@ -73,23 +74,8 @@ const Header = () => {
               </Link>
             </>
           )}
-          {isLogged && !isLoading && (
-            <>
-              <Link href={"/profile"}>
-                <div>
-                  <span>{user?.name}</span>
-                </div>
-              </Link>
-              <button
-                className="text-white rounded-md px-3 py-1 bg-red-300"
-                onClick={() => {
-                  dispatch(authActions.logout());
-                }}
-              >
-                logout
-              </button>
-            </>
-          )}
+          {/* user menu  /login */}
+          <HeaderAuthDisplay/>
           {/* menu toggler */}
           <div
             className="sm:hidden"

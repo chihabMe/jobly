@@ -5,6 +5,8 @@ export default interface {
     slug:string;
     image:string;
     cv:string;
+    location:string;
+    phone:string;
     appliedCount:number;
     rejectedCount:number;
 

@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 
 const ProfileTitle = ({children}:{children:ReactNode}) => {
   return (
-  <h1 className='text-xl text-gray-800 capitalize font-bold'>{children}</h1>
+  <h1 className='text-xl text-primary capitalize font-bold'>{children}</h1>
   )
 }
 

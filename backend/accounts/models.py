@@ -113,9 +113,7 @@ class EmployeeProfile(models.Model):
     def save(self,*args, **kwargs):
         super().save(*args, **kwargs)
         if self.image:
-            print('------')
             print(self.image.path)
-            print('------')
             img = Image.open(self.image.path)
             if img.height >400 or img.width>400:
                 new_size = (400,400)

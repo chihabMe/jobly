@@ -21,7 +21,7 @@ class EmployeeProfileSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.cv = validated_data.get('cv',instance.cv)
         instance.name = validated_data.get('name',instance.name)
-        instance.image = validated_data.get('name',instance.image)
+        instance.image = validated_data.get('image',instance.image)
         instance.save()
         return instance
     
