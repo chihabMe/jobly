@@ -11,7 +11,7 @@ const Button: React.FC<{
         <DefaultButton
             onClick={onClick}
             type='submit'
-            className={`${className}  lowercase text-title bg-primary    hover:shadow-sm  hover:opacity-90   transition-all duration-100 `}
+            className={`${className}  lowercase text-white bg-primary    hover:shadow-sm  hover:opacity-90   transition-all duration-100 `}
         >
             {children}
             <span>{text}</span>

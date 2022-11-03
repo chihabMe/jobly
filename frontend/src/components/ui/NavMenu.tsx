@@ -16,7 +16,7 @@ const NavMenu = ({
 }) => {
     return (
         <Menu as="div" className="relative    text-left">
-            <Menu.Button className="flex   font-medium text-title items-center gap-2 capitalize hover:text-primary ">
+            <Menu.Button className="flex   font-medium text-title dark:text-title-dark items-center gap-2 capitalize hover:text-primary ">
                 {text}
                 <ChevronDownIcon className="w-3 h-3" />
             </Menu.Button>
@@ -30,14 +30,14 @@ const NavMenu = ({
             >
                 <Menu.Items
                     as="ul"
-                    className="md:absolute w-full md:w-48  z-50   text-sm flex flex-col  py-4 mt-4 pl-6  capitalize top-full bg-bg  border border-title    rounded-md    "
+                    className="md:absolute w-full md:w-48  z-50   bg-bg dark:bg-bg-dark  text-sm flex flex-col  py-4 mt-4 pl-6  capitalize top-full bg-bg  border border-title    rounded-md    "
                 >
                     {linksObjects.map((item) => (
                         <Menu.Item as="li" className="py-2">
                             {({ active }) => (
                                 <Link key={item.path + item.name} href={item.path}>
                                     <span
-                                        className={`${active && "text-blue-300 pl-1"
+                                        className={`${active && "text-primary pl-1"
                                             }  transition-all duration-300 cursor-pointer  py-2 `}
                                     >
                                         {item.name}

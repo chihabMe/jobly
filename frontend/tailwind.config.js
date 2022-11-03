@@ -4,16 +4,17 @@ module.exports = withMT({
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./src/**/*.{js,ts,jsx,tsx}"],
   
   theme: {
+    darkMode:"class",
     extend: {
       colors: {
-        text: "#afa99e",
-        title: "#cecac3",
-        "text-light": "#13ce66",
-        "title-light": "#ffc82c",
+        "title": "#2D2D2D",
+        "text": "#7f7979",
+        "text-dark": "#adadad",
+        "title-dark": "#e8e5e5",
         primary: "#2563EB",
         secondary: "#ff7849",
-        bg: "#1C1F20",
-        "bg-light": "#8492a6",
+        'bg-dark': "#1C1F20",
+        bg:"#f7f7f7",
       },
     },
   },

@@ -16,8 +16,8 @@ const ProfileUserInfos = ({user}:{user:User}) => {
     <>
       <ProfileTitle>profile</ProfileTitle>
 
-      <div className="flex  py-5 px-4 rounded-md flex-col bg-bg   ">
-        <ul className=" grid   md:grid-cols-2 text-title  gap-4 text-sm">
+      <div className="flex  py-5 px-4 rounded-md flex-col bg-bg dark:bg-bg-dark   ">
+        <ul className=" grid   md:grid-cols-2 text-title dark:text-title-dark  gap-4 text-sm">
           <li className="flex gap-2 items-center">
             <span className="w-4 h-4">
               <UserIcon className="text-primary" />
@@ -50,7 +50,7 @@ const ProfileUserInfos = ({user}:{user:User}) => {
             <span className="w-4 h-4">
               <DocumentIcon className="text-primary" />
             </span>
-            <span className="hover:text-primary"> <a href={`${user?.cv}`} className=' text-bold uppercase '>cv</a></span>
+            <span className="hover:text-primary"> <a href={`${user?.cv}`} className=' text-bold uppercase underline '>cv</a></span>
           </li>
         </ul>
       </div>

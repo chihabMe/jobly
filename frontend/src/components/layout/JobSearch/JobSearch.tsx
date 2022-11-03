@@ -58,14 +58,14 @@ const JobSearch = ({ industry, location, query }: { industry?: string, location?
     }
 
     return (
-        <form onSubmit={submitHandler} className={`w-full max-w-3xl mx-auto     outline-1 ${editing && 'outline-2'}  outline outline-primary  bg-bg flex flex-col  px-4 py-3  md:flex-row gap-2 md:gap-0 justify-between items-center  rounded-lg`}>
+        <form onSubmit={submitHandler} className={`w-full max-w-3xl mx-auto bg-bg dark:bg-bg-dark    outline-1 ${editing && 'outline-2'}  outline outline-primary  bg-bg flex flex-col  px-4 py-3  md:flex-row gap-2 md:gap-0 justify-between items-center  rounded-lg`}>
             {/* industries */}
             <SelectMenu value={form.industry} changeValue={changeIndustry} fields={industries} Icon={BriefcaseIcon} />
             <SelectMenu value={form.location} changeValue={changeLocation} fields={locations} Icon={MapPinIcon} />
             <div className='my-2  w-full md:w-auto'>
-                <input value={form.query} onChange={onChangeQuery} onFocus={() => { setEditing(true) }} onBlur={() => { setEditing(false) }} type="text" className='w-full md:w-48  py-4 bg-transparent outline-none rounded-md p-2 text-title' placeholder='search' />
+                <input value={form.query} onChange={onChangeQuery} onFocus={() => { setEditing(true) }} onBlur={() => { setEditing(false) }} type="text" className='w-full md:w-48  py-4 bg-transparent outline-none rounded-md p-2 text-title dark:text-title-dark' placeholder='search' />
             </div>
-            <Button text='search' className='rounded-lg font-medium  hover:opacity-75 transition-all duration-150  bg-primary px-4  justify-center md:px-7 capitalize py-3 md:py-4 w-full md:w-auto'>
+            <Button text='search' className='rounded-lg flex gap-2 items-center font-medium  hover:opacity-75 transition-all duration-150  bg-primary px-4  justify-center md:px-7 capitalize py-3 md:py-4 w-full md:w-auto'>
                 <MagnifyingGlassIcon className='w-4 h-4 mt-1   ' />
             </Button>
 

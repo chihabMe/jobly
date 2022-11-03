@@ -8,8 +8,8 @@ const JobSeeking = ({user}:{user:User}) => {
     <>
       <ProfileTitle>job seeking </ProfileTitle>
 
-      <div className="flex p-4 rounded-md flex-col  bg-bg ">
-        <ul className=" grid md:grid-cols-2 gap-4 text-sm text-title">
+      <div className="flex p-4 rounded-md flex-col  bg-bg dark:bg-bg-dark  ">
+        <ul className=" grid md:grid-cols-2 gap-4 text-sm text-title dark:text-title-dark">
 
           <li className="flex gap-2 items-center">
             <span  className='flex  items-center gap-1'>

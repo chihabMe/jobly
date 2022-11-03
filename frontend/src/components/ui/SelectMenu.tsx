@@ -24,7 +24,7 @@ const SelectMenu = ({
             value={selectedField}
             onChange={setSelectedField}
         >
-            <Listbox.Button className="capitalize flex items-center text-title gap-2 hover:text-primary">
+            <Listbox.Button className="capitalize flex items-center text-title dark:text-title-dark gap-2 hover:text-primary">
                 {Icon && <Icon className="w-4 h-4" />} {selectedField.name}
             </Listbox.Button>
             <Listbox.Options

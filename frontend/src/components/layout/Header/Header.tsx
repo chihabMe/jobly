@@ -4,7 +4,7 @@ import Button from "src/components/ui/Button";
 import NavLink from "src/components/ui/NavLink";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Bars3Icon } from "@heroicons/react/24/outline";
+import { Bars3Icon ,MoonIcon,SunIcon} from "@heroicons/react/24/outline";
 import NavMenu from "src/components/ui/NavMenu";
 import linkObject from "src/models/linkObject";
 import Link from "next/link";
@@ -12,6 +12,8 @@ import { AuthContext } from "src/context/AuthContext";
 import { authActions } from "src/store/slices/authSlice";
 import Image from "next/image";
 import HeaderAuthDisplay from "./HeaderAuthDisplay";
+import { useTheme } from "next-themes";
+
 
 const categoriesLinks: linkObject[] = [
   { name: "software engineer", path: "jobs/category?=software_engineer" },
@@ -26,10 +28,21 @@ const links = [
     key={4}
     href="/blogs"
     text="blogs"
-    className=" text-title font-medium capitalize cursor-pointer hover:text-blue-300      "
+    className=" text-title font-medium capitalize cursor-pointer hover:text-primary      "
   />,
 ];
 const Header = () => {
+
+    const [isMounted , setIsMounted]=useState(false)
+    const {theme,setTheme}= useTheme()
+
+    useEffect(()=>{
+        setIsMounted(true)
+    },[])
+    const themeToggler = ()=>{
+        if(isMounted)
+            setTheme(theme==="light"?"dark":"light")
+    }
   const dispatch = useDispatch();
   const { isLogged, isLoading, user } = useSelector((state) => state.auth);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -46,35 +59,26 @@ const Header = () => {
   }, []);
   return (
     <>
-      <div className="py-4 bg-bg z-10  sticky top-0 px-2 text-white  flex  justify-between items-center  w-full">
+      <div className="py-4 bg-bg dark:bg-bg-dark z-10 text-title dark:text-title-dark   sticky top-0 px-2   flex  justify-between items-center  w-full">
         {/* logo */}
-        <div className="text-white text-4xl font-bold capitalize cursor-pointer">
+        <div className=" text-4xl    font-bold capitalize cursor-pointer">
           <Link href="/">
             <span>
-              job<span className="text-blue-400">ly</span>{" "}
+              job<span className="text-primary">ly</span>{" "}
             </span>
           </Link>
         </div>
         {/* nav menu hidden for the mobile */}
-        <div className=" hidden sm:flex flex-grow gap-4 items-center justify-center sm:mr-5  ">
+        <div className=" hidden sm:flex  flex-grow gap-4 items-center justify-center sm:mr-5  ">
           {links}
         </div>
         {/* */}
-        <div className="flex  min-w-[100px] gap-4 items-center">
-          {!isLogged && !isLoading && (
-            <>
-              <Link href="/signup">
-                <Button
-                  text="sign up"
-                  className="capitalize  hover:border-blue-500 border-transparent border  px-3"
-                />
-              </Link>
-              <Link href="/login">
-                <Button text="login" className="capitalize bg-blue-500 px-3 " />
-              </Link>
-            </>
-          )}
+        <div className="flex   min-w-[100px] gap-4 items-center">
           {/* user menu  /login */}
+          <Button onClick={themeToggler} className='p-2 !bg-bg-dark  !text-title-dark dark:!bg-bg dark:!text-title'>
+            {theme=='light' &&  <MoonIcon className='w-4 h-4'/>}
+            {theme!='light'  && <SunIcon className='w-4 h-4'/> }
+          </Button>
           <HeaderAuthDisplay/>
           {/* menu toggler */}
           <div

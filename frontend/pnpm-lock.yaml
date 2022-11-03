@@ -19,6 +19,7 @@ specifiers:
   next: 12.3.1
   next-connect: ^0.13.0
   next-http-proxy-middleware: ^1.2.4
+  next-themes: ^0.2.1
   nextjs-progressbar: ^0.0.14
   postcss: ^8.4.16
   react: 18.2.0
@@ -39,6 +40,7 @@ dependencies:
   multer: 1.4.5-lts.1
   next: 12.3.1_biqbaboplfbrettd7655fr4n2y
   next-connect: 0.13.0
+  next-themes: 0.2.1_azq6kxkn3od7qdylwkyksrwopy
   nextjs-progressbar: 0.0.14_next@12.3.1+react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -2019,6 +2021,18 @@ packages:
     transitivePeerDependencies:
       - debug
     dev: true
+
+  /next-themes/0.2.1_azq6kxkn3od7qdylwkyksrwopy:
+    resolution: {integrity: sha512-B+AKNfYNIzh0vqQQKqQItTS8evEouKD7H5Hj3kmuPERwddR2TxvDSFZuTj6T7Jfn1oyeUyJMydPl1Bkxkh0W7A==}
+    peerDependencies:
+      next: '*'
+      react: '*'
+      react-dom: '*'
+    dependencies:
+      next: 12.3.1_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /next/12.3.1_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-l7bvmSeIwX5lp07WtIiP9u2ytZMv7jIeB8iacR28PuUEFG5j0HGAPnMqyG5kbZNBG2H7tRsrQ4HCjuMOPnANZw==}
