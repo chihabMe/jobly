@@ -99,8 +99,10 @@ class EmployeeProfile(models.Model):
                                 related_name='employee_profile',
                                 on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
-    image = models.ImageField(upload_to=imageFileNamer)
+    image = models.ImageField(upload_to=imageFileNamer,null=True,blank=True)
     created = models.DateTimeField(auto_now_add=True)
+    book_marked_jobs = models.ManyToManyField("jobs.Job",blank=True,null=True,related_name='book_marked_by')
+    applied_jobs = models.ManyToManyField("jobs.Job",blank=True,null=True,related_name='applied_by')
     updated = models.DateTimeField(auto_now=True)
     location = models.ForeignKey('locations.Location',
                                  related_name='employees',
@@ -109,6 +111,7 @@ class EmployeeProfile(models.Model):
                                  null=True)
     cv = models.FileField(upload_to=cvFileNamer,
                           null=True,
+                          blank=True,
                           validators=[validate_file_extension])
     def save(self,*args, **kwargs):
         super().save(*args, **kwargs)

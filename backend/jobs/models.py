@@ -23,6 +23,8 @@ class Job(models.Model):
     slug = models.SlugField(blank=True, unique=True, null=True)
     introduction = models.CharField(max_length=500)
     description = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    update = models.DateTimeField(auto_now=True)
     salary = models.IntegerField('monthly salary')
     active = models.BooleanField(default=True)
     location = models.ForeignKey(Location,
@@ -32,6 +34,7 @@ class Job(models.Model):
     user = models.ForeignKey(User,
                              related_name='posted_jobs',
                              on_delete=models.CASCADE)
+
     objects = JobManager()
 
     ##overriding the save method

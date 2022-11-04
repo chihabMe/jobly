@@ -1,17 +1,25 @@
 from rest_framework import serializers
+from django.utils.timesince import timesince
 
 from .models import Job
 
 
 class JobsListSerailizer(serializers.ModelSerializer):
     description = serializers.CharField(write_only=True)
+    book_marked = serializers.SerializerMethodField()
+    since = serializers.SerializerMethodField()
 
     class Meta:
         model = Job
         fields = [
-            "title", 'introduction', 'description', 'salary', 'positions',
+            "title", 'introduction', 'since','book_marked','description', 'salary', 'positions',
             'slug'
         ]
+    def get_since(self,job):
+        return timesince(job.created)
+    def get_book_marked(self,job):
+        profile = self.context.get("request").user.employee_profile
+        return job in profile.book_marked_jobs.all()
 
 
 class JobsDetailsSerailizer(serializers.ModelSerializer):
