@@ -31,7 +31,7 @@ const JobSearchResult = ({
   tags: Tag[];
 }) => {
   return (
-    <div className="flex w-full cursor-pointer  bg-bg dark:bg-bg-dark hover:outline outline-1  outline-primary py-6 px-3 rounded-md flex-col gap-4">
+    <div className="flex w-full cursor-pointer  bg-bg dark:bg-bg-dark hover:outline outline-2  outline-primary py-6 px-3 rounded-md flex-col gap-4">
       {/* top */}
       <div className="flex justify-between">
         <div className="flex flex-col  items-left ">
@@ -39,14 +39,14 @@ const JobSearchResult = ({
           <h2 className="   font-medium   dark:text-text-dark  capitalize"> {companyName}</h2>
           <h3 className="    font-medium   dark:text-text-dark  capitalize"> {location}</h3>
         </div>
-        <div className=" text-yellow-300 cursor-pointer">
+        <div className="  text-title       dark:text-yellow-300 cursor-pointer">
             {!bookMarked && <BookmarkIcon className="w-5 h-5" />}
             {bookMarked && <BookmarkSlashIcon className="w-5 h-5 " />}
         </div>
       </div>
       {/* center */}
       <div className="flex flex-col gap-2">
-        <p className=" text-sm text-text dark:text-text-dark ">{description}</p>
+        <p className=" px-2 text-sm text-text dark:text-text-dark ">{description}</p>
       </div>
       {/* bottom */}
       <div className="flex justify-between">
@@ -54,7 +54,7 @@ const JobSearchResult = ({
           {tags?.map((item, index) => (
             <span
               key={item.name + index}
-              className="bg-primary   text-title dark:text-title-dark text-sm px-1 py-0.5 rounded-sm cursor-pointer"
+              className="bg-primary    text-title-dark text-xs px-1 py-1 rounded-sm cursor-pointer"
             >
               {item.name}
             </span>

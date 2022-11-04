@@ -4,7 +4,7 @@ import Button from "src/components/ui/Button";
 import NavLink from "src/components/ui/NavLink";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Bars3Icon ,MoonIcon,SunIcon} from "@heroicons/react/24/outline";
+import { Bars3Icon ,MoonIcon,SunIcon} from "@heroicons/react/24/solid";
 import NavMenu from "src/components/ui/NavMenu";
 import linkObject from "src/models/linkObject";
 import Link from "next/link";
@@ -75,7 +75,7 @@ const Header = () => {
         {/* */}
         <div className="flex   min-w-[100px] gap-4 items-center">
           {/* user menu  /login */}
-          <Button onClick={themeToggler} className='p-2 !bg-bg-dark  !text-title-dark dark:!bg-bg dark:!text-title'>
+          <Button onClick={themeToggler} className={`p-2 !bg-bg dark:!bg-bg-dark ${theme=='light' ?'!text-title' :'!text-yellow-400'}`}>
             {theme=='light' &&  <MoonIcon className='w-4 h-4'/>}
             {theme!='light'  && <SunIcon className='w-4 h-4'/> }
           </Button>

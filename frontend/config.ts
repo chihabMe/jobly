@@ -14,3 +14,5 @@ export const currentUserEndpoint = API+"api/v1/accounts/me/"
 
 //locations
 export const locationsEndpoint = API+"api/v1/locations"
+//job
+export const jobDetailEndpoint = API+"api/v1/jobs/"
