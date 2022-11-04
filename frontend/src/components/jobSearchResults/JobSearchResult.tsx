@@ -1,74 +1,79 @@
 import React from "react";
-import Button from "../ui/Button";
+
 import {
-    ChevronDownIcon,
-    ChevronUpDownIcon,
-    ChevronUpIcon,
+  ChevronDownIcon,
+  ChevronUpDownIcon,
+  ChevronUpIcon,
+  BookmarkIcon,
 } from "@heroicons/react/24/outline";
+import {BookmarkSlashIcon} from "@heroicons/react/24/solid";
 import Tag from "src/models/Tag";
 
 const JobSearchResult = ({
-    title,
-    description,
-    slug,
-    upVotes,
-    downVotes,
-    companyName,
-    tags,
+  title,
+  description,
+  slug,
+  bookMarked,
+  location,
+  upVotes,
+  downVotes,
+  companyName,
+  tags,
 }: {
-    title: string;
-    description: string;
-    slug: string;
-    upVotes: number;
-    downVotes: number;
-    companyName: string;
-    tags: Tag[];
+  title: string;
+  location: string;
+  description: string;
+  bookMarked:boolean;
+  slug: string;
+  upVotes: number;
+  downVotes: number;
+  companyName: string;
+  tags: Tag[];
 }) => {
-    return (
-        <div className="flex w-full  bg-bg  py-4 px-2 rounded-md flex-col gap-4">
-            {/* top */}
-            <div className="flex justify-between">
-                <div className="flex gap-2 items-center">
-                    <img src="" className="w-10 h-10 bg-white rounded-full" alt="" />
-                    <h1 className="text-title font-medium capitalize"> {companyName}</h1>
-                </div>
-
-                <Button
-                    text-
-                    text="apply now "
-                    className="rounded-md bg-primary text-white  "
-                />
-            </div>
-            {/* center */}
-            <div className="flex flex-col gap-2">
-                <h1 className="  text-title  capitalize font-medium text-lg md:text-2xl ">
-                    {title}
-                </h1>
-                <p className=" text-sm text-text">{description}</p>
-            </div>
-            {/* bottom */}
-            <div className="flex justify-between">
-                <div className="flex flex-wrap gap-2">
-                    {tags?.map((item, index) => (
-                        <span key={item.name + index} className="bg-primary  text-title px-1 py-0.5 rounded-md cursor-pointer">
-                            {item.name}
-                        </span>
-                    ))}
-                </div>
-
-                <div className="flex gap-2 text-sm items-center">
-                    <div className="flex gap-1  items-center text-text  ">
-                        <ChevronUpIcon className="w-4 h-4 hover:text-primary cursor-pointer text-title" />
-                        <span>{upVotes}</span>
-                    </div>
-                    <div className="flex gap-1 items-center text-text">
-                        <ChevronDownIcon className="w-4 h-4 hover:text-primary cursor-pointer text-title" />
-                        <span>{downVotes}</span>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="flex w-full cursor-pointer  bg-bg dark:bg-bg-dark hover:outline outline-1  outline-primary py-6 px-3 rounded-md flex-col gap-4">
+      {/* top */}
+      <div className="flex justify-between">
+        <div className="flex flex-col  items-left ">
+          <h1 className="text-title text-lg font-bold capitalize  dark:text-title-dark "> {title}</h1>
+          <h2 className="   font-medium   dark:text-text-dark  capitalize"> {companyName}</h2>
+          <h3 className="    font-medium   dark:text-text-dark  capitalize"> {location}</h3>
         </div>
-    );
+        <div className=" text-yellow-300 cursor-pointer">
+            {!bookMarked && <BookmarkIcon className="w-5 h-5" />}
+            {bookMarked && <BookmarkSlashIcon className="w-5 h-5 " />}
+        </div>
+      </div>
+      {/* center */}
+      <div className="flex flex-col gap-2">
+        <p className=" text-sm text-text dark:text-text-dark ">{description}</p>
+      </div>
+      {/* bottom */}
+      <div className="flex justify-between">
+        <div className="flex flex-wrap gap-2">
+          {tags?.map((item, index) => (
+            <span
+              key={item.name + index}
+              className="bg-primary   text-title dark:text-title-dark text-sm px-1 py-0.5 rounded-sm cursor-pointer"
+            >
+              {item.name}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex gap-2 text-xs items-center">
+          <div className="flex gap-1  items-center text-text  ">
+            <ChevronUpIcon className="w-4 h-4 hover:text-primary cursor-pointer text-title" />
+            <span>{upVotes}</span>
+          </div>
+          <div className="flex gap-1 items-center text-text">
+            <ChevronDownIcon className="w-4 h-4 hover:text-primary cursor-pointer text-title" />
+            <span>{downVotes}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default JobSearchResult;

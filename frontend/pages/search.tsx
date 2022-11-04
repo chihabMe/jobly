@@ -29,6 +29,7 @@ const SearchPage = ({
 };
 export const getServerSideProps = async (context: NextPageContext) => {
     const { query, industry, location } = context.query;
+    console.log(context)
     console.log(context.query)
     const results: Job[] = [
         {
@@ -36,14 +37,18 @@ export const getServerSideProps = async (context: NextPageContext) => {
             description: "software enineer job (web developer)",
             downVotes: 3,
             upVotes: 21,
+            bookMarked:false,
             slug: "facebook-web-developer-job",
             title: "web developer",
+            location:"biskra",
             tags: [{ name: "django" }, { name: "python" }],
         },
         {
             companyName: "facebook",
             description: "software enineer job (web developer)",
+            location:"biskra",
             downVotes: 3,
+            bookMarked:true,
             upVotes: 21,
             slug: "facebook-web-developer-job",
             title: "web developer",
@@ -55,15 +60,19 @@ export const getServerSideProps = async (context: NextPageContext) => {
             downVotes: 3,
             upVotes: 21,
             slug: "facebook-web-developer-job",
+            location:"biskra",
+            bookMarked:true,
             title: "web developer",
             tags: [{ name: "django" }, { name: "python" }],
         },
         {
             companyName: "facebook",
             description: "software enineer job (web developer)",
+            location:"biskra",
             downVotes: 3,
             upVotes: 21,
             slug: "facebook-web-developer-job",
+            bookMarked:true,
             title: "web developer",
             tags: [{ name: "django" }, { name: "python" }],
         },
