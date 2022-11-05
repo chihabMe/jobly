@@ -11,6 +11,7 @@ specifiers:
   '@types/react': 18.0.20
   '@types/react-dom': 18.0.6
   autoprefixer: ^10.4.12
+  camelize-ts: ^2.1.1
   cookie: ^0.5.0
   eslint: 8.23.1
   eslint-config-next: 12.3.1
@@ -35,6 +36,7 @@ dependencies:
   '@heroicons/react': 2.0.11_react@18.2.0
   '@material-tailwind/react': 1.2.4_7ey2zzynotv32rpkwno45fsx4e
   '@reduxjs/toolkit': 1.8.5_kuo2ie247izvzll3jejufdtq3q
+  camelize-ts: 2.1.1
   cookie: 0.5.0
   formidable: 2.0.1
   multer: 1.4.5-lts.1
@@ -840,6 +842,11 @@ packages:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
     dev: true
+
+  /camelize-ts/2.1.1:
+    resolution: {integrity: sha512-PhU5pNZvg4lRTXYHYzCvq3stESnsYcBBjqG9HIEAb+HjVAnZ1aU+N3mgU+7wvKpOQSRx4AxEHAtAAyEjS7U0aw==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: false
 
   /caniuse-lite/1.0.30001409:
     resolution: {integrity: sha512-V0mnJ5dwarmhYv8/MzhJ//aW68UpvnQBXv8lJ2QUsvn2pHcmAuNtu8hQEDz37XnA1iE+lRR9CIfGWWpgJ5QedQ==}

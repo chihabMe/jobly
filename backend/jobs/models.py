@@ -26,6 +26,7 @@ class Job(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
     salary = models.IntegerField('monthly salary')
+    company = models.ForeignKey("accounts.CompanyProfile",related_name='job',on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     location = models.ForeignKey(Location,
                                  default=16,

@@ -8,13 +8,17 @@ class JobsListSerailizer(serializers.ModelSerializer):
     description = serializers.CharField(write_only=True)
     book_marked = serializers.SerializerMethodField()
     since = serializers.SerializerMethodField()
+    company =serializers.CharField(source="company.name")
+    location =serializers.CharField(source="location.name")
 
     class Meta:
         model = Job
         fields = [
-            "title", 'introduction', 'since','book_marked','description', 'salary', 'positions',
+            "title", 'introduction','company','location','since','book_marked','description', 'salary', 'positions',
             'slug'
         ]
+    def get_company(self,job):
+        return 
     def get_since(self,job):
         return timesince(job.created)
     def get_book_marked(self,job):
@@ -23,13 +27,27 @@ class JobsListSerailizer(serializers.ModelSerializer):
 
 
 class JobsDetailsSerailizer(serializers.ModelSerializer):
+    book_marked = serializers.SerializerMethodField()
+    since = serializers.SerializerMethodField()
+    applied  = serializers.SerializerMethodField()
+    company =serializers.CharField(source="company.name")
+    location =serializers.CharField(source="location.name")
 
     class Meta:
         model = Job
         fields = [
-            "title", 'introduction', 'description', 'salary', 'positions',
+            "title",'description','applied','book_marked','since','company','location' ,'introduction', 'description', 'salary', 'positions',
             'slug'
         ]
+    def get_applied(self,job):
+        profile = self.context.get("request").user.employee_profile
+        return job in profile.applied_jobs.all()
+
+    def get_since(self,job):
+        return timesince(job.created)
+    def get_book_marked(self,job):
+        profile = self.context.get("request").user.employee_profile
+        return job in profile.book_marked_jobs.all()
 
     def create(self, **validated_data):
         user = self.context.get("requset").user

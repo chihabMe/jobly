@@ -9,7 +9,8 @@ const JobSearchResults = ({ results }: { results: Job[] }) => {
     const [currentJob,setCurrentJob]=useState<Job|null>(null);
     const  {data,error,isLoading,request,status}= UseFetch()
     const fetchJobDetail = (slug:string)=>{
-        request("GET",`/api/jobs/${slug}/`,"")
+        console.log("run")
+        request("GET",`/api/jobs/${slug}/`)
     }
     useEffect(()=>{
         fetchJobDetail(results[0].slug)
@@ -19,19 +20,20 @@ const JobSearchResults = ({ results }: { results: Job[] }) => {
         if(data && !isLoading)setCurrentJob(data)
     },[data])
   return (
-    <section className="">
+    <section className="bg-bg z-50 dark:bg-bg-dark ">
       <div className="w-full grid gap-2 grid-cols-2    ">
         <div className="w-full flex flex-col gap-2  ">
           {results?.map((item, index) => (
             <JobSearchResult
-              key={item.description + item.companyName + item.title + index}
+              onClickHandler={fetchJobDetail}
+              key={item.introduction + item.company + item.title + index}
               {...item}
             />
           ))}
         </div>
         <div className="bg-bg hidden md:flex dark:bg-bg-dark w-full ">
             { !isLoading &&currentJob && <JobDetail job={currentJob} />}
-            { !isLoading && <PageIsLoading  /> }
+            { isLoading && <PageIsLoading  /> }
         </div>
       </div>
     </section>
