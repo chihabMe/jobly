@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 
 const Container: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-      <div className="mx-auto max-w-screen-lg  ">{children}</div>
+      <div className="mx-auto max-w-screen-xl  ">{children}</div>
   
   )};
 

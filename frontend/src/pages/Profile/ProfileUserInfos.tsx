@@ -45,13 +45,14 @@ const ProfileUserInfos = ({user}:{user:User}) => {
             </span>
             <span>{user?.location || "algeria"}</span>
           </li>
-
+{user.cv &&
           <li className="flex gap-2 items-center">
             <span className="w-4 h-4">
               <DocumentIcon className="text-primary" />
             </span>
             <span className="hover:text-primary"> <a href={`${user?.cv}`} className=' text-bold uppercase underline '>cv</a></span>
           </li>
+}
         </ul>
       </div>
     </>

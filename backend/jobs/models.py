@@ -20,7 +20,7 @@ class JobManager(models.Manager):
 class Job(models.Model):
     title = models.CharField(max_length=200)
     positions = models.IntegerField(default=1)
-    slug = models.SlugField(blank=True, unique=True, null=True)
+    slug = models.SlugField(max_length=400,blank=True, unique=True, null=True)
     introduction = models.CharField(max_length=500)
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)

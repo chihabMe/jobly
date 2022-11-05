@@ -61,14 +61,6 @@ const ProfileResume = ({ user }: { user: User }) => {
           { !isLoading && (user?.cv ? "update your resume" : "upload your cv")}
           { isLoading && <PageIsLoading />}
         </Button>
-      <div className="w-full flex justify-center ">
-        <a href={user?.cv} target="blank">
-          <Button
-            className="bg-primary px-10 hover:opacity-90 transition-all duration-150"
-            text="open resume"
-          />
-        </a>
-      </div>
     </>
   );
 };

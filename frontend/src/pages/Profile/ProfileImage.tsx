@@ -38,7 +38,7 @@ const ProfileImage = ({ user }: { user: User }) => {
   return (
     <section className="flex flex-col items-center gap-4">
       <div className=" mx-auto w-20 h-20 md:w-32 md:h-32 rounded-full relative">
-        <Image className="rounded-full" src={user?.image} layout="fill" />
+        <Image className="rounded-full" src={user?.image||""} layout="fill" />
       </div>
 
       <form onSubmit={onSubmitHandler}>
