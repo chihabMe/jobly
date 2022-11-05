@@ -6,10 +6,14 @@ import {
   UserCircleIcon,
   UserIcon,
   BellIcon,
+  ArrowLeftOnRectangleIcon,
 } from "@heroicons/react/24/solid";
 import User from "src/models/User";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { useDispatch } from "react-redux";
+import { authActions } from "src/store/slices/authSlice";
+import Router, { useRouter } from "next/router";
 
 const profileLinks = [
   { href: "/profile", text: "profile", Icon: UserCircleIcon, id: 1 },
@@ -19,6 +23,13 @@ const profileLinks = [
 ];
 
 const HeaderProfileDisplay = ({ user }: { user: User }) => {
+  const dispatch = useDispatch();
+  const router = useRouter()
+  const logout = () => {
+    dispatch(authActions.logout());
+    router.push("/login")
+  };
+
   return (
     <div className="flex gap-6 items-center">
       <div>
@@ -42,7 +53,7 @@ const HeaderProfileDisplay = ({ user }: { user: User }) => {
           >
             <Menu.Items
               as="ul"
-              className="absolute flex flex-col dark:bg-bg-dark gap-2 right-0 px-2 py-4 md:py-6   mt-2 w-52 sm:w-72 md:w-96   border-none outline-none rounded-md bg-bg shadow-md ring-1   focus:outline-none"
+              className="absolute z-50   flex flex-col   dark:bg-bg-dark gap-2 right-0 px-2 py-4 md:py-6   mt-2 w-64 sm:w-72 md:w-96   border-none outline-none rounded-md bg-bg shadow-md ring-1   focus:outline-none"
             >
               <Menu.Item>
                 <h1 className="px-2 pt-1 pb-4 cursor-pointer  font-bold text-title dark:text-title-dark">
@@ -53,9 +64,11 @@ const HeaderProfileDisplay = ({ user }: { user: User }) => {
                 <Menu.Item key={index} as={Fragment}>
                   {({ active }) => (
                     <li
-                      className={`w-full py-2 px-2 hover:bg-primary   dark:text-title-dark  hover:text-white cursor-pointer text-title rounded-md ${
-                        active && "text-primary "
-                      } `}
+                      className={`w-full py-2 px-2  text-title dark:text-title-dark      ${
+                        index < profileLinks.length - 1
+                          ? "hover:!text-primary"
+                          : "hover:!text-red-400"
+                      } cursor-pointer rounded-md `}
                     >
                       <Link className="" href={item.href}>
                         <div className="capitalize md:text-lg  flex gap-4 items-center">
@@ -67,6 +80,19 @@ const HeaderProfileDisplay = ({ user }: { user: User }) => {
                   )}
                 </Menu.Item>
               ))}
+              <Menu.Item>
+                <li
+                  className={`w-full py-2 px-2  text-title dark:text-title-dark  hover:!text-red-400 cursor-pointer rounded-md `}>
+                  <div onClick={logout}>
+                    <div className="capitalize md:text-lg  flex gap-4 items-center">
+                      {
+                        <ArrowLeftOnRectangleIcon className="h-4 w-4 sm:w-5 sm:h-5" />
+                      }
+                      <span>logout</span>
+                    </div>
+                  </div>
+                </li>
+              </Menu.Item>
             </Menu.Items>
           </Transition>
         </Menu>

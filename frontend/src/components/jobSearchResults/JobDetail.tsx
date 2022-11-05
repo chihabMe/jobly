@@ -11,9 +11,9 @@ import {
 
 const JobDetail = ({ job }: { job: Job }) => {
   return (
-    <div className="w-full max-h-screen overflow-y-scroll sticky  top-0   rounded-md px-4 py-6 outline-1 outline outline-text">
+    <div className="w-full   max-h-screen overflow-y-scroll sticky  top-0   rounded-md px-4 py-6 outline-1 outline outline-text">
       {/* top */}
-      <div className="flex flex-col bg-bg z-20 sticky  top-0   dark:bg-bg-dark   py-6 gap-4">
+      <div className="flex flex-col bg-bg  sticky  top-0   dark:bg-bg-dark   py-6 gap-4">
         <div className="flex flex-col">
           <h1 className=" text-title dark:text-title-dark font-bold text-2xl capitalize">
             {job.title}

@@ -12,7 +12,7 @@ const Profile = () => {
     const {user,isLoading} = useSelector(state=>state.auth)
     if(isLoading)return 'loading'
   return (
-    <div className='w-full  py-10'>
+    <div className='w-full px-2  py-10'>
         <div className='max-w-xl  mx-auto flex flex-col gap-4  px-2'>
             <ProfileImage user={user} />
             <ProfileUserInfos user={user}/>

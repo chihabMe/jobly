@@ -45,7 +45,7 @@ const ProfileUserInfos = ({user}:{user:User}) => {
             </span>
             <span>{user?.location || "algeria"}</span>
           </li>
-{user.cv &&
+{user?.cv &&
           <li className="flex gap-2 items-center">
             <span className="w-4 h-4">
               <DocumentIcon className="text-primary" />

@@ -4,7 +4,7 @@ import Button from "src/components/ui/Button";
 import NavLink from "src/components/ui/NavLink";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Bars3Icon ,MoonIcon,SunIcon} from "@heroicons/react/24/solid";
+import { XMarkIcon,Bars3Icon ,MoonIcon,SunIcon} from "@heroicons/react/24/solid";
 import NavMenu from "src/components/ui/NavMenu";
 import linkObject from "src/models/linkObject";
 import Link from "next/link";
@@ -81,14 +81,21 @@ const Header = () => {
           </Button>
           <HeaderAuthDisplay/>
           {/* menu toggler */}
-          <div
-            className="sm:hidden"
+          <Button
+            className=" !p-0 !bg-transparent sm:hidden"
             onClick={() => {
               setShowMobileMenu((prev) => !prev);
             }}
           >
-            <Bars3Icon className="w-10 cursor-pointer h-10 text-white" />
-          </div>
+            <>
+            {!showMobileMenu &&
+            <Bars3Icon className="w-10 cursor-pointer h-10 text-title dark:text-title-dark " />
+            }
+            {showMobileMenu &&
+            <XMarkIcon className="w-10 cursor-pointer h-10 text-title dark:text-title-dark " />
+              }
+            </>
+          </Button>
         </div>
       </div>
       <Transition
@@ -101,7 +108,7 @@ const Header = () => {
         leaveFrom="opacity-100   "
         leaveTo="opacity-0  "
       >
-        <ul className="flex px-2  w-full pt-4  flex-col gap-4">{links}</ul>
+        <ul className="flex min-h-screen absolute bg-bg dark:bg-bg-dark  z-50 px-2  w-full pt-4  flex-col gap-4">{links}</ul>
       </Transition>
     </>
   );

@@ -59,7 +59,9 @@ const JobSearch = ({
       query: form.query,
     };
 
-    router.push(`/search?location=${form.location.name}&industry=${form.industry.name}&query=${form.query}`);
+    router.push(
+      `/search?location=${form.location.name}&industry=${form.industry.name}&query=${form.query}`
+    );
   };
   const [editing, setEditing] = useState(false);
   const changeIndustry = (value: Field) => {
@@ -75,7 +77,7 @@ const JobSearch = ({
   return (
     <form
       onSubmit={submitHandler}
-      className={`w-full max-w-3xl mx-auto bg-bg dark:bg-bg-dark    outline-1 ${
+      className={`w-full px-4 max-w-3xl mx-auto bg-bg dark:bg-bg-dark    outline-1 ${
         editing && "outline-2"
       }  outline outline-primary  bg-bg flex flex-col  px-4 py-3  md:flex-row gap-2 md:gap-0 justify-between items-center  rounded-lg`}
     >
@@ -111,7 +113,7 @@ const JobSearch = ({
         text="search"
         className="rounded-lg flex gap-2 items-center font-medium  hover:opacity-75 transition-all duration-150  bg-primary px-4  justify-center md:px-7 capitalize py-3 md:py-4 w-full md:w-auto"
       >
-          <MagnifyingGlassIcon className="w-4 h-4 mt-1   " />
+        <MagnifyingGlassIcon className="w-4 h-4 mt-1   " />
       </Button>
     </form>
   );
