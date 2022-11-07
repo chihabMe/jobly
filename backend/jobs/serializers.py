@@ -22,7 +22,11 @@ class JobsListSerailizer(serializers.ModelSerializer):
     def get_since(self,job):
         return timesince(job.created)
     def get_book_marked(self,job):
-        profile = self.context.get("request").user.employee_profile
+        request  = self.context.get("request")
+        print(request.user.is_authenticated)
+        if not  request.user.is_authenticated:
+            return False
+        profile = request.user.employee_profile
         return job in profile.book_marked_jobs.all()
 
 
@@ -40,13 +44,19 @@ class JobsDetailsSerailizer(serializers.ModelSerializer):
             'slug'
         ]
     def get_applied(self,job):
-        profile = self.context.get("request").user.employee_profile
+        request  = self.context.get("request")
+        if not  request.user.is_authenticated:
+            return False
+        profile = request.user.employee_profile
         return job in profile.applied_jobs.all()
 
     def get_since(self,job):
         return timesince(job.created)
     def get_book_marked(self,job):
-        profile = self.context.get("request").user.employee_profile
+        request  = self.context.get("request")
+        if not  request.user.is_authenticated:
+            return False
+        profile = request.user.employee_profile
         return job in profile.book_marked_jobs.all()
 
     def create(self, **validated_data):
@@ -63,3 +73,4 @@ class JobsDetailsSerailizer(serializers.ModelSerializer):
         instance.positions = validated_data.get('positions',
                                                 instance.positions)
         return instance
+    

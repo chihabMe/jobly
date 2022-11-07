@@ -6,15 +6,26 @@ from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 from locations.models import Location
+from django.db.models import Q
 
 User = get_user_model()
 
 
 # Create your models here.
-class JobManager(models.Manager):
+class JobQuerySet(models.QuerySet):
+    def is_public(self):
+        return self.filter(active=True)
+    def search(self,query=None,location=None):
+        lookup = Q(location__name__icontains=location) & Q (Q(title__icontains=query) | Q(introduction__icontains=query) | Q(description__icontains=query ))
+        return self.filter(lookup)
 
+class JobManager(models.Manager):
+    def search(self,query=None,location=None):
+        if query == None and location==None:
+            return self.get_queryset()
+        return self.get_queryset().search(query,location)
     def get_queryset(self):
-        return super().get_queryset().filter(active=True)
+        return JobQuerySet(self.model,using=self._db).is_public()
 
 
 class Job(models.Model):

@@ -14,6 +14,7 @@ SECRET_KEY = 'django-insecure-e5bt%3$e**4%tl4zfs&hjcadmvhm3-t-ly+jy4f+a7z&g_$u##
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# ALLOWED_HOSTS = ["192.168.43.135","127.0.0.1"]
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -142,6 +143,7 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ],
+    "PAGE_SIZE":10,
 }
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
