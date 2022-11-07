@@ -3,7 +3,7 @@ import { jobDetailEndpoint } from "config";
 import { NextApiRequest, NextApiResponse } from "next";
 import generateAuthConfig from "src/libs/generateAuthConfig";
 
-export default async (req:NextApiRequest,res:NextApiResponse)=>{
+ const jobDetail =  async (req:NextApiRequest,res:NextApiResponse)=>{
     if(req.method=='GET'){
         const slug = req.query.slug
         const config = generateAuthConfig("GET",req.headers.cookie||"")
@@ -16,3 +16,4 @@ export default async (req:NextApiRequest,res:NextApiResponse)=>{
     }
 
 }
+export default jobDetail;

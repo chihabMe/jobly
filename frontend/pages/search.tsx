@@ -33,10 +33,7 @@ const SearchPage = ({
 export const getServerSideProps = async (context: NextPageContext) => {
   const { query, industry, location } = context.query;
 
-  const config = generateAuthConfig(
-    "GET",
-    context.req.headers.cookie || ""
-  );
+  const config  = generateAuthConfig("GET",context.req?.headers.cookie||"")
 
   const finalEndpoint = `${jobSearchEndpoint}?location=${location}&query=${query}`
   const response = await fetch(finalEndpoint, config);

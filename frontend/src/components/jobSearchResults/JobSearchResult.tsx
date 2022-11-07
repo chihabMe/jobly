@@ -12,6 +12,7 @@ import {
   ClockIcon,
 } from "@heroicons/react/24/solid";
 import Tag from "src/models/Tag";
+import JobBookMark from "./JobBookMark";
 
 const JobSearchResult = ({
   onClickHandler,
@@ -24,6 +25,7 @@ const JobSearchResult = ({
   location,
   company,
   tags,
+  currentJob,
 }: {
   onClickHandler:(slug:string)=>void,
   title: string;
@@ -35,9 +37,10 @@ const JobSearchResult = ({
   slug: string;
   company: string;
   tags: Tag[];
+  currentJob:boolean;
 }) => {
   return (
-    <div onClick={onClickHandler.bind(null,slug)} className="flex w-full cursor-pointer  bg-bg dark:bg-bg-dark hover:outline outline-1  outline-text py-6 px-3 rounded-md flex-col gap-4">
+    <div onClick={onClickHandler.bind(null,slug)} className={ ` flex w-full cursor-pointer  bg-bg dark:bg-bg-dark ${currentJob && "outline-primary outline"} hover:outline outline-2  outline-text py-6 px-3 rounded-md flex-col gap-4 `}>
       {/* top */}
       <div className="flex justify-between">
         <div className="flex flex-col  items-left ">
@@ -51,10 +54,7 @@ const JobSearchResult = ({
             {location}
           </h3>
         </div>
-        <div className="  text-title       dark:text-yellow-300 cursor-pointer">
-          {!bookMarked && <BookmarkIcon className="w-5 h-5" />}
-          {bookMarked && <BookmarkSlashIcon className="w-5 h-5 " />}
-        </div>
+          <JobBookMark bookMarked={bookMarked} slug={slug}  />
       </div>
       {/* center */}
       <div className="flex flex-col gap-4">

@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import cookie from 'cookie';
 
 
-export default async (req:NextApiRequest,res:NextApiResponse)=>{
+const me =  async (req:NextApiRequest,res:NextApiResponse)=>{
     console.log(req.method)
     if(req.method=="GET"){
         let data ;
@@ -30,3 +30,4 @@ export default async (req:NextApiRequest,res:NextApiResponse)=>{
     }
 
 }
+export default me;

@@ -32,8 +32,8 @@ const NavMenu = ({
                     as="ul"
                     className="md:absolute w-full md:w-48  z-50   bg-bg dark:bg-bg-dark  text-sm flex flex-col  py-4 mt-4 pl-6  capitalize top-full bg-bg  border border-title    rounded-md    "
                 >
-                    {linksObjects.map((item) => (
-                        <Menu.Item as="li" className="py-2">
+                    {linksObjects.map((item,index) => (
+                        <Menu.Item key={index} as="li" className="py-2">
                             {({ active }) => (
                                 <Link key={item.path + item.name} href={item.path}>
                                     <span

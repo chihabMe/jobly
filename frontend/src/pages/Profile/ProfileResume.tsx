@@ -9,7 +9,6 @@ import Button from "src/components/ui/Button";
 import PageIsLoading from "src/components/ui/PageIsLoading";
 import UseFetch from "src/hooks/use-fetch";
 import User from "src/models/User";
-import { InputType } from "zlib";
 import ProfileTitle from "./ProfileTitle";
 
 const ProfileResume = ({ user }: { user: User }) => {
@@ -36,9 +35,8 @@ const ProfileResume = ({ user }: { user: User }) => {
     setSelected(true);
   };
   useEffect(() => {
-    console.log(selected)
    if(selected)updateResume()
-  }, [selected]);
+  }, [selected,updateResume]);
   
 
   return (

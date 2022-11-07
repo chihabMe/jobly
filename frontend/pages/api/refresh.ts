@@ -3,7 +3,7 @@ import { refreshAuth } from "src/services/refreshAuth";
 import cookie from "cookie";
 import { accessTokenAge, refreshTokenAge } from "config";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const refreshApiRoute =  async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method == "POST") {
         const cookies = req.headers.cookie;
         if (!cookies) return res.status(403).json({ message: "unauthorized" });
@@ -41,3 +41,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             .json({ message: `method ${req.method} is not allowed` });
     }
 };
+
+export default refreshApiRoute;

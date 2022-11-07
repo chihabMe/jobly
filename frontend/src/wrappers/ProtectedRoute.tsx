@@ -10,7 +10,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
     const { isLogged, isLoading } = useSelector((state) => state.auth);
     useEffect(() => {
         dispatch(authActions.verify());
-    }, []);
+    }, [dispatch]);
     if (isLoading) return <PageIsLoading />;
     if (!isLoading && !isLogged) {
         router.push("/login");

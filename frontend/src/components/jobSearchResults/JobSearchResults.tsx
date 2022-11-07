@@ -5,32 +5,34 @@ import PageIsLoading from "../ui/PageIsLoading";
 import JobDetail from "./JobDetail";
 import JobSearchResult from "./JobSearchResult";
 
-const JobSearchResults = ({ results }: { results: Job[] }) => {
+const JobSearchResults = ({ results }: { results: {next:boolean,count:number,results:Job[]} }) => {
+  const {results:jobs,next}= results
   const [currentJob, setCurrentJob] = useState<Job | null>(null);
   const { data, error, isLoading, request, status } = UseFetch();
   const fetchJobDetail = (slug: string) => {
-    console.log("run");
-    request("GET", `/api/jobs/${slug}/`);
+    if(slug!=currentJob?.slug) request("GET", `/api/jobs/${slug}/detail`);
   };
   useEffect(() => {
     setCurrentJob(null)
-    if(results.length>1)fetchJobDetail(results[0].slug);
-  }, []);
-  useEffect(()=>{
-  if(results.length==0)setCurrentJob(null)
-  },[data])
+    if(jobs.length>0)fetchJobDetail(jobs[0].slug);
+  }, [jobs]);
+  // useEffect(()=>{
+  // if(jobs.length==0)setCurrentJob(null)
+  // },[jobs])
 
   useEffect(() => {
     if (data && !isLoading) setCurrentJob(data);
-  }, [data]);
+  }, [data,isLoading]);
   return (
     <section className="bg-bg relative  dark:bg-bg-dark ">
       <div className="w-full grid  gap-2 px-2  grid-cols-1 md:grid-cols-2    ">
         <div className="w-full flex flex-col gap-2  ">
-          {results?.map((item, index) => (
+          {jobs?.map((item, index) => (
             <JobSearchResult
               onClickHandler={fetchJobDetail}
-              key={item.introduction + item.company + item.title + index}
+              currentJob={item.slug==currentJob?.slug}
+              key={item.introduction + item.company +item.slug+ item.title + index}
+
               {...item}
             />
           ))}

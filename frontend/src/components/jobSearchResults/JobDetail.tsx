@@ -2,16 +2,17 @@ import React from "react";
 import Job from "src/models/Job";
 import Button from "../ui/Button";
 import {
-  BookmarkIcon,
-  BookmarkSlashIcon,
+  HeartIcon,
   ClockIcon,
   CurrencyDollarIcon,
   MapIcon,
 } from "@heroicons/react/24/solid";
+import JobDetailApplyButton from "./JobDetailApplyButton";
 
 const JobDetail = ({ job }: { job: Job }) => {
+  
   return (
-    <div className="w-full   max-h-screen overflow-y-scroll sticky  top-0   rounded-md px-4 py-6 outline-1 outline outline-text">
+    <div className="w-full   max-h-screen overflow-y-scroll sticky  top-0   rounded-md px-4 py-6 outline-2 hover:outline-primary cursor-pointer outline outline-text">
       {/* top */}
       <div className="flex flex-col bg-bg  sticky  top-0   dark:bg-bg-dark   py-6 gap-4">
         <div className="flex flex-col">
@@ -27,26 +28,18 @@ const JobDetail = ({ job }: { job: Job }) => {
         </div>
         <div className="flex items-center   gap-2">
           <div className="">
-            <Button
-              className={` rounded-md !text-base  !font-medium   px-14 text-title-dark ${
-                job.applied ? "!bg-red-400" : "!bg-primary"
-              } `}
-            >
-              {job.applied ? "Cancel" : "Apply now"}
-            </Button>
+            <JobDetailApplyButton applied={job.applied} slug={job.slug}/>
           </div>
           <div>
             <Button
               className={` !bg-bg dark:!bg-bg-dark !text-title dark:!text-title-dark !shadow-none  `}
             >
-              {!job.bookMarked && <BookmarkIcon className="w-5 h-5" />}
-              {job.bookMarked && <BookmarkSlashIcon className="w-5 h-5" />}
             </Button>
           </div>
         </div>
       </div>
       {/* center */}
-      <div className=" flex  max-h-80  overflow-y-scroll py-10 flex-col gap-4 ">
+      <div className=" flex     py-10 flex-col gap-4 ">
         <h2 className="text-lg capitalize font-bold text-title dark:text-title-dark">
           introduction
         </h2>

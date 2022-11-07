@@ -1,4 +1,10 @@
-import React, { FormEvent, Fragment, useEffect, useState } from "react";
+import React, {
+  FormEvent,
+  Fragment,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import Button from "src/components/ui/Button";
 import SelectMenu from "src/components/ui/SelectMenu";
 import {
@@ -64,12 +70,13 @@ const JobSearch = ({
     );
   };
   const [editing, setEditing] = useState(false);
-  const changeIndustry = (value: Field) => {
+  const changeIndustry = useCallback((value: Field) => {
     setForm((prev) => ({ ...prev, industry: value }));
-  };
-  const changeLocation = (value: Field) => {
+  }, []);
+  const changeLocation = useCallback((value: Field) => {
     setForm((prev) => ({ ...prev, location: value }));
-  };
+  }, []);
+
   const onChangeQuery = (e: any) => {
     setForm((prev) => ({ ...prev, query: e.target.value }));
   };

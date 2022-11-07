@@ -1,7 +1,7 @@
 import { API, registrationsEndpoint } from "config";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const registerApiRoute =  async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method == "POST") {
         const { username, email, password, re_password } = req.body
         const config = {
@@ -21,3 +21,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
 }
+export default registerApiRoute;

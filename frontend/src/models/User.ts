@@ -1,5 +1,5 @@
 
-export default interface {
+  interface User {
     name: string;
     email: string;
     slug:string;
@@ -11,3 +11,4 @@ export default interface {
     rejectedCount:number;
 
 }
+export default Uesr;

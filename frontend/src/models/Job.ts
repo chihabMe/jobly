@@ -1,6 +1,6 @@
 import Tag from "./Tag";
 
-export default interface {
+ interface Job {
     title: string;
     introduction:string;
     description: string;
@@ -14,3 +14,4 @@ export default interface {
     company: string;
     tags: Tag[];
 }
+export default Job;

@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import cookie from 'cookie';
 import { verifyAuth } from "src/services/verifyAuth";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const verifyApiRoute =  async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method == "POST") {
         const cookies = cookie.parse(req.headers.cookie ?? "");
         const access = cookies?.access
@@ -14,3 +14,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400).json({ "message": `this method ${req.method} is not allowed` })
     }
 }
+export default verifyApiRoute;

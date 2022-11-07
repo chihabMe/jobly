@@ -2,7 +2,7 @@ import { jobSearchEndpoint } from "config";
 import { NextApiRequest, NextApiResponse } from "next";
 import generateAuthConfig from "src/libs/generateAuthConfig";
 
-export default async (req:NextApiRequest,res:NextApiResponse)=>{
+const search  =  async (req:NextApiRequest,res:NextApiResponse)=>{
     if(req.method=="GET"){
         const config = generateAuthConfig("GET","",req.headers.cookie||"")
         const response =  await fetch(jobSearchEndpoint,config)
@@ -14,3 +14,4 @@ export default async (req:NextApiRequest,res:NextApiResponse)=>{
     }
     
 }
+export default search;
