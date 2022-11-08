@@ -11,4 +11,4 @@
     rejectedCount:number;
 
 }
-export default Uesr;
+export default  User;

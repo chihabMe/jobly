@@ -3,11 +3,13 @@ import React, { FormEvent, useContext, useEffect, useState } from "react";
 import Button from "src/components/ui/Button";
 import Controller from "src/components/ui/Controller";
 import Input from "src/components/ui/Input";
-import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { verify } from "crypto";
 import PageIsLoading from "src/components/ui/PageIsLoading";
 import { authActions } from "src/store/slices/authSlice";
+import useAppSelector from "src/hooks/useAppSelector";
+import useDispatchApp from "src/hooks/useAppDispatch";
+import useAppDispatch from "src/hooks/useAppDispatch";
 
 const initialState = {
     email: "",
@@ -15,8 +17,8 @@ const initialState = {
 };
 const Login = () => {
     const router = useRouter();
-    const dispatch = useDispatch();
-    const { isLogged, registeredEmail, isLoading, loggingFailed } = useSelector((state) => state.auth);
+    const dispatch = useAppDispatch();
+    const { isLogged, registeredEmail, isLoading, loggingFailed } = useAppSelector((state) => state.auth);
     const [form, setForm] = useState({ ...initialState, email: registeredEmail ?? "" });
     const onChangeHandler = (e: any) => {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));

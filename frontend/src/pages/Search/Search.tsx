@@ -6,18 +6,16 @@ import Job from "src/models/Job";
 
 const Search = ({
     results,
-    industry,
     location,
     query,
 }: {
-    results: Job[];
-    industry: Field;
-    location: Field;
+    results: {count:number,next:boolean,results:Job[]};
+    location: string;
     query: string;
 }) => {
     return (
         <main className="py-20 flex flex-col gap-10">
-            <JobSearch industry={industry} location={location} query={query} />
+            <JobSearch  location={location} query={query} />
             <JobSearchResults results={results} />
         </main>
     );

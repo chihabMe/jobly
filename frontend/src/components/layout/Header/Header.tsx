@@ -2,13 +2,13 @@ import { Menu, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useState } from "react";
 import Button from "src/components/ui/Button";
 import NavLink from "src/components/ui/NavLink";
-import { useDispatch, useSelector } from "react-redux";
+import useAppDispatch from "src/hooks/useAppDispatch"; 
+import useAppSelector from "src/hooks/useAppSelector";
 
 import { XMarkIcon,Bars3Icon ,MoonIcon,SunIcon} from "@heroicons/react/24/solid";
 import NavMenu from "src/components/ui/NavMenu";
 import linkObject from "src/models/linkObject";
 import Link from "next/link";
-import { AuthContext } from "src/context/AuthContext";
 import { authActions } from "src/store/slices/authSlice";
 import Image from "next/image";
 import HeaderAuthDisplay from "./HeaderAuthDisplay";
@@ -43,8 +43,8 @@ const Header = () => {
         if(isMounted)
             setTheme(theme==="light"?"dark":"light")
     }
-  const dispatch = useDispatch();
-  const { isLogged, isLoading, user } = useSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const { isLogged, isLoading, user } = useAppSelector((state) => state.auth);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   useEffect(() => {
     if (window != undefined && window != null) {

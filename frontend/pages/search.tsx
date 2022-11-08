@@ -11,19 +11,17 @@ import camelize from "camelize-ts";
 const SearchPage = ({
   results,
   location,
-  industry,
   query,
 }: {
-  results: Job[];
-  location: Field;
-  industry: Field;
+  results: {count:number,next:boolean,results:Job[]};
+  location: string;
   query: string;
 }) => {
   return (
     <>
       <Search
+
         location={location}
-        industry={industry}
         query={query}
         results={results}
       />
@@ -37,7 +35,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
 
   const finalEndpoint = `${jobSearchEndpoint}?location=${location}&query=${query}`
   const response = await fetch(finalEndpoint, config);
-  const results: Job[] = await response.json();
+  const results: {count:number,next:boolean,results:Job[]} = await response.json();
   console.log(config)
   if (response.status != 200) return {notFound:true};
 

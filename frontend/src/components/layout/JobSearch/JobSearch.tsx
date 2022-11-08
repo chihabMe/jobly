@@ -13,8 +13,6 @@ import {
   BriefcaseIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import { searchActions } from "src/store/slices/searchSlice";
 import Field from "src/models/Field";
 
 const getIndex = (array: Field[], value: string) => {
@@ -87,13 +85,12 @@ const JobSearch = ({
       </div>
 
       <div className="my-2  w-full md:w-80 py-4 px-4 outline-1 outline-primary outline rounded-md">
-
-      <SelectMenu
-        value={form.location}
-        changeValue={changeLocation}
-        fields={locations}
-        Icon={MapPinIcon}
-      />
+        <SelectMenu
+          value={form.location}
+          changeValue={changeLocation}
+          fields={locations}
+          Icon={MapPinIcon}
+        />
       </div>
       <Button
         text="search"

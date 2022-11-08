@@ -19,46 +19,44 @@ const ProfileResume = ({ user }: { user: User }) => {
   const onSubmitUpdateResume = (e: FormEvent) => {
     e.preventDefault();
   };
-  const updateResume = ()=>{
+  const updateResume = () => {
     const formData = new FormData();
-    formData.set("cv",resume)
-    request("PUT","/api/profile/update",formData,null)
-    setSelected(false)
-    
-  }
+    formData.set("cv", resume);
+    request("PUT", "/api/profile/update", formData, null);
+    setSelected(false);
+  };
   const uploadClickHandler = () => {
     uploadInput.current?.click();
-
   };
   const resumeChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setResume(e.target.files[0]);
-    setSelected(true);
+    if (e.target.files) {
+      setResume(e?.target?.files[0]);
+      setSelected(true);
+    }
   };
   useEffect(() => {
-   if(selected)updateResume()
-  }, [selected,updateResume]);
-  
+    if (selected) updateResume();
+  }, [selected, updateResume]);
 
   return (
     <>
       <ProfileTitle>resume</ProfileTitle>
       <form onSubmit={onSubmitUpdateResume}>
         <input
-
           onChange={resumeChangeHandler}
           hidden
           type="file"
           ref={uploadInput}
         />
-        </form>
-        <Button
-          onClick={uploadClickHandler}
-          className={`  w-full    capitalize h-10 md:h-18    font-bold      `}
-          text=""
-        >
-          { !isLoading && (user?.cv ? "update your resume" : "upload your cv")}
-          { isLoading && <PageIsLoading />}
-        </Button>
+      </form>
+      <Button
+        onClick={uploadClickHandler}
+        className={`  w-full    capitalize h-10 md:h-18    font-bold      `}
+        text=""
+      >
+        {!isLoading && (user?.cv ? "update your resume" : "upload your cv")}
+        {isLoading && <PageIsLoading />}
+      </Button>
     </>
   );
 };

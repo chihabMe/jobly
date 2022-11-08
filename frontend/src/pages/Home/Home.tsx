@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import JobSearch from "src/components/layout/JobSearch/JobSearch";
-import { useDispatch } from "react-redux";
-import { authAction } from "src/store/slices/authSlice";
 const Home = () => {
 
     return (

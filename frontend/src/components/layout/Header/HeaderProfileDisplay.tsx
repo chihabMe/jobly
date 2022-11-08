@@ -11,9 +11,9 @@ import {
 import User from "src/models/User";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { useDispatch } from "react-redux";
 import { authActions } from "src/store/slices/authSlice";
 import Router, { useRouter } from "next/router";
+import useAppDispatch from "src/hooks/useAppDispatch";
 
 const profileLinks = [
   { href: "/profile", text: "profile", Icon: UserCircleIcon, id: 1 },
@@ -23,7 +23,7 @@ const profileLinks = [
 ];
 
 const HeaderProfileDisplay = ({ user }: { user: User }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const router = useRouter()
   const logout = () => {
     dispatch(authActions.logout());

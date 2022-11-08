@@ -5,6 +5,7 @@ specifiers:
   '@heroicons/react': ^2.0.11
   '@material-tailwind/react': ^1.2.4
   '@reduxjs/toolkit': ^1.8.5
+  '@types/cookie': ^0.5.1
   '@types/formidable': ^2.0.5
   '@types/multer': ^1.4.7
   '@types/node': 18.7.18
@@ -36,6 +37,7 @@ dependencies:
   '@heroicons/react': 2.0.11_react@18.2.0
   '@material-tailwind/react': 1.2.4_7ey2zzynotv32rpkwno45fsx4e
   '@reduxjs/toolkit': 1.8.5_kuo2ie247izvzll3jejufdtq3q
+  '@types/cookie': 0.5.1
   camelize-ts: 2.1.1
   cookie: 0.5.0
   formidable: 2.0.1
@@ -445,6 +447,10 @@ packages:
     dependencies:
       '@types/node': 18.7.18
     dev: true
+
+  /@types/cookie/0.5.1:
+    resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
+    dev: false
 
   /@types/express-serve-static-core/4.17.31:
     resolution: {integrity: sha512-DxMhY+NAsTwMMFHBTtJFNp5qiHKJ7TeqOo23zVEM9alT1Ml27Q3xcTH0xwxn7Q0BbMcVEJOs/7aQtUWupUQN3Q==}

@@ -7,10 +7,7 @@ const JobApply = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method == "POST") {
     const slug = req.query.slug;
     const config = generateAuthConfig("POST", req.headers.cookie || "");
-    const response = await fetch(
-      `${jobDetailEndpoint}${slug}/apply/`,
-      config
-    );
+    const response = await fetch(`${jobDetailEndpoint}${slug}/apply/`,config);
     const data = camelize(await response.json());
     return res.status(response.status).json(data);
   } else {

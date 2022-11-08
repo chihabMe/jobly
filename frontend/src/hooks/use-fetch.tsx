@@ -1,9 +1,8 @@
 import { useState } from "react";
 
-
 const UseFetch = () => {
     const [status, setStatus] = useState<number>()
-    const [data, setData] = useState("")
+    const [data, setData] = useState<any>(null)
     const [error, setError] = useState<any>("")
     const [isLoading, setIsLoading] = useState(false)
 
@@ -12,7 +11,7 @@ const UseFetch = () => {
         setStatus(0);
         setIsLoading(true);
         let response;
-        const config:{method:string,headers?:any,body:string|FormData} = {
+        const config:{method:string,headers?:any,body:string|FormData|undefined} = {
                 method,
                 body,
         } 

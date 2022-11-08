@@ -10,8 +10,8 @@ import Image from "next/image";
 import Button from "src/components/ui/Button";
 import UseFetch from "src/hooks/use-fetch";
 import PageIsLoading from "src/components/ui/PageIsLoading";
-import { useDispatch } from "react-redux";
 import { authActions } from "src/store/slices/authSlice";
+import useAppDispatch from "src/hooks/useAppDispatch";
 
 const ProfileImage = ({ user }: { user: User }) => {
   const onSubmitHandler = (e: FormEvent) => {
@@ -20,7 +20,7 @@ const ProfileImage = ({ user }: { user: User }) => {
   const {request,isLoading,error,data,status} = UseFetch()
   const fileInput = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<File | null>(null);
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const imageChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     // console.log(e.target.files)
     // if(e.target.files)setImage(e.target.files[0])

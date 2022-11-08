@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FulfilledActionFromAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
 import User from "src/models/User";
+import { AppThunk, RootState } from "..";
 export type authSliceState = {
     isLogged: boolean;
     isLoading: boolean;
@@ -38,7 +39,7 @@ const generateAConfig = (method: string, credentials: string) => {
 };
 const signup = createAsyncThunk(
     "auth/signup",
-    async (credentials, thunkApi) => {
+    async (credentials:{email:string,username:string,password:string,re_password:string}, thunkApi) => {
         const config = generateAConfig("POST", JSON.stringify(credentials));
         const response = await fetch("/api/register", config);
         const data = await response.json();
@@ -62,7 +63,9 @@ const verify = createAsyncThunk("auth/verify", async (data, thunkApi) => {
     const config = generateAConfig("POST", "");
     const response = await fetch("/api/verify", config);
     if (response.status == 200) return true;
-    const state = thunkApi.getState();
+
+    const state:any = thunkApi.getState();
+
     if (state.auth.refreshFailed) {
         thunkApi.dispatch(logout());
     } else {
@@ -85,7 +88,7 @@ const refresh = createAsyncThunk("auth/refresh", async (data, thunkApi) => {
 const login = createAsyncThunk(
     "auth/login",
     async (
-        credentials: PayloadAction<{ email: string; password: string }>,
+        credentials: { email: string; password: string },
         thunkApi
     ) => {
         const config = generateAConfig("POST", JSON.stringify(credentials));

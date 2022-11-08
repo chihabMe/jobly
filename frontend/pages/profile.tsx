@@ -7,7 +7,7 @@ const ProfilePage = () => {
     return (
         <>
             <ProtectedRoute>
-                <Profile/>
+                <Profile  />
             </ProtectedRoute>
         </>
     );

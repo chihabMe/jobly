@@ -1,5 +1,5 @@
 import { Listbox } from "@headlessui/react";
-import React, { Fragment, ReactNode, useEffect, useState } from "react";
+import React, { FC, Fragment, ReactNode, SVGProps, useEffect, useState } from "react";
 import Field from "src/models/Field";
 
 const SelectMenu = ({
@@ -11,7 +11,7 @@ const SelectMenu = ({
     fields: Field[];
     changeValue: (value: Field) => void;
     value: Field,
-    Icon?: ReactNode;
+    Icon?: FC<{className:string}>;
 }) => {
     const [selectedField, setSelectedField] = useState(value);
     useEffect(() => {
@@ -25,14 +25,15 @@ const SelectMenu = ({
             onChange={setSelectedField}
         >
             <Listbox.Button className="capitalize flex items-center text-title dark:text-title-dark gap-2 hover:text-primary">
-                {Icon && <Icon className="w-4 h-4" />} {selectedField.name}
+                {Icon && <Icon  className="w-4 h-4" />} {selectedField.name}
+
             </Listbox.Button>
             <Listbox.Options
                 as="ul"
                 className=" bg-bg w-60 absolute   left-1/2 -translate-x-1/2 mt-10 py-2  rounded-md  max-h-52 overflow-y-scroll top-full  "
             >
                 {fields.map((item,index) => (
-                    <Listbox.Option key={item.name+item.number.toString()} as={Fragment} key={item.number} value={item}>
+                    <Listbox.Option key={item.name+item.number.toString()} as={Fragment}  value={item}>
                         {({ active, selected }) => (
                             <li
                                 className={` ${(active || selected) && "bg-primary"

@@ -1,11 +1,11 @@
 import Link from "next/link";
 import router from "next/router";
 import React, { FormEvent, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Button from "src/components/ui/Button";
 import Controller from "src/components/ui/Controller";
 import Input from "src/components/ui/Input";
-import UseFetch from "src/hooks/use-fetch";
+import useAppDispatch from "src/hooks/useAppDispatch";
+import useAppSelector from "src/hooks/useAppSelector";
 import { authActions } from "src/store/slices/authSlice";
 
 const initialState = {
@@ -17,8 +17,8 @@ const initialState = {
 const Signup = () => {
     //const { request,status, isLoading, data, error } = UseFetch();
     const [form, setForm] = useState(initialState);
-    const dispatch = useDispatch();
-    const { isLoading, registeredSuccessfully, hasErrors, errors } = useSelector(state => state.auth);
+    const dispatch = useAppDispatch();
+    const { isLoading, registeredSuccessfully, hasErrors, errors } = useAppSelector(state => state.auth);
     const onChangeHandler = (e: any) => {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
