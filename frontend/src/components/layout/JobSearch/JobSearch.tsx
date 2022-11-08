@@ -17,13 +17,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchActions } from "src/store/slices/searchSlice";
 import Field from "src/models/Field";
 
-const industries = [
-  { name: "software engineer", number: 1 },
-  { name: "web developer", number: 2 },
-  { name: "graphic designer", number: 3 },
-  { name: "videos editor", number: 4 },
-  { name: "web security tester", number: 5 },
-];
 const getIndex = (array: Field[], value: string) => {
   array.forEach((item) => {
     if (item.name == value) return item.number;
@@ -31,20 +24,15 @@ const getIndex = (array: Field[], value: string) => {
   return 0;
 };
 const JobSearch = ({
-  industry,
   location,
   query,
 }: {
-  industry?: string;
   location?: string;
   query?: string;
 }) => {
   const [locations, setLocations] = useState([]);
   const router = useRouter();
   const [form, setForm] = useState({
-    industry: industry
-      ? { name: industry, number: getIndex(industries, industry) }
-      : { name: "chose", number: 0 },
     location: location
       ? { name: location, number: getIndex(locations, location) }
       : { name: "chose", number: 0 },
@@ -61,18 +49,12 @@ const JobSearch = ({
     e.preventDefault();
     const query = {
       location: form.location.name,
-      industry: form.industry.name,
       query: form.query,
     };
 
-    router.push(
-      `/search?location=${form.location.name}&industry=${form.industry.name}&query=${form.query}`
-    );
+    router.push(`/search?location=${form.location.name}&query=${form.query}`);
   };
   const [editing, setEditing] = useState(false);
-  const changeIndustry = useCallback((value: Field) => {
-    setForm((prev) => ({ ...prev, industry: value }));
-  }, []);
   const changeLocation = useCallback((value: Field) => {
     setForm((prev) => ({ ...prev, location: value }));
   }, []);
@@ -84,24 +66,11 @@ const JobSearch = ({
   return (
     <form
       onSubmit={submitHandler}
-      className={`w-full px-4 max-w-3xl mx-auto bg-bg dark:bg-bg-dark    outline-1 ${
-        editing && "outline-2"
-      }  outline outline-primary  bg-bg flex flex-col  px-4 py-3  md:flex-row gap-2 md:gap-0 justify-between items-center  rounded-lg`}
+      className={`w-full z-30 px-4 max-w-screen-lg  mx-auto bg-bg dark:bg-bg-dark    outline-0 ${
+        editing && ""
+      }  outline outline-primary  bg-bg flex  flex-col  px-4 py-3  md:flex-row gap-4  justify-between items-center  rounded-lg`}
     >
-      {/* industries */}
-      <SelectMenu
-        value={form.industry}
-        changeValue={changeIndustry}
-        fields={industries}
-        Icon={BriefcaseIcon}
-      />
-      <SelectMenu
-        value={form.location}
-        changeValue={changeLocation}
-        fields={locations}
-        Icon={MapPinIcon}
-      />
-      <div className="my-2  w-full md:w-auto">
+      <div className="my-2  w-full md:w-auto outline-1 outline-primary outline rounded-md">
         <input
           value={form.query}
           onChange={onChangeQuery}
@@ -112,13 +81,23 @@ const JobSearch = ({
             setEditing(false);
           }}
           type="text"
-          className="w-full md:w-48  py-4 bg-transparent outline-none rounded-md p-2 text-title dark:text-title-dark"
-          placeholder="search"
+          className="w-full md:w-80  py-4 bg-transparent outline-none rounded-md px-4 text-title dark:text-title-dark"
+          placeholder="job title or company..."
         />
+      </div>
+
+      <div className="my-2  w-full md:w-80 py-4 px-4 outline-1 outline-primary outline rounded-md">
+
+      <SelectMenu
+        value={form.location}
+        changeValue={changeLocation}
+        fields={locations}
+        Icon={MapPinIcon}
+      />
       </div>
       <Button
         text="search"
-        className="rounded-lg flex gap-2 items-center font-medium  hover:opacity-75 transition-all duration-150  bg-primary px-4  justify-center md:px-7 capitalize py-3 md:py-4 w-full md:w-auto"
+        className="rounded-lg flex  gap-2 items-center font-medium  hover:opacity-75 transition-all duration-150  bg-primary px-4  justify-center md:px-7 capitalize py-3 md:py-4 w-full md:w-auto"
       >
         <MagnifyingGlassIcon className="w-4 h-4 mt-1   " />
       </Button>

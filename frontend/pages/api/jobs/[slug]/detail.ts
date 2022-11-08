@@ -9,6 +9,7 @@ import generateAuthConfig from "src/libs/generateAuthConfig";
         const config = generateAuthConfig("GET",req.headers.cookie||"")
         const response =await  fetch(`${jobDetailEndpoint}${slug}/`,config)
         const data = camelize(await response.json())
+        res.setHeader('Cache-Control', 'no-store')
         return res.status(response.status).json(data)
 
     }else{

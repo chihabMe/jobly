@@ -20,7 +20,7 @@ const SelectMenu = ({
     return (
         <Listbox
             as="div"
-            className="  relative w-full py-2 md:py-0 md:w-auto"
+            className="  relative w-full    "
             value={selectedField}
             onChange={setSelectedField}
         >

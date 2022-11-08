@@ -38,6 +38,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
   const finalEndpoint = `${jobSearchEndpoint}?location=${location}&query=${query}`
   const response = await fetch(finalEndpoint, config);
   const results: Job[] = await response.json();
+  console.log(config)
   if (response.status != 200) return {notFound:true};
 
   return {

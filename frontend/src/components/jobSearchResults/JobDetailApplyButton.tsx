@@ -3,26 +3,26 @@ import UseFetch from "src/hooks/use-fetch";
 import Button from "../ui/Button";
 interface Props  {
     applied :boolean ,
-    slug:string
+    slug:string,
+    updateApplied:(value:boolean)=>void,
 }
-const JobDetailApplyButton = ({slug,applied}:Props) => {
+const JobDetailApplyButton = ({slug,applied,updateApplied}:Props) => {
     const {request,status,isLoading,data}= UseFetch()
-    const [active,setActive] =  useState(applied)
     const handlerClick = ()=>{
         request("POST",`api/jobs/${slug}/apply/`)
     }
     useEffect(()=>{
-        if(!isLoading && status==200)setActive(false)
-        else if( !isLoading && status==201)setActive(true)
+        if(!isLoading && status==200) updateApplied(false)
+        else if( !isLoading && status==201) updateApplied(true)
     },[status])
   return (
     <Button
     onClick={handlerClick}
       className={` rounded-md !bg-primary !text-sm  !font-medium   px-14 text-title-dark ${
-        active && "!opacity-70 " 
+        applied && "!opacity-70 " 
       } `}
     >
-      {active ? "Cancel" : "Apply now"}
+      {applied ? "Cancel" : "Apply now"}
     </Button>
   );
 };
