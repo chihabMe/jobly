@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
+from .permissions import IsOwnerOrReadOnly
 
 from .models import Job
 from .serializers import JobsListSerailizer, JobsDetailsSerailizer
@@ -23,10 +24,6 @@ class JobsListView(generics.ListCreateAPIView):
     def get_queryset(self):
         q = self.request.GET.get("query") or ""
         location = self.request.GET.get("location") or ""
-        print("---------")
-        print(q)
-        print(location)
-        print("---------")
         queryset = super().get_queryset()
         queryset = queryset.search(query=q,location=location)
         return queryset
@@ -36,6 +33,7 @@ class JobsListView(generics.ListCreateAPIView):
 class JobsDetailsView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'slug'
     queryset = Job.objects.all()
+    permission_classes=[IsOwnerOrReadOnly]
     serializer_class = JobsDetailsSerailizer
 
 @api_view(["POST"])

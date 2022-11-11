@@ -24,6 +24,22 @@ class EmployeeProfileSerializer(serializers.ModelSerializer):
         instance.image = validated_data.get('image',instance.image)
         instance.save()
         return instance
+class CompanyProfileSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)
+    name = serializers.CharField(required=False)
+    email = serializers.CharField(source="user.email",read_only=True)
+    location = serializers.CharField(required=False,source="location.name",read_only=False)
+
+    class Meta:
+        model = CompanyProfile
+        fields = ("name", 'image','type',"email","location" )
+
+    def update(self, instance, validated_data):
+        instance.cv = validated_data.get('cv',instance.cv)
+        instance.name = validated_data.get('name',instance.name)
+        instance.image = validated_data.get('image',instance.image)
+        instance.save()
+        return instance
     
 
 
