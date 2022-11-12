@@ -13,7 +13,7 @@ const JobDetail = ({ job }: { job: Job }) => {
   const [currentJob,setCurrentJob]=useState(job)
   const updateApplied = (value:boolean)=>setCurrentJob(prev=>({...prev,applied:value}))
   return (
-    <div className="w-full   max-h-screen overflow-y-scroll sticky  top-0   rounded-md px-4 py-6 outline-2 hover:outline-primary cursor-pointer outline outline-text">
+    <div className="w-full max-w-screen-lg mx-auto md:mx-0  md:max-h-screen overflow-y-scroll sticky  top-0   rounded-md px-4 py-6 md:outline-2 md:hover:outline-primary md:cursor-pointer  outline-text ">
       {/* top */}
       <div className="flex flex-col bg-bg  sticky  top-0   dark:bg-bg-dark   py-6 gap-4">
         <div className="flex flex-col">

@@ -30,13 +30,13 @@ const SelectMenu = ({
             </Listbox.Button>
             <Listbox.Options
                 as="ul"
-                className=" bg-bg w-60 absolute   left-1/2 -translate-x-1/2 mt-10 py-2  rounded-md  max-h-52 overflow-y-scroll top-full  "
+                className=" bg-bg w-60 absolute shadow-lg   shadow-primary left-1/2 -translate-x-1/2 mt-10 py-2   rounded-md  max-h-52 overflow-y-scroll top-full  "
             >
-                {fields.map((item,index) => (
+                {fields?.map((item,index) => (
                     <Listbox.Option key={item.name+item.number.toString()} as={Fragment}  value={item}>
                         {({ active, selected }) => (
                             <li
-                                className={` ${(active || selected) && "bg-primary"
+                                className={` ${(active || selected) && "bg-primary text-title-dark"
                                     } text-title m-1 px-2 rounded-md py-2 cursor-pointer`}
                             >
                                 {item.number}  {item.name}

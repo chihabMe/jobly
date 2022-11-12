@@ -46,11 +46,11 @@ const JobSearch = ({
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
     const query = {
-      location: form.location.name,
+      location: form.location.name.toLowerCase()=="chose"?"":form.location.name,
       query: form.query,
     };
 
-    router.push(`/search?location=${form.location.name}&query=${form.query}`);
+    router.push(`/search?location=${query.location}&query=${query.query}`);
   };
   const [editing, setEditing] = useState(false);
   const changeLocation = useCallback((value: Field) => {
@@ -64,7 +64,7 @@ const JobSearch = ({
   return (
     <form
       onSubmit={submitHandler}
-      className={`w-full z-30 px-4 max-w-screen-lg  mx-auto bg-bg dark:bg-bg-dark    outline-0 ${
+      className={`w-full  px-4 max-w-screen-lg  mx-auto bg-bg dark:bg-bg-dark    outline-0 ${
         editing && ""
       }  outline outline-primary  bg-bg flex  flex-col  px-4 py-3  md:flex-row gap-4  justify-between items-center  rounded-lg`}
     >
@@ -84,7 +84,7 @@ const JobSearch = ({
         />
       </div>
 
-      <div className="my-2  w-full md:w-80 py-4 px-4 outline-1 outline-primary outline rounded-md">
+      <div className="my-2 z-10  w-full md:w-80 py-4 px-4 outline-1 outline-primary outline rounded-md">
         <SelectMenu
           value={form.location}
           changeValue={changeLocation}

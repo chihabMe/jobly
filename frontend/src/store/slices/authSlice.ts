@@ -62,7 +62,10 @@ const loadUser = createAsyncThunk("auth/loadUser", async (d,thunkApi)=>{
 const verify = createAsyncThunk("auth/verify", async (data, thunkApi) => {
     const config = generateAConfig("POST", "");
     const response = await fetch("/api/verify", config);
-    if (response.status == 200) return true;
+    if (response.status == 200){
+    thunkApi.dispatch(loadUser())
+    return true;
+    }
 
     const state:any = thunkApi.getState();
 
@@ -173,10 +176,16 @@ const authSlice = createSlice({
             //refresh
             builder.addCase(refresh.rejected, (state) => {
                 state.refreshFailed = true;
+                state.isLoading=false
             }),
-            builder.addCase(refresh.pending, (state) => { }),
+            builder.addCase(refresh.pending, (state) => { 
+
+                state.isLoading=true
+            }),
             builder.addCase(refresh.fulfilled, (state) => {
                 state.refreshFailed = false;
+                state.isLoading=false
+
             });
             //load user
             builder.addCase(loadUser.rejected, (state) => {

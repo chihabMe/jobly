@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import UseFetch from "src/hooks/use-fetch";
 import Job from "src/models/Job";
@@ -6,12 +7,17 @@ import JobDetail from "./JobDetail";
 import JobSearchResult from "./JobSearchResult";
 
 const JobSearchResults = ({ results }: { results: {next:boolean,count:number,results:Job[]} }) => {
+  const router = useRouter()
   const {results:jobs,next}= results
   const [currentJob, setCurrentJob] = useState<Job | null>(null);
   const { data, error, isLoading, request, status } = UseFetch();
   const fetchJobDetail = (slug: string) => {
+    if(window !=null && window != undefined && window  ){
+      if(currentJob&&window.innerWidth<=720)router.push(`/jobs/detail/${currentJob?.slug}`)
+    }
     if(slug!=currentJob?.slug) request("GET", `/api/jobs/${slug}/detail`);
   };
+
   useEffect(() => {
     setCurrentJob(null)
     if(jobs.length>0)fetchJobDetail(jobs[0].slug);

@@ -59,7 +59,7 @@ const Header = () => {
   }, []);
   return (
     <>
-      <div className="py-4 bg-bg dark:bg-bg-dark z-10 text-title dark:text-title-dark   sticky top-0 px-2   flex  justify-between items-center  w-full">
+      <div className="py-4 bg-bg dark:bg-bg-dark z-20 text-title dark:text-title-dark   sticky top-0 px-2   flex  justify-between items-center  w-full">
         {/* logo */}
         <div className=" text-4xl    font-bold capitalize cursor-pointer">
           <Link href="/">
@@ -75,9 +75,9 @@ const Header = () => {
         {/* */}
         <div className="flex   min-w-[100px] gap-4 items-center">
           {/* user menu  /login */}
-          <Button onClick={themeToggler} className={`p-2 !bg-bg dark:!bg-bg-dark ${theme=='light' ?'!text-title' :'!text-yellow-400'}`}>
-            {theme=='light' &&  <MoonIcon className='w-4 h-4'/>}
-            {theme!='light'  && <SunIcon className='w-4 h-4'/> }
+          <Button onClick={themeToggler} className={`!p-2 !bg-bg dark:!bg-bg-dark ${theme=='light' ?'!text-title' :'!text-yellow-700'}`}>
+            {theme=='light' &&  <MoonIcon className='w-5 h-5'/>}
+            {theme!='light'  && <SunIcon className='w-5 h-5'/> }
           </Button>
           <HeaderAuthDisplay/>
           {/* menu toggler */}

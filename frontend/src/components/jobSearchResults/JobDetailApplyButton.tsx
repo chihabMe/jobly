@@ -9,7 +9,7 @@ interface Props  {
 const JobDetailApplyButton = ({slug,applied,updateApplied}:Props) => {
     const {request,status,isLoading,data}= UseFetch()
     const handlerClick = ()=>{
-        request("POST",`api/jobs/${slug}/apply/`)
+        request("POST",`/api/jobs/${slug}/apply/`)
     }
     useEffect(()=>{
         if(!isLoading && status==200) updateApplied(false)

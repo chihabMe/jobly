@@ -7,6 +7,9 @@ import Field from "src/models/Field";
 import Job from "src/models/Job";
 import Search from "src/pages/Search/Search";
 import camelize from "camelize-ts";
+import Notification from "src/components/ui/Models/Notification";
+import Model from "src/components/ui/Models/Model";
+import Button from "src/components/ui/Button";
 
 const SearchPage = ({
   results,
@@ -16,18 +19,14 @@ const SearchPage = ({
   results: {count:number,next:boolean,results:Job[]};
   location: string;
   query: string;
-}) => {
-  return (
-    <>
-      <Search
-
-        location={location}
-        query={query}
-        results={results}
-      />
-    </>
-  );
-};
+}) => (
+  <>
+    <Search
+      location={location}
+      query={query}
+      results={results} />
+  </>
+);
 export const getServerSideProps = async (context: NextPageContext) => {
   const { query, industry, location } = context.query;
 
