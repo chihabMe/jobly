@@ -29,13 +29,21 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
     name = serializers.CharField(required=False)
     email = serializers.CharField(source="user.email",read_only=True)
     location = serializers.CharField(required=False,source="location.name",read_only=False)
+    jobs  = serializers.SerializerMethodField()
+    number_of_applied_users = serializers.SerializerMethodField()
+    type   = serializers.CharField(source='user.type')
 
     class Meta:
         model = CompanyProfile
-        fields = ("name", 'image','type',"email","location" )
+        fields = ("name", 'image','description','jobs','number_of_applied_users','number_of_employees','type',"email","location","created" )
+    def get_jobs(self,company_profile):
+        return company_profile.jobs.count()
+    def get_number_of_applied_users(self,company_profile):
+        return sum(job.applied_by.count() for job in company_profile.jobs.all())
+    
+
 
     def update(self, instance, validated_data):
-        instance.cv = validated_data.get('cv',instance.cv)
         instance.name = validated_data.get('name',instance.name)
         instance.image = validated_data.get('image',instance.image)
         instance.save()

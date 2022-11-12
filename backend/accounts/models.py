@@ -143,8 +143,10 @@ class CompanyProfile(models.Model):
                                 related_name='company_profile',
                                 on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
+    description  = models.TextField()
     image = models.ImageField(upload_to=imageFileNamer)
     created = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(max_length=300)
     updated = models.DateTimeField(auto_now=True)
     location = models.ForeignKey("locations.Location",
                                  related_name='companies',
@@ -152,6 +154,9 @@ class CompanyProfile(models.Model):
                                  on_delete=models.SET_NULL,
                                  null=True)
     number_of_employees = models.PositiveIntegerField(default=1)
+    def save(self,*args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 
 
