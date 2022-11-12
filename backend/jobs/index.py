@@ -4,4 +4,4 @@ from .models import Job
 
 # @register(Job)
 # class JobIndex(AlgoliaIndex):
-    # fields = ['title','introduction','description','location','user']
+# fields = ['title','introduction','description','location','user']

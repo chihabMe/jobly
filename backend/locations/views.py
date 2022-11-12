@@ -8,19 +8,19 @@ from .dummy import locations
 
 # Create your views here.
 
+
 @login_required
 def initializeLocations(request):
     if request.user.is_superuser:
-        i = 0 
+        i = 0
         for location in locations:
-            i+=1
+            i += 1
             id = location.get("id")
             lc = Location.objects.get(id=id)
             lc.delete()
             name = location.get("name")
-            Location.objects.create(id=id,name=name,number=id,user=request.user)
+            Location.objects.create(id=id, name=name, number=id, user=request.user)
         return HttpResponse(f"{i} locations")
-
 
 
 class LocationsView(ListAPIView):

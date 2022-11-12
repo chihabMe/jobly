@@ -8,31 +8,32 @@ User = get_user_model()
 
 
 class JobTest(TestCase):
-
     @classmethod
     def setUp(cls):
         ##user
-        username = 'username'
-        email = 'user@email.com'
-        password = 'password'
+        username = "username"
+        email = "user@email.com"
+        password = "password"
 
         user = User(email=email, username=username)
         user.set_password(password)
         user.save()
 
-        #job
-        title = 'a job title '
-        description = 'a job description '
+        # job
+        title = "a job title "
+        description = "a job description "
         salary = 12345
-        introduction = 'a job introduction '
+        introduction = "a job introduction "
         positoins = 123
 
-        job = Job(title=title,
-                  description=description,
-                  salary=salary,
-                  introduction=introduction,
-                  positions=positoins,
-                  user=user)
+        job = Job(
+            title=title,
+            description=description,
+            salary=salary,
+            introduction=introduction,
+            positions=positoins,
+            user=user,
+        )
         job.save()
 
     def test_job_title(self):

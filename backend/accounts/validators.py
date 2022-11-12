@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 
 
 def validate_file_extension(value):
-    allowed = ['pdf', 'doc']
+    allowed = ["pdf", "doc"]
     file_type = value.name.split(".")[-1]
     if file_type not in allowed:
-        raise ValidationError(u'please use a pdf or word file')
+        raise ValidationError("please use a pdf or word file")

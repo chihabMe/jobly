@@ -8,9 +8,9 @@ from accounts.models import CustomUser as User
 
 class Location(models.Model):
     name = models.CharField(max_length=200)
-    user = models.ForeignKey(User,
-                             related_name="added_locations",
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name="added_locations", on_delete=models.CASCADE
+    )
     number = models.PositiveIntegerField()
 
     def __str__(self):

@@ -7,21 +7,28 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Job',
+            name="Job",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('positions', models.IntegerField(default=1)),
-                ('slug', models.SlugField(blank=True, null=True, unique=True)),
-                ('introduction', models.CharField(max_length=500)),
-                ('description', models.TextField()),
-                ('salary', models.IntegerField(verbose_name='monthly salary')),
-                ('active', models.BooleanField(default=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("positions", models.IntegerField(default=1)),
+                ("slug", models.SlugField(blank=True, null=True, unique=True)),
+                ("introduction", models.CharField(max_length=500)),
+                ("description", models.TextField()),
+                ("salary", models.IntegerField(verbose_name="monthly salary")),
+                ("active", models.BooleanField(default=True)),
             ],
         ),
     ]

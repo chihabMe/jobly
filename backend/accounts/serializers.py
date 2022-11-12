@@ -1,7 +1,7 @@
 from pkg_resources import require
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import EmployeeProfile,CompanyProfile
+from .models import EmployeeProfile, CompanyProfile
 from .validators import validate_file_extension
 
 User = get_user_model()
@@ -9,54 +9,75 @@ User = get_user_model()
 
 class EmployeeProfileSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
-    cv = serializers.FileField(required=False,validators=[validate_file_extension])
+    cv = serializers.FileField(required=False, validators=[validate_file_extension])
     name = serializers.CharField(required=False)
-    email = serializers.CharField(source="user.email",read_only=True)
-    location = serializers.CharField(required=False,source="location.name",read_only=False)
+    email = serializers.CharField(source="user.email", read_only=True)
+    location = serializers.CharField(
+        required=False, source="location.name", read_only=False
+    )
 
     class Meta:
         model = EmployeeProfile
-        fields = ("name", 'image',"cv","email","location" )
+        fields = ("name", "image", "cv", "email", "location")
 
     def update(self, instance, validated_data):
-        instance.cv = validated_data.get('cv',instance.cv)
-        instance.name = validated_data.get('name',instance.name)
-        instance.image = validated_data.get('image',instance.image)
+        instance.cv = validated_data.get("cv", instance.cv)
+        instance.name = validated_data.get("name", instance.name)
+        instance.image = validated_data.get("image", instance.image)
         instance.save()
         return instance
+
+
 class CompanyProfileSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
     name = serializers.CharField(required=False)
-    email = serializers.CharField(source="user.email",read_only=True)
-    location = serializers.CharField(required=False,source="location.name",read_only=False)
-    jobs  = serializers.SerializerMethodField()
+    email = serializers.CharField(source="user.email", read_only=True)
+    location = serializers.CharField(
+        required=False, source="location.name", read_only=False
+    )
+    jobs = serializers.SerializerMethodField()
     number_of_applied_users = serializers.SerializerMethodField()
-    type   = serializers.CharField(source='user.type')
+    type = serializers.CharField(source="user.type")
 
     class Meta:
         model = CompanyProfile
-        fields = ("name", 'image','description','jobs','number_of_applied_users','number_of_employees','type',"email","location","created" )
-    def get_jobs(self,company_profile):
-        return company_profile.jobs.count()
-    def get_number_of_applied_users(self,company_profile):
-        return sum(job.applied_by.count() for job in company_profile.jobs.all())
-    
+        fields = (
+            "name",
+            "image",
+            "description",
+            "jobs",
+            "number_of_applied_users",
+            "number_of_employees",
+            "type",
+            "email",
+            "location",
+            "created",
+        )
 
+    def get_jobs(self, company_profile):
+        return company_profile.jobs.count()
+
+    def get_number_of_applied_users(self, company_profile):
+        return sum(job.applied_by.count() for job in company_profile.jobs.all())
 
     def update(self, instance, validated_data):
-        instance.name = validated_data.get('name',instance.name)
-        instance.image = validated_data.get('image',instance.image)
+        instance.name = validated_data.get("name", instance.name)
+        instance.image = validated_data.get("image", instance.image)
         instance.save()
         return instance
-    
 
 
 class CompanySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = CompanyProfile
-        fields = ("name", 'image', 'slug', 'description', 'number_of_employees',
-                  )
+        fields = (
+            "name",
+            "image",
+            "slug",
+            "description",
+            "number_of_employees",
+        )
+
     def get_image(self, profile):
         request = self.context.get("request")
         if profile.image:
@@ -73,12 +94,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
         fields = ("username", "email", "password", "re_password")
 
     def validate(self, attrs):
-        if (attrs.get("password") != attrs.get("re_password")):
+        if attrs.get("password") != attrs.get("re_password"):
             error = "passwords does'nt match"
-            raise serializers.ValidationError({
-                "password": error,
-                "re_password": error
-            })
+            raise serializers.ValidationError({"password": error, "re_password": error})
         return attrs
 
     def create(self, validated_data):

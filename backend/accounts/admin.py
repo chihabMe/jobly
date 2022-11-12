@@ -8,23 +8,20 @@ User = get_user_model()
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ("username", "email", "is_staff", "is_superuser",
-                    "is_active")
+    list_display = ("username", "email", "is_staff", "is_superuser", "is_active")
     search_fields = ("username", "email")
     list_filter = ("is_staff", "is_superuser", "is_active")
-
-
 
 
 @admin.register(EmployeeProfile)
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ("name", "cv", "created", "updated")
-    search_fields = ("name", )
+    search_fields = ("name",)
     list_filter = ()
 
 
 @admin.register(CompanyProfile)
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ("name", "created", "updated")
-    search_fields = ("name", )
+    search_fields = ("name",)
     list_filter = ()

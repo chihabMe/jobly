@@ -6,19 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('jobs', '0002_job_location_job_user'),
-        ('accounts', '0001_initial'),
+        ("jobs", "0002_job_location_job_user"),
+        ("accounts", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='employeeprofile',
-            name='applied_jobs',
-            field=models.ManyToManyField(related_name='applied_by', to='jobs.job'),
+            model_name="employeeprofile",
+            name="applied_jobs",
+            field=models.ManyToManyField(related_name="applied_by", to="jobs.job"),
         ),
         migrations.AddField(
-            model_name='employeeprofile',
-            name='book_marked_jobs',
-            field=models.ManyToManyField(related_name='book_marked_by', to='jobs.job'),
+            model_name="employeeprofile",
+            name="book_marked_jobs",
+            field=models.ManyToManyField(related_name="book_marked_by", to="jobs.job"),
         ),
     ]

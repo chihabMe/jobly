@@ -5,12 +5,15 @@ from rest_framework import generics
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.parsers import MultiPartParser,FormParser
-from accounts.models import Employee, EmployeeProfile,CompanyProfile
+from rest_framework.parsers import MultiPartParser, FormParser
+from accounts.models import Employee, EmployeeProfile, CompanyProfile
 from accounts.permissions import IsProfileOwner
 
-from .serializers import (CompanyProfileSerializer, EmployeeProfileSerializer,
-                          RegistrationSerializer)
+from .serializers import (
+    CompanyProfileSerializer,
+    EmployeeProfileSerializer,
+    RegistrationSerializer,
+)
 
 
 User = get_user_model()
@@ -36,30 +39,30 @@ class RegistrationView(generics.CreateAPIView):
 #             return Response(status=status.HTTP_404_NOT_FOUND)
 #         return super().retrieve(request,*args, **kwargs)
 
-#class based view that handles (company/employee  base on the user type attr )
+# class based view that handles (company/employee  base on the user type attr )
 class CurrentUserProfileView(generics.RetrieveUpdateAPIView):
     # queryset = EmployeeProfile.objects.all()
-    permission_classes=[IsProfileOwner]
-    parser_classes = [MultiPartParser,FormParser]
+    permission_classes = [IsProfileOwner]
+    parser_classes = [MultiPartParser, FormParser]
 
-    def get_serializer_class(self,*args, **kwargs):
-        #checking for the user type and returning a proper serializer to handle it 
+    def get_serializer_class(self, *args, **kwargs):
+        # checking for the user type and returning a proper serializer to handle it
         if self.request.user.type == User.Types.COMPANY:
             return CompanyProfileSerializer
-        return  EmployeeProfileSerializer
+        return EmployeeProfileSerializer
+
     def get_queryset(self):
-        #checking for the user type and returning a  profiles query sets based for each type   
+        # checking for the user type and returning a  profiles query sets based for each type
         if self.request.user.type == User.Types.COMPANY:
             qs = CompanyProfile.objects.all()
         else:
-            qs =  EmployeeProfile.objects.all()
+            qs = EmployeeProfile.objects.all()
         return qs
+
     def get_object(self):
-        #getting the current authenticated profile by using the user attr
-        obj = get_object_or_404(self.get_queryset(),user=self.request.user) 
-        #checking for permissions 
+        # getting the current authenticated profile by using the user attr
+        obj = get_object_or_404(self.get_queryset(), user=self.request.user)
+        # checking for permissions
         obj = self.get_queryset().get(user=self.request.user)
-        self.check_object_permissions(self.request,obj)
+        self.check_object_permissions(self.request, obj)
         return obj
-
-

@@ -1,5 +1,8 @@
-from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
-                                        PermissionsMixin)
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -10,13 +13,12 @@ from PIL import Image
 from .validators import validate_file_extension
 
 
-#from locations.models import Location
+# from locations.models import Location
 
 
-#from employees.models import Employee
+# from employees.models import Employee
 # Create your models here.
 class CustomManager(BaseUserManager):
-
     def create_user(self, email, username, password, *args, **kwargs):
         if not username:
             raise ValueError("the username is required")
@@ -43,36 +45,32 @@ class CustomManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-
     class Types(models.TextChoices):
-        EMPLOYEE = "EMPLOYEE", 'Employee'
+        EMPLOYEE = "EMPLOYEE", "Employee"
         COMPANY = "COMPANY", "Company"
 
-    type = models.CharField(max_length=100,
-                            default=Types.EMPLOYEE,
-                            choices=Types.choices)
+    type = models.CharField(
+        max_length=100, default=Types.EMPLOYEE, choices=Types.choices
+    )
     email = models.EmailField(null=False, blank=False, unique=True)
-    username = models.CharField(max_length=140,
-                                null=False,
-                                blank=False,
-                                unique=True)
+    username = models.CharField(max_length=140, null=False, blank=False, unique=True)
     is_active = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
 
     objects = CustomManager()
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
     class Meta:
-        verbose_name = ("user")
+        verbose_name = "user"
 
 
 class EmployeeManager(BaseUserManager):
-
     def get_queryset(self, *args, **kwargs):
-        return super().get_queryset(
-            *args, **kwargs).filter(type=CustomUser.Types.EMPLOYEE)
+        return (
+            super().get_queryset(*args, **kwargs).filter(type=CustomUser.Types.EMPLOYEE)
+        )
 
 
 class Employee(CustomUser):
@@ -93,38 +91,45 @@ def imageFileNamer(instance, filename):
 
 class EmployeeProfile(models.Model):
 
-    user = models.OneToOneField(CustomUser,
-                                related_name='employee_profile',
-                                on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        CustomUser, related_name="employee_profile", on_delete=models.CASCADE
+    )
     name = models.CharField(max_length=250)
-    image = models.ImageField(upload_to=imageFileNamer,null=True,blank=True)
+    image = models.ImageField(upload_to=imageFileNamer, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    book_marked_jobs = models.ManyToManyField("jobs.Job",blank=True,null=True,related_name='book_marked_by')
-    applied_jobs = models.ManyToManyField("jobs.Job",blank=True,null=True,related_name='applied_by')
+    book_marked_jobs = models.ManyToManyField(
+        "jobs.Job", blank=True, null=True, related_name="book_marked_by"
+    )
+    applied_jobs = models.ManyToManyField(
+        "jobs.Job", blank=True, null=True, related_name="applied_by"
+    )
     updated = models.DateTimeField(auto_now=True)
-    location = models.ForeignKey('locations.Location',
-                                 related_name='employees',
-                                 default=15,
-                                 on_delete=models.SET_NULL,
-                                 null=True)
-    cv = models.FileField(upload_to=cvFileNamer,
-                          null=True,
-                          blank=True,
-                          validators=[validate_file_extension])
-    def save(self,*args, **kwargs):
+    location = models.ForeignKey(
+        "locations.Location",
+        related_name="employees",
+        default=15,
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    cv = models.FileField(
+        upload_to=cvFileNamer,
+        null=True,
+        blank=True,
+        validators=[validate_file_extension],
+    )
+
+    def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.image:
             print(self.image.path)
             img = Image.open(self.image.path)
-            if img.height >400 or img.width>400:
-                new_size = (400,400)
+            if img.height > 400 or img.width > 400:
+                new_size = (400, 400)
                 img.thumbnail(new_size)
                 img.save(self.image.path)
 
 
-
 class CompanyManager(BaseUserManager):
-
     def get_queryset(self):
         return super().get_queryset().filter(type=CustomUser.Types.COMPANY)
 
@@ -139,26 +144,27 @@ class Company(CustomUser):
 
 class CompanyProfile(models.Model):
 
-    user = models.OneToOneField(CustomUser,
-                                related_name='company_profile',
-                                on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        CustomUser, related_name="company_profile", on_delete=models.CASCADE
+    )
     name = models.CharField(max_length=250)
-    description  = models.TextField()
+    description = models.TextField()
     image = models.ImageField(upload_to=imageFileNamer)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=300)
     updated = models.DateTimeField(auto_now=True)
-    location = models.ForeignKey("locations.Location",
-                                 related_name='companies',
-                                 default=15,
-                                 on_delete=models.SET_NULL,
-                                 null=True)
+    location = models.ForeignKey(
+        "locations.Location",
+        related_name="companies",
+        default=15,
+        on_delete=models.SET_NULL,
+        null=True,
+    )
     number_of_employees = models.PositiveIntegerField(default=1)
-    def save(self,*args, **kwargs):
+
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
-
-
 
 
 @receiver(post_save, sender=CustomUser)

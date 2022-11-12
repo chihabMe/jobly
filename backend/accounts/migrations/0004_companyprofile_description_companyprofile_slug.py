@@ -6,19 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0003_alter_employeeprofile_applied_jobs_and_more'),
+        ("accounts", "0003_alter_employeeprofile_applied_jobs_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='companyprofile',
-            name='description',
+            model_name="companyprofile",
+            name="description",
             field=models.TextField(default=1),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='companyprofile',
-            name='slug',
+            model_name="companyprofile",
+            name="slug",
             field=models.SlugField(default=1, max_length=300),
             preserve_default=False,
         ),
