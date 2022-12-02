@@ -5,11 +5,10 @@ import Header from "src/components/layout/Header/Header";
 import generateAuthConfig from "src/libs/generateAuthConfig";
 import Field from "src/models/Field";
 import Job from "src/models/Job";
-import Search from "src/pages/Search/Search";
 import camelize from "camelize-ts";
-import Notification from "src/components/ui/Models/Notification";
-import Model from "src/components/ui/Models/Model";
 import Button from "src/components/ui/Button";
+import Head from "next/head";
+import Search from "src/pages/Search/Search";
 
 const SearchPage = ({
   results,
@@ -21,6 +20,9 @@ const SearchPage = ({
   query: string;
 }) => (
   <>
+    <Head>
+      <title> {query} jobs in {location } </title>
+    </Head>
     <Search
       location={location}
       query={query}

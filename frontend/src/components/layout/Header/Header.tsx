@@ -54,8 +54,8 @@ const Header = () => {
     }
   }, []);
   useEffect(() => {
-    dispatch(authActions.verify());
-    dispatch(authActions.loadUser());
+    // dispatch(authActions.verify());
+    // dispatch(authActions.loadUser());
   }, []);
   return (
     <>

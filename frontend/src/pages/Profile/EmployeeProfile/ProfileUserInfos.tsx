@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { useSelector } from "react-redux";
 import User from "src/models/User";
-import ProfileTitle from "./ProfileTitle";
+import ProfileTitle from "../ProfileTitle";
 
 const ProfileUserInfos = ({user}:{user:User}) => {
 

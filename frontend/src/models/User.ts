@@ -5,6 +5,7 @@
     slug:string;
     image:string;
     cv:string;
+    type:"COMPANY"|"EMPLOYEE";
     location:string;
     phone:string;
     appliedCount:number;

@@ -1,6 +1,6 @@
 import React from 'react'
 import User from 'src/models/User'
-import ProfileTitle from './ProfileTitle';
+import ProfileTitle from '../ProfileTitle'
 import {BriefcaseIcon,FaceFrownIcon} from '@heroicons/react/24/solid'
 
 const JobSeeking = ({user}:{user:User}) => {

@@ -2,15 +2,17 @@ import React from 'react'
 import Image from 'next/image'
 import ProfileUserInfos from './ProfileUserInfos'
 import Button from 'src/components/ui/Button'
-import ProfileTitle from './ProfileTitle'
+import ProfileTitle from '../ProfileTitle'
 import ProfileResume from './ProfileResume'
 import ProfileImage from './ProfileImage'
 import JobSeeking from './JobSeeking'
 import PageIsLoading from 'src/components/ui/PageIsLoading'
 import useAppSelector from 'src/hooks/useAppSelector'
+import { useGetProfileQuery } from 'src/store/features/profileApi'
 
-const Profile = () => {
-    const {user,isLoading} = useAppSelector(state=>state.auth)
+const EmployeeProfile = () => {
+    // const {user,isLoading} = useAppSelector(state=>state.auth)
+    const {isError,isLoading,data:user} = useGetProfileQuery()
     if(isLoading || !user)return <PageIsLoading/> 
   return (
     <div className='w-full px-2  py-10'>
@@ -27,4 +29,4 @@ const Profile = () => {
   )
 }
 
-export default Profile
+export default EmployeeProfile;

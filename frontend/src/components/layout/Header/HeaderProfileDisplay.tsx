@@ -62,7 +62,7 @@ const HeaderProfileDisplay = ({ user }: { user: User }) => {
             >
               <Menu.Item>
                 <h1 className="px-2 pt-1 pb-4 cursor-pointer  font-bold text-title dark:text-title-dark">
-                  chihab@email.com
+                  {user.email}
                 </h1>
               </Menu.Item>
               {profileLinks.map((item, index) => (

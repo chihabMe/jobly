@@ -9,10 +9,12 @@ import Button from "src/components/ui/Button";
 import PageIsLoading from "src/components/ui/PageIsLoading";
 import UseFetch from "src/hooks/use-fetch";
 import User from "src/models/User";
-import ProfileTitle from "./ProfileTitle";
+import { useUploadCvMutation } from "src/store/features/profileApi";
+import ProfileTitle from "../ProfileTitle";
 
 const ProfileResume = ({ user }: { user: User }) => {
-  const { isLoading, data, error, request, status } = UseFetch();
+  const [uploadCv, { isLoading, isError }] = useUploadCvMutation();
+  // const { isLoading, data, error, request, status } = UseFetch();
   const uploadInput = useRef<HTMLInputElement>(null);
   const [resume, setResume] = useState<any>("");
   const [selected, setSelected] = useState(false);
@@ -22,7 +24,10 @@ const ProfileResume = ({ user }: { user: User }) => {
   const updateResume = () => {
     const formData = new FormData();
     formData.set("cv", resume);
-    request("PUT", "/api/profile/update", formData, null);
+    // request("PUT", "/api/profile/update", formData, null);
+    try {
+      uploadCv(formData).unwrap();
+    } catch {}
     setSelected(false);
   };
   const uploadClickHandler = () => {
