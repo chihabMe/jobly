@@ -13,8 +13,6 @@ import PageIsLoading from "../ui/PageIsLoading";
 
 const JobDetail = ({ slug }: { slug:string}) => {
   const {isError,isLoading,data:job} = useGetJobDetailQuery(slug)
-  // const [currentJob,setCurrentJob]=useState(job)
-  // const updateApplied = (value:boolean)=>setCurrentJob(prev=>({...prev,applied:value}))
   if(isLoading) return <PageIsLoading />
   if(!isLoading && isError )<h1>error</h1>
   if(!job)return <h1>error</h1>
@@ -35,7 +33,7 @@ const JobDetail = ({ slug }: { slug:string}) => {
         </div>
         <div className="flex items-center   gap-2">
           <div className="">
-            {/* <JobDetailApplyButton updateApplied={updateApplied} applied={currentJob.applied} slug={currentJob.slug}/> */}
+            <JobDetailApplyButton applied={job.applied} slug={slug}/>
           </div>
           <div>
             <Button
