@@ -8,7 +8,7 @@ import ProfileImage from './ProfileImage'
 import JobSeeking from './JobSeeking'
 import PageIsLoading from 'src/components/ui/PageIsLoading'
 import useAppSelector from 'src/hooks/useAppSelector'
-import { useGetProfileQuery } from 'src/store/features/profileApi'
+import { useGetProfileQuery } from 'src/store/features/employeeProfileApi'
 
 const EmployeeProfile = () => {
     // const {user,isLoading} = useAppSelector(state=>state.auth)

@@ -8,8 +8,9 @@
     type:"COMPANY"|"EMPLOYEE";
     location:string;
     phone:string;
-    appliedCount:number;
-    rejectedCount:number;
+    appliedJobs:number;
+    rejectedJobs:number;
+    bookMarkedJobs:number;
 
 }
 export default  User;

@@ -1,7 +1,7 @@
 import React from 'react'
 import User from 'src/models/User'
 import ProfileTitle from '../ProfileTitle'
-import {BriefcaseIcon,FaceFrownIcon} from '@heroicons/react/24/solid'
+import {BriefcaseIcon,BookmarkIcon,FaceFrownIcon} from '@heroicons/react/24/solid'
 
 const JobSeeking = ({user}:{user:User}) => {
   return (
@@ -16,15 +16,15 @@ const JobSeeking = ({user}:{user:User}) => {
                     <BriefcaseIcon className='w-4 h-4 text-primary'/>
                  applied jobs
             </span>
-            <span>{user?.appliedCount||0}</span>
+            <span>{user?.appliedJobs||0}</span>
           </li>
 
           <li className="flex gap-2 items-center">
             <span   className='flex gap-2 items-center'>
-                    <FaceFrownIcon className='w-4 h-4  text-red-500 '/>
-                rejected jobs
+                    <BookmarkIcon className='w-4 h-4  text-yellow-900 '/>
+                bookmarked jobs
             </span>
-            <span className=''>{user?.rejectedCount||0}</span>
+            <span className=''>{user?.bookMarkedJobs||0}</span>
           </li>
 
         </ul>

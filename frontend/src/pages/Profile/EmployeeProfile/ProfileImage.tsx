@@ -12,7 +12,7 @@ import UseFetch from "src/hooks/use-fetch";
 import PageIsLoading from "src/components/ui/PageIsLoading";
 import { authActions } from "src/store/slices/authSlice";
 import useAppDispatch from "src/hooks/useAppDispatch";
-import { useChangeProfileImageMutation } from "src/store/features/profileApi";
+import { useChangeProfileImageMutation } from "src/store/features/employeeProfileApi";
 
 const ProfileImage = ({ user }: { user: User }) => {
   const [changeProfile,{isError,isLoading}]=useChangeProfileImageMutation()

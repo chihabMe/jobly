@@ -18,8 +18,12 @@ import Button from "@material-tailwind/react/components/Button";
 
 const profileLinks = [
   { href: "/profile", text: "profile", Icon: UserCircleIcon, id: 1 },
-  { href: "/profile", text: "resume", Icon: DocumentIcon, id: 2 },
-  { href: "/search?location=&&query=", text: "jobs", Icon: BriefcaseIcon, id: 3 },
+  {
+    href: "/search?location=&&query=",
+    text: "jobs",
+    Icon: BriefcaseIcon,
+    id: 3,
+  },
   { href: "/settings", text: "settings", Icon: CogIcon, id: 4 },
 ];
 
@@ -68,20 +72,16 @@ const HeaderProfileDisplay = ({ user }: { user: User }) => {
               {profileLinks.map((item, index) => (
                 <Menu.Item key={index} as={Fragment}>
                   {({ active }) => (
-                      <li
-                        className={`w-full py-2 px-2  text-title dark:text-title-dark      ${
-                          index < profileLinks.length - 1
-                            ? "hover:!text-primary"
-                            : "hover:!text-red-400"
-                        } cursor-pointer rounded-md `}
-                      >
-                        <Link className="" href={item.href}>
-                          <div className="capitalize md:text-lg  flex gap-4 items-center">
-                            {<item.Icon className="h-4 w-4 sm:w-5 sm:h-5" />}
-                            <span>{item.text}</span>
-                          </div>
-                        </Link>
-                      </li>
+                    <li
+                      className={`w-full py-2 px-2  text-title dark:text-title-dark   hover:!text-primary cursor-pointer rounded-md `}
+                    >
+                      <Link className="" href={item.href}>
+                        <div className="capitalize md:text-lg  flex gap-4 items-center">
+                          {<item.Icon className="h-4 w-4 sm:w-5 sm:h-5" />}
+                          <span>{item.text}</span>
+                        </div>
+                      </Link>
+                    </li>
                   )}
                 </Menu.Item>
               ))}
