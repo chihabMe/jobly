@@ -5,7 +5,7 @@ from rest_framework import generics
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser,JSONParser
 from accounts.models import Employee, EmployeeProfile, CompanyProfile
 from accounts.permissions import IsProfileOwner
 
@@ -43,7 +43,7 @@ class RegistrationView(generics.CreateAPIView):
 class CurrentUserProfileView(generics.RetrieveUpdateAPIView):
     # queryset = EmployeeProfile.objects.all()
     permission_classes = [IsProfileOwner]
-    parser_classes = [MultiPartParser, FormParser]
+    parser_classes = [MultiPartParser, FormParser,JSONParser]
 
     def get_serializer_class(self, *args, **kwargs):
         # checking for the user type and returning a proper serializer to handle it

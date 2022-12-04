@@ -11,15 +11,34 @@ const extendedApiSlice = apiSlice.injectEndpoints({
         return camelize(response);
       },
     }),
-    changePhoneNumber:builder.mutation({
-        invalidatesTags:["Profile"],
-        query:(phoneNumber:string)=>({
-            url:"/profile/update",
-            method:"PUT",
-            body:{phone:phoneNumber}
-        }),
-    })
+    updateCompanyProfile: builder.mutation({
+      invalidatesTags: ["Profile"],
+      query: ({
+        phone,
+        name,
+        website,
+        description,
+        numberOfEmployees,
+      }: {
+        phone: string;
+        name: string;
+        numberOfEmployees: number;
+        website: string;
+        description: string;
+      }) => ({
+        url: "/profile/update",
+        method: "PUT",
+        body: {
+          phone,
+          name,
+          website,
+          description,
+          number_of_employees:numberOfEmployees,
+        },
+      }),
+    }),
   }),
 });
 
-export const {useGetProfileQuery,useChangePhoneNumberMutation} = extendedApiSlice
+export const { useGetProfileQuery, useUpdateCompanyProfileMutation } =
+  extendedApiSlice;

@@ -12,9 +12,9 @@ const Controller = ({
   error?: string[];
 }) => {
   return (
-    <div className="flex flex-col gap-1 w-full    ">
+    <div className="flex flex-col gap-2 w-full    ">
       <label
-        className="capitalize font-medium text-base text-title"
+        className="capitalize font-medium text-base text-title dark:text-title-dark"
         htmlFor={htmlFor}
       >
         {text} :

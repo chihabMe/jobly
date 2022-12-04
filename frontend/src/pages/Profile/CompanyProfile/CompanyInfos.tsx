@@ -8,10 +8,6 @@ const CompanyInfos = ({ profile }: { profile: CompanyUser }) => {
       <ProfileTitle>about us</ProfileTitle>
       <p className="text-title dark:text-title-dark font-medium text-base ">
         {profile.description}
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit qui
-        veniam cumque sapiente vel maxime quas nulla, ipsam commodi
-        exercitationem delectus ullam officiis harum dolor? Deserunt excepturi
-        consequuntur quasi repellat?
       </p>
 
       <div className="flex justify-between items-center">

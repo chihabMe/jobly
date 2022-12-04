@@ -157,7 +157,9 @@ class CompanyProfile(models.Model):
     slug = models.SlugField(max_length=300)
     updated = models.DateTimeField(auto_now=True)
     phone = PhoneNumberField(region="DZ",blank=True,null=True)
+    website = models.URLField(null=True,blank=True)
     location = models.ForeignKey(
+        
         "locations.Location",
         related_name="companies",
         default=15,

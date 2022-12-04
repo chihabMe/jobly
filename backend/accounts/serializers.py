@@ -58,6 +58,7 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
             "name",
             "image",
             "rating",
+            "website",
             "number_of_raters",
             "description",
             "phone",
@@ -84,9 +85,14 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
     def get_number_of_applied_users(self, company_profile):
         return sum(job.applied_by.count() for job in company_profile.jobs.all())
 
-    def update(self, instance, validated_data):
+    def update(self, instance : CompanyProfile, validated_data):
         instance.name = validated_data.get("name", instance.name)
         instance.image = validated_data.get("image", instance.image)
+        instance.description = validated_data.get("description", instance.description)
+        instance.website = validated_data.get("website", instance.website)
+        instance.number_of_employees = validated_data.get("number_of_employees", instance.number_of_employees)
+        instance.phone = validated_data.get("phone", instance.phone)
+
         instance.save()
         return instance
 
