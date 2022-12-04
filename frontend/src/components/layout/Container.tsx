@@ -10,7 +10,7 @@ const Container: React.FC<{ children: ReactNode }> = ({ children }) => {
     dispatch(authActions.verify())
   },[])
   return (
-      <div className="mx-auto max-w-screen-xl  ">{children}</div>
+      <div className="mx-auto max-w-screen-xl   ">{children}</div>
   
   )};
 

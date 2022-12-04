@@ -11,15 +11,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         return camelize(response)
       }
     }),
-    changeProfileImage: builder.mutation({
-      invalidatesTags: ["Profile"],
-      query: (data: FormData) => ({
-        url: "/profile/update",
-        method: "PUT",
-        body: data,
-
-      }),
-    }),
     uploadCv: builder.mutation({
       query: (data:FormData) => ({
         url: "/profile/update",
@@ -30,5 +21,5 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetProfileQuery, useUploadCvMutation,useChangeProfileImageMutation } =
+export const { useGetProfileQuery, useUploadCvMutation } =
   extendedApiSlice;

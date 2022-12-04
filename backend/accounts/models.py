@@ -9,6 +9,7 @@ from django.dispatch import receiver
 from django.forms import SlugField
 from django.utils.text import slugify
 from PIL import Image
+from phonenumber_field.modelfields import PhoneNumberField
 
 from .validators import validate_file_extension
 
@@ -97,6 +98,7 @@ class EmployeeProfile(models.Model):
     name = models.CharField(max_length=250)
     image = models.ImageField(upload_to=imageFileNamer, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
+    phone = PhoneNumberField(region="DZ",blank=True,null=True)
     book_marked_jobs = models.ManyToManyField(
         "jobs.Job", blank=True, null=True, related_name="book_marked_by"
     )
@@ -117,7 +119,8 @@ class EmployeeProfile(models.Model):
         blank=True,
         validators=[validate_file_extension],
     )
-
+    def __str__(self):
+        return self.name
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.image:
@@ -141,18 +144,19 @@ class Company(CustomUser):
     class Meta:
         proxy = True
 
-
 class CompanyProfile(models.Model):
 
     user = models.OneToOneField(
         CustomUser, related_name="company_profile", on_delete=models.CASCADE
     )
+    phone = ()
     name = models.CharField(max_length=250)
-    description = models.TextField()
+    description = models.TextField(blank=True,null=True)
     image = models.ImageField(upload_to=imageFileNamer)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=300)
     updated = models.DateTimeField(auto_now=True)
+    phone = PhoneNumberField(region="DZ",blank=True,null=True)
     location = models.ForeignKey(
         "locations.Location",
         related_name="companies",
@@ -162,10 +166,19 @@ class CompanyProfile(models.Model):
     )
     number_of_employees = models.PositiveIntegerField(default=1)
 
+    def __str__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
+class CompanyRate(models.Model):
+    rate = models.PositiveIntegerField(default=1)
+    rater = models.ForeignKey(EmployeeProfile,related_name="rated_companies",on_delete=models.CASCADE)
+    rated_company=models.ForeignKey(CompanyProfile,related_name="rates",on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.rater)+"_"+str(self.rate)+"_"+str(self.rated_company)
 
 @receiver(post_save, sender=CustomUser)
 def crate_a_profile(sender, instance, created, **kwargs):

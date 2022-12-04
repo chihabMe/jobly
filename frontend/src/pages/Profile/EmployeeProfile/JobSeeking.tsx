@@ -2,8 +2,9 @@ import React from 'react'
 import User from 'src/models/User'
 import ProfileTitle from '../ProfileTitle'
 import {BriefcaseIcon,BookmarkIcon,FaceFrownIcon} from '@heroicons/react/24/solid'
+import EmployeeUser from 'src/models/EmployeeUser'
 
-const JobSeeking = ({user}:{user:User}) => {
+const JobSeeking = ({profile}:{profile:EmployeeUser}) => {
   return (
     <>
       <ProfileTitle>job seeking </ProfileTitle>
@@ -16,7 +17,7 @@ const JobSeeking = ({user}:{user:User}) => {
                     <BriefcaseIcon className='w-4 h-4 text-primary'/>
                  applied jobs
             </span>
-            <span>{user?.appliedJobs||0}</span>
+            <span>{profile?.appliedJobs||0}</span>
           </li>
 
           <li className="flex gap-2 items-center">
@@ -24,7 +25,7 @@ const JobSeeking = ({user}:{user:User}) => {
                     <BookmarkIcon className='w-4 h-4  text-yellow-900 '/>
                 bookmarked jobs
             </span>
-            <span className=''>{user?.bookMarkedJobs||0}</span>
+            <span className=''>{profile?.bookMarkedJobs||0}</span>
           </li>
 
         </ul>

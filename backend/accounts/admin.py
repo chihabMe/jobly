@@ -1,4 +1,4 @@
-from accounts.models import CompanyProfile, EmployeeProfile
+from accounts.models import CompanyProfile, EmployeeProfile,CompanyRate
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 
@@ -25,3 +25,5 @@ class CompanyAdmin(admin.ModelAdmin):
     list_display = ("name", "created", "updated")
     search_fields = ("name",)
     list_filter = ()
+
+admin.site.register(CompanyRate)

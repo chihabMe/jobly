@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {
-  DocumentIcon,
+  PlusIcon,
   BriefcaseIcon,
   CogIcon,
   UserCircleIcon,

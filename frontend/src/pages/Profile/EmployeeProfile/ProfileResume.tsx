@@ -8,11 +8,12 @@ import React, {
 import Button from "src/components/ui/Button";
 import PageIsLoading from "src/components/ui/PageIsLoading";
 import UseFetch from "src/hooks/use-fetch";
+import EmployeeUser from "src/models/EmployeeUser";
 import User from "src/models/User";
 import { useUploadCvMutation } from "src/store/features/employeeProfileApi";
 import ProfileTitle from "../ProfileTitle";
 
-const ProfileResume = ({ user }: { user: User }) => {
+const ProfileResume = ({ profile }: { profile: EmployeeUser }) => {
   const [uploadCv, { isLoading, isError }] = useUploadCvMutation();
   // const { isLoading, data, error, request, status } = UseFetch();
   const uploadInput = useRef<HTMLInputElement>(null);
@@ -59,7 +60,7 @@ const ProfileResume = ({ user }: { user: User }) => {
         className={`  w-full    capitalize h-10 md:h-18    font-bold      `}
         text=""
       >
-        {!isLoading && (user?.cv ? "update your resume" : "upload your cv")}
+        {!isLoading && (profile?.cv ? "update your resume" : "upload your cv")}
         {isLoading && <PageIsLoading />}
       </Button>
     </>

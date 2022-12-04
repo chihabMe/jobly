@@ -11,7 +11,7 @@ module.exports = withMT({
         "text": "#7f7979",
         "text-dark": "#adadad",
         "title-dark": "#e8e5e5",
-        primary: "#2563EB",
+        primary: "#3b7cdd",
         secondary: "#ff7849",
         'bg-dark': "#1C1F20",
         bg:"#f7f7f7",

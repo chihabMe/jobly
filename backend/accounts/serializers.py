@@ -9,16 +9,27 @@ User = get_user_model()
 
 class EmployeeProfileSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
-    cv = serializers.FileField(required=False, validators=[validate_file_extension])
+    cv = serializers.FileField(required=False, validators=[
+                               validate_file_extension])
     name = serializers.CharField(required=False)
     email = serializers.CharField(source="user.email", read_only=True)
+    type = serializers.CharField(source="user.type", read_only=True)
     location = serializers.CharField(
         required=False, source="location.name", read_only=False
     )
+    applied_jobs = serializers.SerializerMethodField(read_only=True)
+    book_marked_jobs = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = EmployeeProfile
-        fields = ("name", "image", "cv", "email", "location")
+        fields = ("name", "image", "phone", "book_marked_jobs",
+                  "applied_jobs", "type", "cv", "email", "location")
+
+    def get_applied_jobs(self, profile):
+        return profile.applied_jobs.count()
+
+    def get_book_marked_jobs(self, profile):
+        return profile.book_marked_jobs.count()
 
     def update(self, instance, validated_data):
         instance.cv = validated_data.get("cv", instance.cv)
@@ -37,14 +48,19 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
     )
     jobs = serializers.SerializerMethodField()
     number_of_applied_users = serializers.SerializerMethodField()
-    type = serializers.CharField(source="user.type")
+    rating = serializers.SerializerMethodField()
+    number_of_raters = serializers.SerializerMethodField()
+    type = serializers.CharField(source="user.type", read_only=True)
 
     class Meta:
         model = CompanyProfile
         fields = (
             "name",
             "image",
+            "rating",
+            "number_of_raters",
             "description",
+            "phone",
             "jobs",
             "number_of_applied_users",
             "number_of_employees",
@@ -53,6 +69,14 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
             "location",
             "created",
         )
+
+    def get_number_of_raters(self, company_profile):
+        return company_profile.rates.count()
+    def get_rating(self, company_profile):
+        total = sum(rate.rate for rate in company_profile.rates.all())
+        res =  total/company_profile.rates.count()
+        return float(format(res,".1f"))
+
 
     def get_jobs(self, company_profile):
         return company_profile.jobs.count()
@@ -96,7 +120,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         if attrs.get("password") != attrs.get("re_password"):
             error = "passwords does'nt match"
-            raise serializers.ValidationError({"password": error, "re_password": error})
+            raise serializers.ValidationError(
+                {"password": error, "re_password": error})
         return attrs
 
     def create(self, validated_data):

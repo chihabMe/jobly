@@ -12,17 +12,15 @@ import { useGetProfileQuery } from 'src/store/features/employeeProfileApi'
 
 const EmployeeProfile = () => {
     // const {user,isLoading} = useAppSelector(state=>state.auth)
-    const {isError,isLoading,data:user} = useGetProfileQuery()
-    if(isLoading || !user)return <PageIsLoading/> 
+    const {isError,isLoading,data:profile} = useGetProfileQuery()
+    if(isLoading || !profile)return <PageIsLoading/> 
   return (
     <div className='w-full px-2  py-10'>
         <div className='max-w-xl  mx-auto flex flex-col gap-4  px-2'>
-            <ProfileImage user={user} />
-            <ProfileUserInfos user={user}/>
-            <ProfileResume user={user} />
-            <JobSeeking user={user}/>
-
-
+            <ProfileImage user={profile} />
+            <ProfileUserInfos profile={profile}/>
+            <ProfileResume profile={profile} />
+            <JobSeeking profile={profile}/>
         </div>
 
     </div>

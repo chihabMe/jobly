@@ -7,10 +7,11 @@ import {
 } from "@heroicons/react/24/solid";
 import React from "react";
 import { useSelector } from "react-redux";
+import EmployeeUser from "src/models/EmployeeUser";
 import User from "src/models/User";
 import ProfileTitle from "../ProfileTitle";
 
-const ProfileUserInfos = ({user}:{user:User}) => {
+const ProfileUserInfos = ({profile}:{profile:EmployeeUser}) => {
 
   return (
     <>
@@ -22,35 +23,35 @@ const ProfileUserInfos = ({user}:{user:User}) => {
             <span className="w-4 h-4">
               <UserIcon className="text-primary" />
             </span>
-            <span>{user?.name}</span>
+            <span>{profile?.name}</span>
           </li>
 
           <li className="flex gap-2 items-center">
             <span className="w-4 h-4">
               <EnvelopeIcon className="text-primary" />
             </span>
-            <span>{user?.email || "admin@email.com"}</span>
+            <span>{profile?.email || "admin@email.com"}</span>
           </li>
 
           <li className="flex gap-2 items-center">
             <span className="w-4 h-4">
               <PhoneIcon className="text-primary" />
             </span>
-            <span>{user?.phone || 1231232}</span>
+            <span>{profile?.phone || 1231232}</span>
           </li>
 
           <li className="flex gap-2 items-center">
             <span className="w-4 h-4">
               <MapPinIcon className="text-primary" />
             </span>
-            <span>{user?.location || "algeria"}</span>
+            <span>{profile?.location || "algeria"}</span>
           </li>
-{user?.cv &&
+{profile?.cv &&
           <li className="flex gap-2 items-center">
             <span className="w-4 h-4">
               <DocumentIcon className="text-primary" />
             </span>
-            <span className="hover:text-primary"> <a href={`${user?.cv}`} className=' text-bold uppercase underline '>cv</a></span>
+            <span className="hover:text-primary"> <a href={`${profile?.cv}`} className=' text-bold uppercase underline '>cv</a></span>
           </li>
 }
         </ul>

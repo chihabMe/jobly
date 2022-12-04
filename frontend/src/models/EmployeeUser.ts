@@ -1,5 +1,6 @@
+import User from "./User";
 
-interface EmployeeUser{
+interface EmployeeUser extends User{
     name: string;
     email: string;
     slug:string;
