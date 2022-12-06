@@ -13,7 +13,6 @@ const ProfilePage = () => {
         <Head>
           <title>{user?.name} profile</title>
         </Head>
-        <h1 className="text-white">{user?.type}</h1>
         {user && user?.type == "EMPLOYEE" && <EmployeeProfile />}
         {user && user?.type == "COMPANY" && <CompanyProfile />}
       </ProtectedRoute>
