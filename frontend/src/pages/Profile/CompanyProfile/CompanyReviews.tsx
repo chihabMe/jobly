@@ -3,7 +3,7 @@ import ReviewItem from './ReviewItem'
 
 const CompanyReviews = () => {
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='gap-4 grid grid-cols-1 sm:grid-cols-2 '>
       <ReviewItem/>
       <ReviewItem/>
       <ReviewItem/>
