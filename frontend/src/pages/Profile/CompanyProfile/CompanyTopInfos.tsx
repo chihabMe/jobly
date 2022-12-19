@@ -2,8 +2,12 @@ import React from "react";
 import Image from "next/image";
 import CompanyUser from "src/models/CompanyUser";
 import { StarIcon } from "@heroicons/react/24/solid";
-import { StarIcon as StarIconOutLine } from "@heroicons/react/24/outline";
+import {
+  PencilSquareIcon,
+  StarIcon as StarIconOutLine,
+} from "@heroicons/react/24/outline";
 import Button from "src/components/ui/Button";
+import Link from "next/link";
 
 const CompanyTopInfos = ({ profile }: { profile: CompanyUser }) => {
   const stars = [];
@@ -20,7 +24,6 @@ const CompanyTopInfos = ({ profile }: { profile: CompanyUser }) => {
         <Image className="rounded-md" src={profile.image} layout="fill" />
       </div>
       <div className="flex justify-between items-center py-2">
-
         {/* top-left */}
         <div className="flex  gap-4">
           <div className="w-16 h-16   relative ">
@@ -40,13 +43,15 @@ const CompanyTopInfos = ({ profile }: { profile: CompanyUser }) => {
         </div>
         {/* top-right */}
         <div className=" flex gap-4 items-center">
-            <Button className=""  >
-                follow
-            </Button >
-            <Button className="!bg-bg shadow  shadow-gray-600  !text-title "  >
-                write a review
-            </Button >
-
+          <Link href="/profile/edit">
+            <Button className="!px-6 !py-2 hover:!bg-primary hover:!text-white   !bg-bg dark:!bg-bg-dark  !text-primary ">
+              <PencilSquareIcon className="w-6 h-6" />
+            </Button>
+          </Link>
+          <Button className="">follow</Button>
+          <Button className="!bg-bg shadow  shadow-gray-600  !text-title ">
+            write a review
+          </Button>
         </div>
       </div>
     </div>

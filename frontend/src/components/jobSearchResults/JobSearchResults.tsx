@@ -22,7 +22,8 @@ const JobSearchResults = ({ results }: { results: {next:boolean,count:number,res
   // },[jobs])
 
   return (
-    <section className="bg-bg relative  dark:bg-bg-dark ">
+
+    <section className="bg-bg  relative  dark:bg-bg-dark ">
       <div className="w-full grid  gap-2 px-2  grid-cols-1 md:grid-cols-2    ">
         <div className="w-full flex flex-col gap-2  ">
           {jobs?.map((item, index) => (

@@ -5,110 +5,66 @@ import CompanyJobs from "./CompanyJobs";
 import CompanyQanA from "./CompanyQanA";
 import CompanyReviews from "./CompanyReviews";
 import CompanyWhyUs from "./CompanyWhyUs";
+import { Tab } from "@headlessui/react";
 
 const NestedSections = ({ profile }: { profile: CompanyUser }) => {
   const [currentSection, setCurrentSections] = useState("infos");
+  const [categories] = useState([
+    {
+      title: "information",
+      component: <CompanyInfos profile={profile} />,
+      id: 1,
+    },
+    {
+      title: "jobs",
+      component: <CompanyJobs company={profile.slug} />,
+      id: 2,
+    },
+    {
+      title: "why us",
+      component: <CompanyWhyUs />,
+      id: 3,
+    },
+    {
+      title: "reviews",
+      component: <CompanyReviews />,
+      id: 4,
+    },
+    {
+      title: "Q&A",
+      component: <CompanyQanA />,
+      id: 5,
+    },
+  ]);
   return (
-    <div className="flex flex-col gap-4">
-      <ul className="grid     grid-cols-5 gap-4 py-4">
-        <li
-          className={`  text-md font-medium capitalize py-2   ${
-            currentSection == "infos"
-              ? "text-primary  "
-              : "text-title dark:text-title-dark"
-          } cursor-pointer  hover:!text-primary   `}
+    <div className="flex min-h-screen flex-col gap-4">
+      <Tab.Group>
+        <Tab.List className={"  flex justify-between  w-full    p-1 "}>
+          {categories.map((item) => (
+            <Tab
+              key={item.title}
+              className={({
+                selected,
+              }) => `'w-full font-bold capitalize px-2 md:px-4 rounded-md py-2.5  text-xs sm:text-sm md:text-base  leading-5 hover:bg-primary hover:!text-white  
+                  ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'k
+                ${
+                  selected
+                    ? "  bg-primary  !text-title-dark  shadow"
+                    : "!text-title dark:!text-title-dark "
+                }
 
-          onClick=
-          {() => {
-            setCurrentSections("infos");
-          }}
-        >
-          <span className="relative py-4">
-            information
-            {currentSection == "infos" && (
-              <span className=" mt-2  absolute bottom-0 left-0 h-1 w-full bg-primary"></span>
-            )}
-          </span>
-        </li>
-
-        <li
-          className={`  text-md font-medium capitalize py-2   ${
-            currentSection == "jobs"
-              ? "text-primary  "
-              : "text-title dark:text-title-dark"
-          } cursor-pointer  hover:!text-primary   `}
-          onClick={() => {
-            setCurrentSections("jobs");
-          }}
-        >
-          <span className="relative py-4">
-            jobs
-            {currentSection == "jobs" && (
-              <span className=" mt-2  absolute bottom-0 left-0 h-1 w-full bg-primary"></span>
-            )}
-          </span>
-        </li>
-
-        <li
-          className={`  text-mg font-medium capitalize py-2   ${
-            currentSection == "reviews"
-              ? "text-primary  "
-              : "text-title dark:text-title-dark"
-          } cursor-pointer  hover:!text-primary   `}
-          onClick={() => {
-            setCurrentSections("reviews");
-          }}
-        >
-          <span className="relative py-4">
-            reviews
-            {currentSection == "reviews" && (
-              <span className=" mt-2  absolute bottom-0 left-0 h-1 w-full bg-primary"></span>
-            )}
-          </span>
-        </li>
-
-        <li
-          className={`  text-md font-medium capitalize py-2   ${
-            currentSection == "reviews"
-              ? "text-primary  "
-              : "text-title dark:text-title-dark"
-          } cursor-pointer  hover:!text-primary   `}
-          onClick={() => {
-            setCurrentSections("WhyUs");
-          }}
-        >
-          <span className="relative py-4">
-            why us
-            {currentSection == "WhyUs" && (
-              <span className=" mt-2  absolute bottom-0 left-0 h-1 w-full bg-primary"></span>
-            )}
-          </span>
-        </li>
-
-        <li
-          className={`  text-md font-medium capitalize py-2   ${
-            currentSection == "Q&A"
-              ? "text-primary  "
-              : "text-title dark:text-title-dark"
-          } cursor-pointer  hover:!text-primary   `}
-          onClick={() => {
-            setCurrentSections("Q&A");
-          }}
-        >
-          <span className="relative py-4">
-            Q&A
-            {currentSection == "Q&A" && (
-              <span className=" mt-2  absolute bottom-0 left-0 h-1 w-full bg-primary"></span>
-            )}
-          </span>
-        </li>
-
-      </ul>
-      {currentSection=="infos"&&<CompanyInfos profile={profile} />}
-      {currentSection=="jobs"&&<CompanyJobs/>}
-      {currentSection=="reviews"&&<CompanyReviews/>}
-      {currentSection=="Q&A"&&<CompanyQanA/>}
-      {currentSection=="WhyUs"&&<CompanyWhyUs/>}
+                  `}
+            >
+              {item.title}
+            </Tab>
+          ))}
+        </Tab.List>
+        <Tab.Panels>
+          {categories.map((item) => (
+            <Tab.Panel key={item.id}>{item.component}</Tab.Panel>
+          ))}
+        </Tab.Panels>
+      </Tab.Group>
     </div>
   );
 };

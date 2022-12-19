@@ -1,5 +1,6 @@
 import camelize from "camelize-ts";
 import CompanyUser from "src/models/CompanyUser";
+import Job from "src/models/Job";
 import { apiSlice } from "../api/apiSlice";
 
 const extendedApiSlice = apiSlice.injectEndpoints({
@@ -10,6 +11,13 @@ const extendedApiSlice = apiSlice.injectEndpoints({
       transformResponse: (response: CompanyUser) => {
         return camelize(response);
       },
+    }),
+    getCompanyJobs: builder.query<
+      { count: number; next: boolean; results: Job[] },
+      string
+    >({
+      query: (company) => `profile/company/${company}/jobs`,
+      providesTags: ["CompanyJobs"],
     }),
     updateCompanyProfile: builder.mutation({
       invalidatesTags: ["Profile"],
@@ -33,12 +41,15 @@ const extendedApiSlice = apiSlice.injectEndpoints({
           name,
           website,
           description,
-          number_of_employees:numberOfEmployees,
+          number_of_employees: numberOfEmployees,
         },
       }),
     }),
   }),
 });
 
-export const { useGetProfileQuery, useUpdateCompanyProfileMutation } =
-  extendedApiSlice;
+export const {
+  useGetProfileQuery,
+  useUpdateCompanyProfileMutation,
+  useGetCompanyJobsQuery,
+} = extendedApiSlice;

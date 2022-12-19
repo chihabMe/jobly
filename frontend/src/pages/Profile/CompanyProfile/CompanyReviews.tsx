@@ -1,8 +1,14 @@
 import React from 'react'
+import ReviewItem from './ReviewItem'
 
 const CompanyReviews = () => {
   return (
-    <div>CompanyReviews</div>
+    <div className='flex flex-col gap-2'>
+      <ReviewItem/>
+      <ReviewItem/>
+      <ReviewItem/>
+      <ReviewItem/>
+    </div>
   )
 }
 

@@ -16,4 +16,7 @@ export const currentUserEndpoint = API+"api/v1/accounts/me/"
 export const locationsEndpoint = API+"api/v1/locations"
 //job
 export const jobDetailEndpoint = API+"api/v1/jobs/"//+slug
-export const jobSearchEndpoint = API+"api/v1/jobs"//+queries
+export const jobSearchEndpoint = API+"api/v1/jobs/"//+queries
+
+//profile
+export const company = API+"api/v1/accounts/company/"//+returns company open jobs

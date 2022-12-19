@@ -31,7 +31,7 @@ const CompanyProfileEditInfos = ({ profile }: { profile: CompanyUser }) => {
     <form
       onSubmit={submitHandler}
       action=""
-      className="w-full max-w-md mx-auto flex flex-col gap-4"
+      className="w-full max-w-2xl mx-auto flex flex-col gap-4"
     >
       <Controller text="company name" htmlFor="company name" error={isError?error?.data["name"]:[]}>
         <Input

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Job from "src/models/Job";
 import Button from "../ui/Button";
 import {
-  HeartIcon,
   ClockIcon,
   CurrencyDollarIcon,
   MapIcon,
@@ -10,12 +9,14 @@ import {
 import JobDetailApplyButton from "./JobDetailApplyButton";
 import { useGetJobDetailQuery } from "src/store/features/jobApi";
 import PageIsLoading from "../ui/PageIsLoading";
+import useAppSelector from "src/hooks/useAppSelector";
 
-const JobDetail = ({ slug }: { slug:string}) => {
-  const {isError,isLoading,data:job} = useGetJobDetailQuery(slug)
-  if(isLoading) return <PageIsLoading />
-  if(!isLoading && isError )<h1>error</h1>
-  if(!job)return <h1>error</h1>
+const JobDetail = ({ slug }: { slug: string }) => {
+  const { user, isLogged } = useAppSelector((state) => state.auth);
+  const { isError, isLoading, data: job } = useGetJobDetailQuery(slug);
+  if (isLoading) return <PageIsLoading />;
+  if (!isLoading && isError) <h1>error</h1>;
+  if (!job) return <h1>error</h1>;
   return (
     <div className="w-full max-w-screen-lg mx-auto md:mx-0  md:max-h-screen overflow-y-scroll sticky  top-0   rounded-md px-4 py-6 md:outline-2 md:hover:outline-primary md:cursor-pointer  outline-text ">
       {/* top */}
@@ -31,17 +32,14 @@ const JobDetail = ({ slug }: { slug:string}) => {
             {job.location}
           </h4>
         </div>
+            {(!isLogged || (user && user.type != "COMPANY")) && (
         <div className="flex items-center   gap-2">
           <div className="">
-            <JobDetailApplyButton applied={job.applied} slug={slug}/>
+              <JobDetailApplyButton applied={job.applied} slug={slug} />
           </div>
-          <div>
-            <Button
-              className={` !bg-bg dark:!bg-bg-dark !text-title dark:!text-title-dark !shadow-none  `}
-            >
-            </Button>
+        
           </div>
-        </div>
+            )}
       </div>
       {/* center */}
       <div className=" flex     py-10 flex-col gap-4 ">

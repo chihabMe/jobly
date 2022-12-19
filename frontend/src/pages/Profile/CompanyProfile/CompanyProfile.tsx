@@ -14,7 +14,7 @@ const CompanyProfile = () => {
 
   return (
     <div className="w-full px-2   py-10">
-      <div className="max-w-4xl  mx-auto flex flex-col gap-4  px-2">
+      <div className="max-w-5xl  mx-auto flex flex-col gap-4  px-2">
         <CompanyTopInfos profile={profile} />
         <NestedSections profile={profile} />
       </div>
