@@ -10,6 +10,7 @@ from django.forms import SlugField
 from django.utils.text import slugify
 from PIL import Image
 from phonenumber_field.modelfields import PhoneNumberField
+from random import randint
 
 from .validators import validate_file_extension
 
@@ -54,7 +55,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         max_length=100, default=Types.EMPLOYEE, choices=Types.choices
     )
     email = models.EmailField(null=False, blank=False, unique=True)
-    username = models.CharField(max_length=140, null=False, blank=False, unique=True)
+    username = models.CharField(
+        max_length=140, null=False, blank=False, unique=True)
     is_active = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -98,7 +100,7 @@ class EmployeeProfile(models.Model):
     name = models.CharField(max_length=250)
     image = models.ImageField(upload_to=imageFileNamer, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    phone = PhoneNumberField(region="DZ",blank=True,null=True)
+    phone = PhoneNumberField(region="DZ", blank=True, null=True)
     book_marked_jobs = models.ManyToManyField(
         "jobs.Job", blank=True, null=True, related_name="book_marked_by"
     )
@@ -119,8 +121,10 @@ class EmployeeProfile(models.Model):
         blank=True,
         validators=[validate_file_extension],
     )
+
     def __str__(self):
         return self.name
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.image:
@@ -144,6 +148,7 @@ class Company(CustomUser):
     class Meta:
         proxy = True
 
+
 class CompanyProfile(models.Model):
 
     user = models.OneToOneField(
@@ -151,15 +156,15 @@ class CompanyProfile(models.Model):
     )
     phone = ()
     name = models.CharField(max_length=250)
-    description = models.TextField(blank=True,null=True)
+    description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to=imageFileNamer)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=300)
     updated = models.DateTimeField(auto_now=True)
-    phone = PhoneNumberField(region="DZ",blank=True,null=True)
-    website = models.URLField(null=True,blank=True)
+    phone = PhoneNumberField(region="DZ", blank=True, null=True)
+    website = models.URLField(null=True, blank=True)
     location = models.ForeignKey(
-        
+
         "locations.Location",
         related_name="companies",
         default=15,
@@ -172,15 +177,27 @@ class CompanyProfile(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        if  not self.slug:
+            self.slug = slugify(
+                str(self.id)+
+                self.name+
+                str(randint(100, 10000))+
+                str(randint(100, 10000))+
+                str(randint(100, 100000))
+            )
         super().save(*args, **kwargs)
+
 
 class CompanyRate(models.Model):
     rate = models.PositiveIntegerField(default=1)
-    rater = models.ForeignKey(EmployeeProfile,related_name="rated_companies",on_delete=models.CASCADE)
-    rated_company=models.ForeignKey(CompanyProfile,related_name="rates",on_delete=models.CASCADE)
+    rater = models.ForeignKey(
+        EmployeeProfile, related_name="rated_companies", on_delete=models.CASCADE)
+    rated_company = models.ForeignKey(
+        CompanyProfile, related_name="rates", on_delete=models.CASCADE)
+
     def __str__(self):
         return str(self.rater)+"_"+str(self.rate)+"_"+str(self.rated_company)
+
 
 @receiver(post_save, sender=CustomUser)
 def crate_a_profile(sender, instance, created, **kwargs):

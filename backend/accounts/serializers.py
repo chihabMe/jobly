@@ -60,6 +60,7 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
             "rating",
             "website",
             "number_of_raters",
+            "slug",
             "description",
             "phone",
             "jobs",
