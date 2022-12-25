@@ -27,21 +27,24 @@ class CompanyProfileTest(TestCase):
     number_of_employees = fake.random_int()
 
     @classmethod
-    def setUp(cls):
-        user = User(username=cls.username, email=cls.username)
+    def setUpTestData(cls):
+        user = User(id=1, username=cls.username, email=cls.username)
         user.set_password(cls.password)
         user.save()
         # create a location
-        location = Location(number=1, name=cls.location, user=user)
+        location = Location(id=1, number=1, name=cls.location, user=user)
         location.save()
         # create a profile
-        CompanyProfile.objects.create(user=user,
-                                      location=location,
-                                      description=cls.description,
-                                      phone=cls.phone,
-                                      website=cls.website,
-                                      number_of_employees=cls.number_of_employees,
-                                      )
+        profile = CompanyProfile(
+            id=1,
+            user=user,
+            location=location,
+            description=cls.description,
+            phone=cls.phone,
+            website=cls.website,
+            number_of_employees=cls.number_of_employees,
+        )
+        profile.save()
 
     def get_first_user(self):
         return User.objects.all().first()
@@ -55,15 +58,15 @@ class CompanyProfileTest(TestCase):
     def test_company_profile_user(self):
         profile = self.get_first_profile()
         user = self.get_first_user()
-        self.assertEqual(user.id ,profile.user.id)
+        self.assertEqual(user.id, profile.user.id)
 
     def test_company_profile_location(self):
         profile = self.get_first_profile()
-        self.assertEqual(self.location ,profile.location.name)
+        self.assertEqual(self.location, profile.location.name)
 
     def test_company_profile_phone(self):
         profile = self.get_first_profile()
-        self.assertEqual(self.phone ,profile.phone)
+        self.assertEqual(self.phone, profile.phone)
 
     def test_company_profile_website(self):
         profile = self.get_first_profile()
