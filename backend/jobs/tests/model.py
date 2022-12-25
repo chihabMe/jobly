@@ -1,35 +1,36 @@
-## Create your tests here.
-#from django.contrib.auth import get_user_model
+#!/usr/bin/env python
+## -*- coding: utf-8 -*-
 #from django.test import TestCase
-
+#from django.contrib.auth import get_user_model
 #from .models import Job
 
 #User = get_user_model()
 
 #class JobTest(TestCase):
-#    ##user
-#    username = "username"
-#    email = "user@email.com"
-#    password = "password"
-#    # job
-#    title = "a job title "
-#    description = "a job description "
-#    salary = 1234
-#    introduction = "a job introduction "
-#    positions = 123
-
+#    @classmethod
 #    def setUp(cls):
+#        ##user
+#        username = "username"
+#        email = "user@email.com"
+#        password = "password"
 
-#        user = User(email=cls.email, username=cls.username)
-#        user.set_password(cls.password)
+#        user = User(email=email, username=username)
+#        user.set_password(password)
 #        user.save()
 
+#        # job
+#        title = "a job title "
+#        description = "a job description "
+#        salary = 12345
+#        introduction = "a job introduction "
+#        positoins = 123
+
 #        job = Job(
-#            title=cls.title,
-#            description=cls.description,
-#            salary=cls.salary,
-#            introduction=cls.introduction,
-#            positions=cls.positions,
+#            title=title,
+#            description=description,
+#            salary=salary,
+#            introduction=introduction,
+#            positions=positoins,
 #            user=user,
 #        )
 #        job.save()

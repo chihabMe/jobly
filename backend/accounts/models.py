@@ -109,7 +109,6 @@ class EmployeeProfile(models.Model):
     location = models.ForeignKey(
         "locations.Location",
         related_name="employees",
-        default=15,
         on_delete=models.SET_NULL,
         null=True,
     )
@@ -162,7 +161,6 @@ class CompanyProfile(models.Model):
         
         "locations.Location",
         related_name="companies",
-        default=15,
         on_delete=models.SET_NULL,
         null=True,
     )
@@ -172,6 +170,7 @@ class CompanyProfile(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        self.name = self.user.username
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
