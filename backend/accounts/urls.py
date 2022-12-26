@@ -9,6 +9,7 @@ from rest_framework_simplejwt.views import (
 from .views import (
     RegistrationView,
     CurrentUserProfileView,
+    CompanyJobs
 )
 
 app_name = "accounts"
@@ -20,4 +21,6 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # current user profile
     path("me/", CurrentUserProfileView.as_view(), name="current_employee_profile"),
+    #company open jobs
+    path("company/<slug:slug>/jobs/", CompanyJobs.as_view(), name="company_open_jobs"),
 ]

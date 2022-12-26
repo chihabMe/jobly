@@ -6,8 +6,12 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser,JSONParser
+from rest_framework.pagination import PageNumberPagination
 from accounts.models import Employee, EmployeeProfile, CompanyProfile
 from accounts.permissions import IsProfileOwner
+from jobs.serializers import JobsListSerailizer
+from jobs.permissions import IsOwnerOrReadOnly
+from jobs.models import Job
 
 from .serializers import (
     CompanyProfileSerializer,
@@ -66,3 +70,10 @@ class CurrentUserProfileView(generics.RetrieveUpdateAPIView):
         obj = self.get_queryset().get(user=self.request.user)
         self.check_object_permissions(self.request, obj)
         return obj
+
+class CompanyJobs(generics.ListAPIView):
+    queryset = Job.objects.all()
+    serializer_class  = JobsListSerailizer
+    permission_classes=[IsOwnerOrReadOnly]
+    lookup_field="slug"
+    pagination_class = PageNumberPagination

@@ -10,7 +10,6 @@ from django.db.models import Q
 
 User = get_user_model()
 
-
 # Create your models here.
 class JobQuerySet(models.QuerySet):
     def is_public(self):
