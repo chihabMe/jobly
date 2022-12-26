@@ -111,7 +111,6 @@ class EmployeeProfile(models.Model):
     location = models.ForeignKey(
         "locations.Location",
         related_name="employees",
-        default=15,
         on_delete=models.SET_NULL,
         null=True,
     )
@@ -167,7 +166,6 @@ class CompanyProfile(models.Model):
 
         "locations.Location",
         related_name="companies",
-        default=15,
         on_delete=models.SET_NULL,
         null=True,
     )
