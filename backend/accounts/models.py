@@ -11,6 +11,7 @@ from django.utils.text import slugify
 from PIL import Image
 from phonenumber_field.modelfields import PhoneNumberField
 from random import randint
+from django.utils import timezone
 
 from .validators import validate_file_extension
 

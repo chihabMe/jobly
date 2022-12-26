@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from faker import Faker
 from django.utils.text import slugify
 
-from accounts.models import CompanyProfile, CompanyRate
+from accounts.models import CompanyProfile, CompanyRate, EmployeeProfile
 from locations.models import Location
 
 User = get_user_model()
@@ -49,8 +49,14 @@ class CompanyRateTest(TestCase):
             number_of_employees=cls.number_of_employees,
         )
         company.save()
+
+        profile = user.employee_profile
+        profile.location = location
+        profile.phone = cls.phone
+        profile.save()
         # rate
-        rate = CompanyRate(rate=cls.rate, rater=user, rated_company=company)
+        rate = CompanyRate(rate=cls.rate, rater=profile,
+                           rated_company=company)
         rate.save()
 
     def test_rates_count(self):
@@ -63,9 +69,9 @@ class CompanyRateTest(TestCase):
     def test_rate_company(self):
         rate = CompanyRate.objects.get(id=1)
         company = CompanyProfile.objects.get(id=1)
-        self.assertEqual(rate.rated_company)
+        self.assertEqual(rate.rated_company,company)
 
-    def test_rate_user(self):
+    def test_rate_ratyr(self):
         rate = CompanyRate.objects.get(id=1)
-        user = User.objects.get(id=1)
-        self.assertEqual(rate.rater, user)
+        employee = EmployeeProfile.objects.get(id=1)
+        self.assertEqual(rate.rater, employee)
