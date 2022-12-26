@@ -46,7 +46,7 @@ class EmployeeProfileTest(TestCase):
         return EmployeeProfile.objects.all().first()
 
     def test_employee_profiles_count(self):
-        print(self.get_first_user().employee_profile)
+        self.assertEqual(EmployeeProfile.objects.all().count(),1)
 
     def test_employee_profile_user(self):
         profile = self.get_first_profile()

@@ -49,7 +49,7 @@ class Job(models.Model):
     )
     active = models.BooleanField(default=True)
     location = models.ForeignKey(
-        Location, default=16, related_name="jobs", on_delete=models.CASCADE
+        Location,  related_name="jobs", on_delete=models.CASCADE
     )
     user = models.ForeignKey(User, related_name="posted_jobs", on_delete=models.CASCADE)
 
