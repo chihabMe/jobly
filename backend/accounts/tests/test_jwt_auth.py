@@ -13,8 +13,8 @@ class JwtAuthTest(TestCase):
     password = fake.password()
     email = fake.email()
 
-    @classmethod
-    def setUpTestData(cls) -> None:
+    # @classmethod
+    def setUp(cls) -> None:
         user = User(username=cls.username, email=cls.email)
         user.set_password(cls.password)
         user.is_active = True

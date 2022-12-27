@@ -11,8 +11,8 @@ class JobsListSerailizer(serializers.ModelSerializer):
     description = serializers.CharField(write_only=True)
     book_marked = serializers.SerializerMethodField()
     since = serializers.SerializerMethodField()
-    company = serializers.CharField(read_only=True,source="company.name")
-    location = serializers.CharField(read_only=True,source="location.name")
+    company = serializers.CharField(read_only=True, source="company.name")
+    location = serializers.CharField(read_only=True, source="location.name")
 
     class Meta:
         model = Job
@@ -41,6 +41,7 @@ class JobsListSerailizer(serializers.ModelSerializer):
             return False
         profile = request.user.employee_profile
         return job in profile.book_marked_jobs.all()
+
     def create(self, validated_data):
         job:User = Job(**validated_data)
         job.user=self.context["request"].user
@@ -54,8 +55,8 @@ class JobsDetailsSerailizer(serializers.ModelSerializer):
     book_marked = serializers.SerializerMethodField()
     since = serializers.SerializerMethodField()
     applied = serializers.SerializerMethodField()
-    company = serializers.CharField(source="company.name")
-    location = serializers.CharField(source="location.name")
+    company = serializers.CharField(source="company.name",required=False)
+    location = serializers.CharField(source="location.name",required=False)
 
     class Meta:
         model = Job
@@ -100,7 +101,7 @@ class JobsDetailsSerailizer(serializers.ModelSerializer):
         instance.introduction = validated_data.get(
             "introduction", instance.introduction
         )
-        instance.descrition = validated_data.get("description", instance.description)
+        instance.description = validated_data.get("description", instance.description)
         instance.salary = validated_data.get("salary", instance.salary)
         instance.positions = validated_data.get("positions", instance.positions)
         return instance

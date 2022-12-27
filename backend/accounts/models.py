@@ -157,7 +157,7 @@ class CompanyProfile(models.Model):
     name = models.CharField(max_length=250)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to=imageFileNamer)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now=False,auto_now_add=True)
     slug = models.SlugField(max_length=300)
     updated = models.DateTimeField(auto_now=True)
     phone = PhoneNumberField(region="DZ", blank=True, null=True)

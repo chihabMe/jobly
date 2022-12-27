@@ -11,6 +11,8 @@ from django.db.models import Q
 User = get_user_model()
 
 # Create your models here.
+
+
 class JobQuerySet(models.QuerySet):
     def is_public(self):
         return self.filter(active=True)
@@ -35,26 +37,35 @@ class JobManager(models.Manager):
 
 
 class Job(models.Model):
-    title = models.CharField(max_length=200)
-    positions = models.IntegerField(default=1)
+    title = models.CharField(max_length=200, blank=True)
+    positions = models.IntegerField(default=1, blank=True)
     slug = models.SlugField(max_length=400, blank=True, unique=True, null=True)
-    introduction = models.CharField(max_length=500)
-    description = models.TextField()
+    introduction = models.CharField(max_length=500, blank=True)
+    description = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
-    salary = models.IntegerField("monthly salary")
+    salary = models.IntegerField("monthly salary", blank=True)
     company = models.ForeignKey(
-        "accounts.CompanyProfile", related_name="jobs", on_delete=models.CASCADE
+        "accounts.CompanyProfile",
+        blank=True,
+        related_name="jobs",
+        on_delete=models.CASCADE,
     )
     active = models.BooleanField(default=True)
     location = models.ForeignKey(
-        Location,  default=1,null=True,related_name="jobs", on_delete=models.CASCADE
+        Location,
+        default=1,
+        null=True,
+        blank=True,
+        related_name="jobs",
+        on_delete=models.CASCADE
     )
-    user = models.ForeignKey(User, related_name="posted_jobs", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name="posted_jobs", on_delete=models.CASCADE)
 
     objects = JobManager()
 
-    ##overriding the save method
+    # overriding the save method
     # def save(self, *args, **kwargs):
     #    # self.slug = self.user.username + "-" + slugify(self.title) + "-" + str(
     #        self.salary)
@@ -62,8 +73,9 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
+
     class Meta:
-        ordering = ("-created","-update")
+        ordering = ("-created", "-update")
 
 
 @receiver(pre_save, sender=Job)

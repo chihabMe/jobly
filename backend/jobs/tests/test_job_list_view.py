@@ -1,12 +1,13 @@
-from django.test import TestCase
-from rest_framework.test import APIClient, force_authenticate, APIRequestFactory
-from mixer.backend.django import mixer
-from jobs.models import Job
-from rest_framework.reverse import reverse
 from accounts.models import CompanyProfile
-from locations.models import Location
 from django.contrib.auth import get_user_model
+from django.test import TestCase
+from jobs.models import Job
 from jobs.views import JobsListView
+from locations.models import Location
+from mixer.backend.django import mixer
+from rest_framework.reverse import reverse
+from rest_framework.test import (APIClient, APIRequestFactory,
+                                 force_authenticate)
 
 User = get_user_model()
 factory = APIRequestFactory()
@@ -23,15 +24,15 @@ class JobListViewTest(TestCase):
         cls.count = 5
         for i in range(cls.count):
             mixer.blend(Job)
-        #creating a compnay 
+        # creating a compnay
         location = mixer.blend(Location)
-        company = mixer.blend(CompanyProfile,location=location)
+        company = mixer.blend(CompanyProfile, location=location)
         # creating an active user for testing(needed to obtain jwt tokens)
         user = User(email=cls.email, username=cls.username)
         user.set_password(cls.password)
         user.is_active = True
         user.type = user.Types.COMPANY
-        user.company_profile =company 
+        user.company_profile = company
         user.save()
         # using rest framework clint instead of django request clint
         cls.client = APIClient()
@@ -53,19 +54,19 @@ class JobListViewTest(TestCase):
         url = reverse("jobs:jobs_list")
         response = self.client.get(url)
         data = response.json()
-        self.assertEqual(self.count, data.get('count'))
-        self.assertEqual(self.count, len(data['results']))
+        self.assertEqual(self.count, data.get("count"))
+        self.assertEqual(self.count, len(data["results"]))
 
     def test_jobs_list_view_result(self):
         url = reverse("jobs:jobs_list")
         response = self.client.get(url)
         data: Job = response.json()["results"][0]
         job = self.get_first_job()
-        self.assertEqual(data['title'], job.title)
-        self.assertEqual(data['introduction'], job.introduction)
-        self.assertEqual(data['slug'], job.slug)
+        self.assertEqual(data["title"], job.title)
+        self.assertEqual(data["introduction"], job.introduction)
+        self.assertEqual(data["slug"], job.slug)
 
-    def test_job_creation(self):
+    def test_job_list_post_request(self):
         # tokens = self.get_tokens()
         # access=tokens.get("access")
 
@@ -80,16 +81,16 @@ class JobListViewTest(TestCase):
             "salary": 1000,
             "positions": 1,
         }
-        ## unauthenticated user 
-        response = self.client.post(url,data=data)
-        self.assertEqual(response.status_code,401)
-        ## authenticated user 
-        self.client.login(email=self.email,password=self.password)
-        response = self.client.post(url,data=data)
-        self.assertEqual(response.status_code,201)
-        #test the received data
+        ## unauthenticated user
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 401)
+        ## authenticated user
+        self.client.login(email=self.email, password=self.password)
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 201)
+        # test the received data
         res_data = response.json()
-        self.assertEqual(data["title"],res_data["title"])
-        self.assertEqual(data["positions"],res_data["positions"])
-        self.assertEqual(data["salary"],res_data["salary"])
-        self.assertEqual(False,res_data["book_marked"])
+        self.assertEqual(data["title"], res_data["title"])
+        self.assertEqual(data["positions"], res_data["positions"])
+        self.assertEqual(data["salary"], res_data["salary"])
+        self.assertEqual(False, res_data["book_marked"])
