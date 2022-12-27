@@ -48,7 +48,7 @@ class Job(models.Model):
     )
     active = models.BooleanField(default=True)
     location = models.ForeignKey(
-        Location,  related_name="jobs", on_delete=models.CASCADE
+        Location,  default=1,null=True,related_name="jobs", on_delete=models.CASCADE
     )
     user = models.ForeignKey(User, related_name="posted_jobs", on_delete=models.CASCADE)
 
@@ -62,26 +62,21 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
+    class Meta:
+        ordering = ("-created","-update")
 
 
 @receiver(pre_save, sender=Job)
 def job_slug(sender, instance, **kwargs):
-    print("run----------")
     slug = slugify(instance.user.username + "-" + instance.title)
     results = Job.objects.filter(slug=slug)
     created = kwargs.get("created")
-    print(kwargs)
-    print(created)
-    print(slug)
     if (
         results.count() == 1
         and instance.title == results.first().title
         and created == False
     ):
-        print(results.count())
         instance.slug = slug
-        print(instance == results.first())
-        print(slug)
         return instance
 
     exists = results.exists()
@@ -90,10 +85,8 @@ def job_slug(sender, instance, **kwargs):
     while exists:
         new_slug = slug + "-" + str(num)
         exists = Job.objects.filter(slug=new_slug).exists()
-        print(new_slug)
         if not exists:
             slug = new_slug
         num += 1
     instance.slug = slug
-    print(instance.slug)
     return instance

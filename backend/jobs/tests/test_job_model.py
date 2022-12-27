@@ -45,7 +45,7 @@ class JobTest(TestCase):
         user.set_password(cls.password)
         user.save()
         # location
-        location = Location(id=1,user=user, number=1, name=cls.location)
+        location = Location(id=1, user=user, number=1, name=cls.location)
         location.save()
         # company
 

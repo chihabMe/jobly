@@ -11,8 +11,8 @@ class JobsListSerailizer(serializers.ModelSerializer):
     description = serializers.CharField(write_only=True)
     book_marked = serializers.SerializerMethodField()
     since = serializers.SerializerMethodField()
-    company = serializers.CharField(source="company.name")
-    location = serializers.CharField(source="location.name")
+    company = serializers.CharField(read_only=True,source="company.name")
+    location = serializers.CharField(read_only=True,source="location.name")
 
     class Meta:
         model = Job
@@ -41,6 +41,13 @@ class JobsListSerailizer(serializers.ModelSerializer):
             return False
         profile = request.user.employee_profile
         return job in profile.book_marked_jobs.all()
+    def create(self, validated_data):
+        job:User = Job(**validated_data)
+        job.user=self.context["request"].user
+        job.location=job.user.company_profile.location
+        job.company=self.context["request"].user.company_profile
+        job.save()
+        return job
 
 
 class JobsDetailsSerailizer(serializers.ModelSerializer):
