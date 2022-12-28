@@ -2,11 +2,11 @@ from random import randint
 
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.db.models.signals import pre_save, post_save
+from django.db.models import Q
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 from locations.models import Location
-from django.db.models import Q
 
 User = get_user_model()
 
@@ -58,10 +58,9 @@ class Job(models.Model):
         null=True,
         blank=True,
         related_name="jobs",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
-    user = models.ForeignKey(
-        User, related_name="posted_jobs", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="posted_jobs", on_delete=models.CASCADE)
 
     objects = JobManager()
 

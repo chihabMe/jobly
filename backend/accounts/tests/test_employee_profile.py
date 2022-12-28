@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from django.test import TestCase
-from django.contrib.auth import get_user_model
-from faker import Faker
-from django.utils.text import slugify
-
 from accounts.models import EmployeeProfile
+from django.contrib.auth import get_user_model
+from django.test import TestCase
+from django.utils.text import slugify
+from faker import Faker
 from locations.models import Location
-
 
 User = get_user_model()
 fake = Faker()
@@ -30,10 +28,10 @@ class EmployeeProfileTest(TestCase):
         user = User(id=1, username=cls.username, email=cls.username)
         user.set_password(cls.password)
         user.save()
-    #     # create a location
+        #     # create a location
         location = Location(id=1, number=1, name=cls.location, user=user)
         location.save()
-    #     # create a profile
+        #     # create a profile
         profile = user.employee_profile
         profile.location = location
         profile.phone = cls.phone
@@ -46,7 +44,7 @@ class EmployeeProfileTest(TestCase):
         return EmployeeProfile.objects.all().first()
 
     def test_employee_profiles_count(self):
-        self.assertEqual(EmployeeProfile.objects.all().count(),1)
+        self.assertEqual(EmployeeProfile.objects.all().count(), 1)
 
     def test_employee_profile_user(self):
         profile = self.get_first_profile()

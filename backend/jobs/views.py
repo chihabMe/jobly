@@ -1,17 +1,14 @@
-from django.shortcuts import render
-from rest_framework import generics
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-from django.shortcuts import get_object_or_404
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.pagination import PageNumberPagination
-from .permissions import IsOwnerOrReadOnly
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404, render
+from rest_framework import generics, status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
 
 from .models import Job
-from .serializers import JobsListSerailizer, JobsDetailsSerailizer
-
+from .permissions import IsOwnerOrReadOnly
+from .serializers import JobsDetailsSerailizer, JobsListSerailizer
 
 # Create your views here.
 User = get_user_model()
@@ -34,10 +31,10 @@ class JobsListView(generics.ListCreateAPIView):
         user: User = self.request.user
         if user.type != User.Types.COMPANY:
             data = {
-                "status":"error",
-                "data":"your account is an employee account please create a company account  "
+                "status": "error",
+                "data": "your account is an employee account please create a company account  ",
             }
-            return Response(status=status.HTTP_400_BAD_REQUEST,data=data)
+            return Response(status=status.HTTP_400_BAD_REQUEST, data=data)
         return super().create(request, *args, **kwargs)
 
 

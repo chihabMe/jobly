@@ -1,7 +1,6 @@
-from django.db import models
-
-from django.contrib.auth import get_user_model
 from accounts.models import CustomUser as User
+from django.contrib.auth import get_user_model
+from django.db import models
 
 # Create your models here.
 

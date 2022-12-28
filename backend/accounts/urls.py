@@ -1,16 +1,11 @@
 from django.urls import path
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
-    TokenVerifyView,
     TokenRefreshView,
+    TokenVerifyView,
 )
 
-
-from .views import (
-    RegistrationView,
-    CurrentUserProfileView,
-    CompanyJobs
-)
+from .views import CompanyJobs, CurrentUserProfileView, RegistrationView
 
 app_name = "accounts"
 
@@ -21,6 +16,6 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # current user profile
     path("me/", CurrentUserProfileView.as_view(), name="current_employee_profile"),
-    #company open jobs
+    # company open jobs
     path("company/<slug:slug>/jobs/", CompanyJobs.as_view(), name="company_open_jobs"),
 ]

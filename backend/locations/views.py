@@ -1,10 +1,11 @@
-from django.shortcuts import render
-from rest_framework.generics import ListAPIView
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from .serializers import LocationSerializer
-from .models import Location
+from django.shortcuts import render
+from rest_framework.generics import ListAPIView
+
 from .dummy import locations
+from .models import Location
+from .serializers import LocationSerializer
 
 # Create your views here.
 

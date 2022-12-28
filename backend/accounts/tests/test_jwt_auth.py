@@ -1,7 +1,7 @@
-from django.test import TestCase
-from django.contrib.auth import get_user_model
 import json
 
+from django.contrib.auth import get_user_model
+from django.test import TestCase
 from faker import Faker
 
 User = get_user_model()
@@ -19,10 +19,10 @@ class JwtAuthTest(TestCase):
         user.set_password(cls.password)
         user.is_active = True
         user.save()
-    
+
     def get_tokens(self):
         data = {"email": self.email, "password": self.password}
-        response = self.client.post("/api/v1/accounts/token/",data)
+        response = self.client.post("/api/v1/accounts/token/", data)
         return json.loads(response.content)
 
     def test_obtain_token(self):
@@ -33,23 +33,22 @@ class JwtAuthTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_refresh_token(self):
-        #failed request
+        # failed request
         response = self.client.post("/api/v1/accounts/token/refresh/")
-        self.assertEqual(response.status_code,400)
-        #succeeded request
+        self.assertEqual(response.status_code, 400)
+        # succeeded request
         tokens = self.get_tokens()
-        data={"refresh":tokens.get("refresh")}
-        response = self.client.post("/api/v1/accounts/token/refresh/",data)
-        self.assertEqual(response.status_code,200)
+        data = {"refresh": tokens.get("refresh")}
+        response = self.client.post("/api/v1/accounts/token/refresh/", data)
+        self.assertEqual(response.status_code, 200)
         self.assertTrue("refresh" in str(response.content))
         self.assertTrue("access" in str(response.content))
+
     def test_verify_token(self):
         tokens = self.get_tokens()
-        data = {"token":tokens["access"]}
-        response = self.client.post("/api/v1/accounts/token/verify/",data)
-        self.assertEqual(response.status_code,200)
-        data = {"token":tokens["refresh"]}
-        response = self.client.post("/api/v1/accounts/token/verify/",data)
-        self.assertEqual(response.status_code,200)
-
-
+        data = {"token": tokens["access"]}
+        response = self.client.post("/api/v1/accounts/token/verify/", data)
+        self.assertEqual(response.status_code, 200)
+        data = {"token": tokens["refresh"]}
+        response = self.client.post("/api/v1/accounts/token/verify/", data)
+        self.assertEqual(response.status_code, 200)

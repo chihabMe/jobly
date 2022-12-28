@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django.urls import path
+
 from .views import LocationsView, initializeLocations
 
 app_name = "locations"

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from .views import JobsListView, JobsDetailsView, job_apply_view, job_bookmark
 from django.urls import path
+
+from .views import JobsDetailsView, JobsListView, job_apply_view, job_bookmark
 
 app_name = "jobs"
 

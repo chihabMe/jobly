@@ -1,23 +1,21 @@
+from accounts.models import CompanyProfile, Employee, EmployeeProfile
+from accounts.permissions import IsProfileOwner
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, render
-from rest_framework import generics
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.parsers import MultiPartParser, FormParser,JSONParser
-from rest_framework.pagination import PageNumberPagination
-from accounts.models import Employee, EmployeeProfile, CompanyProfile
-from accounts.permissions import IsProfileOwner
-from jobs.serializers import JobsListSerailizer
-from jobs.permissions import IsOwnerOrReadOnly
 from jobs.models import Job
+from jobs.permissions import IsOwnerOrReadOnly
+from jobs.serializers import JobsListSerailizer
+from rest_framework import generics, status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
+from rest_framework.response import Response
 
 from .serializers import (
     CompanyProfileSerializer,
     EmployeeProfileSerializer,
     RegistrationSerializer,
 )
-
 
 User = get_user_model()
 
@@ -46,7 +44,7 @@ class RegistrationView(generics.CreateAPIView):
 class CurrentUserProfileView(generics.RetrieveUpdateAPIView):
     # queryset = EmployeeProfile.objects.all()
     permission_classes = [IsProfileOwner]
-    parser_classes = [MultiPartParser, FormParser,JSONParser]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def get_serializer_class(self, *args, **kwargs):
         # checking for the user type and returning a proper serializer to handle it
@@ -70,9 +68,10 @@ class CurrentUserProfileView(generics.RetrieveUpdateAPIView):
         self.check_object_permissions(self.request, obj)
         return obj
 
+
 class CompanyJobs(generics.ListAPIView):
     queryset = Job.objects.all()
-    serializer_class  = JobsListSerailizer
-    permission_classes=[IsOwnerOrReadOnly]
-    lookup_field="slug"
+    serializer_class = JobsListSerailizer
+    permission_classes = [IsOwnerOrReadOnly]
+    lookup_field = "slug"
     pagination_class = PageNumberPagination

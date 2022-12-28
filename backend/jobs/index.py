@@ -1,5 +1,6 @@
-from algoliasearch_django.models import AlgoliaIndex
 from algoliasearch_django.decorators import register
+from algoliasearch_django.models import AlgoliaIndex
+
 from .models import Job
 
 # @register(Job)

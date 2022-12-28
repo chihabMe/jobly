@@ -1,3 +1,5 @@
+from random import randint
+
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -7,14 +9,12 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.forms import SlugField
-from django.utils.text import slugify
-from PIL import Image
-from phonenumber_field.modelfields import PhoneNumberField
-from random import randint
 from django.utils import timezone
+from django.utils.text import slugify
+from phonenumber_field.modelfields import PhoneNumberField
+from PIL import Image
 
 from .validators import validate_file_extension
-
 
 # from locations.models import Location
 
@@ -56,8 +56,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         max_length=100, default=Types.EMPLOYEE, choices=Types.choices
     )
     email = models.EmailField(null=False, blank=False, unique=True)
-    username = models.CharField(
-        max_length=140, null=False, blank=False, unique=True)
+    username = models.CharField(max_length=140, null=False, blank=False, unique=True)
     is_active = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -157,13 +156,12 @@ class CompanyProfile(models.Model):
     name = models.CharField(max_length=250)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to=imageFileNamer)
-    created = models.DateTimeField(auto_now=False,auto_now_add=True)
+    created = models.DateTimeField(auto_now=False, auto_now_add=True)
     slug = models.SlugField(max_length=300)
     updated = models.DateTimeField(auto_now=True)
     phone = PhoneNumberField(region="DZ", blank=True, null=True)
     website = models.URLField(null=True, blank=True)
     location = models.ForeignKey(
-
         "locations.Location",
         related_name="companies",
         on_delete=models.SET_NULL,
@@ -175,13 +173,13 @@ class CompanyProfile(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        if  not self.slug:
+        if not self.slug:
             self.slug = slugify(
-                str(self.id)+
-                self.name+
-                str(randint(100, 10000))+
-                str(randint(100, 10000))+
-                str(randint(100, 100000))
+                str(self.id)
+                + self.name
+                + str(randint(100, 10000))
+                + str(randint(100, 10000))
+                + str(randint(100, 100000))
             )
         super().save(*args, **kwargs)
 
@@ -189,12 +187,14 @@ class CompanyProfile(models.Model):
 class CompanyRate(models.Model):
     rate = models.PositiveIntegerField(default=1)
     rater = models.ForeignKey(
-        EmployeeProfile, related_name="rated_companies", on_delete=models.CASCADE)
+        EmployeeProfile, related_name="rated_companies", on_delete=models.CASCADE
+    )
     rated_company = models.ForeignKey(
-        CompanyProfile, related_name="rates", on_delete=models.CASCADE)
+        CompanyProfile, related_name="rates", on_delete=models.CASCADE
+    )
 
     def __str__(self):
-        return str(self.rater)+"_"+str(self.rate)+"_"+str(self.rated_company)
+        return str(self.rater) + "_" + str(self.rate) + "_" + str(self.rated_company)
 
 
 @receiver(post_save, sender=CustomUser)

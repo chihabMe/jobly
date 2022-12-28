@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from django.test import TestCase
-from django.contrib.auth import get_user_model
-from faker import Faker
-from django.utils.text import slugify
-
 from accounts.models import CompanyProfile
+from django.contrib.auth import get_user_model
+from django.test import TestCase
+from django.utils.text import slugify
+from faker import Faker
 from locations.models import Location
 
 User = get_user_model()

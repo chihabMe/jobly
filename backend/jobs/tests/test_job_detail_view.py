@@ -1,13 +1,13 @@
 from accounts.models import CompanyProfile
 from django.contrib.auth import get_user_model
 from django.test import TestCase
+from django.utils import timezone
 from faker import Faker
 from jobs.models import Job
 from locations.models import Location
 from mixer.backend.django import mixer
-from rest_framework.test import APIClient
 from rest_framework.reverse import reverse
-from django.utils import timezone
+from rest_framework.test import APIClient
 
 fake = Faker()
 User = get_user_model()
@@ -57,7 +57,7 @@ class JobDetailViewTest(TestCase):
             phone=cls.phone,
             website=cls.website,
             number_of_employees=cls.number_of_employees,
-            created=timezone.now()
+            created=timezone.now(),
         )
         company.save()
         # job
@@ -115,21 +115,22 @@ class JobDetailViewTest(TestCase):
         }
         self.client.login(email=self.email, password=self.password)
 
-        response = self.client.put(url, data=data,content_type="application/json")
+        response = self.client.put(url, data=data, content_type="application/json")
         res_data = response.json()
-        #testing the status code
-        self.assertEqual(response.status_code,200)
-        #testing the new title
+        # testing the status code
+        self.assertEqual(response.status_code, 200)
+        # testing the new title
         self.assertEqual(data["title"], res_data["title"])
         self.assertEqual(data["positions"], res_data["positions"])
         self.assertEqual(data["salary"], res_data["salary"])
         self.assertEqual(data["description"], res_data["description"])
         self.assertEqual(data["introduction"], res_data["introduction"])
+
     def test_job_detail_delete(self):
         job: Job = Job.objects.first()
         url = reverse("jobs:job_details", args=[job.slug])
         self.client.login(email=self.email, password=self.password)
-        response  = self.client.delete(url)
-        self.assertEqual(response.status_code,204)
-        #testing the database 
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, 204)
+        # testing the database
         self.assertFalse(Job.objects.filter(slug=job.slug).exists())

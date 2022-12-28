@@ -6,8 +6,7 @@ from jobs.views import JobsListView
 from locations.models import Location
 from mixer.backend.django import mixer
 from rest_framework.reverse import reverse
-from rest_framework.test import (APIClient, APIRequestFactory,
-                                 force_authenticate)
+from rest_framework.test import APIClient, APIRequestFactory, force_authenticate
 
 User = get_user_model()
 factory = APIRequestFactory()
