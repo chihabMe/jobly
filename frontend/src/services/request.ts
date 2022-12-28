@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { NextApiResponse, NextPageContext } from "next";
+// import { NextApiResponse, NextPageContext } from "next";
 import { NextResponse } from "next/server";
 import generateAuthConfig from "src/libs/generateAuthConfig";
 import setAuthCookies from "src/libs/setAuthCookies";
