@@ -74,15 +74,23 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "jobly",
-        "USER": "django_user",
-        "PASSWORD": "pass",
-        "HOST": "localhost",
-        "PORT": "",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'testdb',  # This is where you put the name of the db file. 
+        # If one doesn't exist, it will be created at migration time.
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "jobly",
+#         "USER": "django_user",
+#         "PASSWORD": "pass",
+#         "HOST": "localhost",
+#         "PORT": "",
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
