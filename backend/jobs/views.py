@@ -7,12 +7,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 from .permissions import IsOwnerOrReadOnly
+from django.contrib.auth import get_user_model
 
 from .models import Job
 from .serializers import JobsListSerailizer, JobsDetailsSerailizer
 
 
 # Create your views here.
+User = get_user_model()
 
 
 class JobsListView(generics.ListCreateAPIView):
@@ -27,6 +29,16 @@ class JobsListView(generics.ListCreateAPIView):
         queryset = super().get_queryset()
         queryset = queryset.search(query=q, location=location)
         return queryset
+
+    def create(self, request, *args, **kwargs):
+        user: User = self.request.user
+        if user.type != User.Types.COMPANY:
+            data = {
+                "status":"error",
+                "data":"your account is an employee account please create a company account  "
+            }
+            return Response(status=status.HTTP_400_BAD_REQUEST,data=data)
+        return super().create(request, *args, **kwargs)
 
 
 class JobsDetailsView(generics.RetrieveUpdateDestroyAPIView):
@@ -57,7 +69,6 @@ def job_bookmark(request, slug):
 def job_apply_view(request, slug):
     job = get_object_or_404(Job, slug=slug)
     profile = request.user.employee_profile
-    print(request.user)
     data = {}
     data["action"] = "add"
     if job in profile.applied_jobs.all():

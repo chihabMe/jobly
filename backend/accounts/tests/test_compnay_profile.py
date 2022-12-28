@@ -80,10 +80,10 @@ class CompanyProfileTest(TestCase):
         profile = self.get_first_profile()
         self.assertTrue(self.description == profile.description)
 
-    def test_company_profile_slug(self):
-        profile = self.get_first_profile()
-        slug = slugify(self.username)
-        self.assertEqual(slug, profile.slug)
+    # def test_company_profile_slug(self):
+    #     profile = self.get_first_profile()
+    #     slug = slugify(self.username)
+    #     self.assertEqual(slug, profile.slug)
 
     def test_company_profile_number_of_employees(self):
         profile = self.get_first_profile()

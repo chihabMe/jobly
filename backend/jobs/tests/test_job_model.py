@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from django.test import TestCase
+from accounts.models import CompanyProfile
 from django.contrib.auth import get_user_model
+from django.test import TestCase
+from faker import Faker
 from jobs.models import Job
 from locations.models import Location
-from accounts.models import CompanyProfile
-from faker import Faker
 
 User = get_user_model()
 fake = Faker()
@@ -35,17 +35,14 @@ class JobTest(TestCase):
     positions = fake.random_int()
     # user
 
-    @classmethod
-    def setUpTestData(cls) -> None:
+    # @classmethod
+    def setUp(cls) -> None:
         # user
-        user = User(
-            id=1,
-            email=cls.email,
-            username=cls.username)
+        user = User(id=1, email=cls.email, username=cls.username)
         user.set_password(cls.password)
         user.save()
         # location
-        location = Location(id=1,user=user, number=1, name=cls.location)
+        location = Location(id=1, user=user, number=1, name=cls.location)
         location.save()
         # company
 

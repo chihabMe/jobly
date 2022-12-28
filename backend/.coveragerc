@@ -1,0 +1,27 @@
+
+[run]
+parallel = 1
+source = ${PYTESTDJANGO_COVERAGE_SRC}.
+branch = 1
+omit =
+   *venv/*
+   *venv/bin/*
+   *venv/include/*
+   */migrations/*
+   *venv/lib/*
+   *manage.py
+   */settings.py
+   */local_settings.py
+   */tests/*
+   *apps.py
+   *migrations/*
+   *asgi.py
+   *wsgi.py
+
+   *__init__*
+   */__pycache__/*
+   */site-packages/*
+   */distutils/*
+
+[report]
+show_missing = True

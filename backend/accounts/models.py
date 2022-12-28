@@ -11,6 +11,7 @@ from django.utils.text import slugify
 from PIL import Image
 from phonenumber_field.modelfields import PhoneNumberField
 from random import randint
+from django.utils import timezone
 
 from .validators import validate_file_extension
 
@@ -127,7 +128,6 @@ class EmployeeProfile(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.image:
-            print(self.image.path)
             img = Image.open(self.image.path)
             if img.height > 400 or img.width > 400:
                 new_size = (400, 400)
@@ -157,7 +157,7 @@ class CompanyProfile(models.Model):
     name = models.CharField(max_length=250)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to=imageFileNamer)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now=False,auto_now_add=True)
     slug = models.SlugField(max_length=300)
     updated = models.DateTimeField(auto_now=True)
     phone = PhoneNumberField(region="DZ", blank=True, null=True)
