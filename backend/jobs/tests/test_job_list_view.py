@@ -7,6 +7,7 @@ from locations.models import Location
 from mixer.backend.django import mixer
 from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APIRequestFactory, force_authenticate
+from rest_framework_simplejwt.tokens import AccessToken
 
 User = get_user_model()
 factory = APIRequestFactory()
@@ -85,6 +86,7 @@ class JobListViewTest(TestCase):
         self.assertEqual(response.status_code, 401)
         ## authenticated user
         self.client.login(email=self.email, password=self.password)
+        ##getting auth token
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 201)
         # test the received data

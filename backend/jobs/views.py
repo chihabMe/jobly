@@ -11,6 +11,8 @@ from .permissions import IsOwnerOrReadOnly
 from .serializers import JobsDetailsSerailizer, JobsListSerailizer
 
 # Create your views here.
+
+
 User = get_user_model()
 
 
