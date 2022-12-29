@@ -1,13 +1,7 @@
 import { API, currentUserEndpoint } from "config";
 import { NextApiRequest, NextApiResponse } from "next";
-import configGenerator from "src/helpers/configGenerator";
-import nextConnect from 'next-connect'
-import multer from "multer"
-import  formidable from 'formidable'
-import httpProxyMiddleWare from 'next-http-proxy-middleware'
-import cookie from 'cookie';
-
-
+import httpProxyMiddleWare from "next-http-proxy-middleware";
+import cookie from "cookie";
 
 // const apiRoute = nextConnect({
 //     onError(error,req:NextApiRequest,res:NextApiResponse){
@@ -30,24 +24,22 @@ import cookie from 'cookie';
 
 // })
 // export default apiRoute
-export default (req:NextApiRequest,res:NextApiResponse)=>{
-    const access = cookie.parse(req.headers.cookie||"").access
-    httpProxyMiddleWare(req,res,{
-        target:currentUserEndpoint,
-        ignorePath:true,
-        headers:{
-            "Authorization":`Bearer ${access}`
-        }
-    })
-
-}
-
+export default (req: NextApiRequest, res: NextApiResponse) => {
+  const access = cookie.parse(req.headers.cookie || "").access;
+  httpProxyMiddleWare(req, res, {
+    target: currentUserEndpoint,
+    ignorePath: true,
+    headers: {
+      Authorization: `Bearer ${access}`,
+    },
+  });
+};
 
 export const config = {
-    api: {
-        bodyParser: false
-        // {
-        //     sizeLimit: '100mb' // Set desired value here
-        // }
-    }
-}
+  api: {
+    bodyParser: false,
+    // {
+    //     sizeLimit: '100mb' // Set desired value here
+    // }
+  },
+};
