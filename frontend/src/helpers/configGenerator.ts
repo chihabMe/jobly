@@ -4,7 +4,7 @@ export default (method:string,body:string|FormData,cookies:string,contentTpe:str
     const access = cookie.parse(cookies).access
     const config = {
         method,
-        headers:{
+        headers :{
             "Content-Type":contentTpe,
             "Authorization":`Bearer ${access}`
         },
