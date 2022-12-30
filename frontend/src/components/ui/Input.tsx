@@ -28,7 +28,6 @@ const Input = ({ type, name, label, placeholder }: Props) => {
         <input
           placeholder={placeholder}
           type={type}
-          name={name}
           className={`w-full h-10 px-2 outline-none`}
           {...field}
         />
