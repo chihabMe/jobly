@@ -12,27 +12,28 @@ import useAppDispatch from "src/hooks/useAppDispatch";
 import { Form, Formik, FormikValues } from "formik";
 import { loginSchema } from "src/helpers/schemas";
 import Image from "next/image";
+import { CircleLoader, MoonLoader } from "react-spinners";
 
-const initialState = {
-  email: "",
-  password: "",
-};
 const Login = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { isLogged, registeredEmail, isLoading, loggingFailed } =
     useAppSelector((state) => state.auth);
-  const onChangeHandler = (e: any) => {
-    // setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
   useEffect(() => {
     dispatch(authActions.consumeEmailAfterEnteringTheLoggingPage());
   }, []);
+  const initialState = {
+    email: registeredEmail,
+    password: "",
+  };
   useEffect(() => {
     if (!isLoading && isLogged) {
       router.push("/");
     }
   }, [isLogged]);
+  const login = (email: string, password: string) => {
+    dispatch(authActions.login({ email, password }));
+  };
   return (
     <main className="w-full min-h-screen   ">
       <div className="w-full mt-10 flex max-w-screen-xl min-h-[500px] mx-auto bg-primary rounded-2xl  ">
@@ -50,8 +51,7 @@ const Login = () => {
               initialValues={initialState}
               validationSchema={loginSchema}
               onSubmit={(values, actions) => {
-                console.log(values);
-                actions.setSubmitting(false);
+                login(values.email, values.password);
               }}
             >
               {(props) => (
@@ -73,8 +73,22 @@ const Login = () => {
                       Reset Password
                     </span>
                   </div>
+                  <div>
+                    {loggingFailed && (
+                      <>
+                        <span className="text-red-400">
+                          please make sure that you are using a valid email and
+                          password{" "}
+                        </span>
+                      </>
+                    )}
+                  </div>
                   <Button className="w-full rounded-sm h-11 items-center  py-0 !capitalize bg-blue-300    flex justify-center text-sm font-medium  ">
-                    {isLoading ? <PageIsLoading size={7} /> : "login"}
+                    {isLoading ? (
+                      <MoonLoader size={20} color="white" />
+                    ) : (
+                      "login"
+                    )}
                   </Button>
                 </Form>
               )}
@@ -117,7 +131,7 @@ const Login = () => {
                   Don't Have an account ?
                 </span>
                 <span className="text-primary  cursor-pointer">
-                  Crete an account
+                  <Link href={"/signup"}>Crete an account</Link>
                 </span>
               </h1>
             </div>

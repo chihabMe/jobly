@@ -1,5 +1,5 @@
 import { useField } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 interface Props {
   name: string;
   type: string;
@@ -7,7 +7,7 @@ interface Props {
   placeholder?: string;
 }
 const Input = ({ type, name, label, placeholder }: Props) => {
-  const [field, meta] = useField({ type, name, placeholder });
+  const [field, meta, actions] = useField({ type, name, placeholder });
   return (
     <div className="w-full flex flex-col gap-2 ">
       <label
