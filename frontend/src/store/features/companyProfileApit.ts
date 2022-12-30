@@ -2,6 +2,13 @@ import camelize from "camelize-ts";
 import CompanyUser from "src/models/CompanyUser";
 import Job from "src/models/Job";
 import { apiSlice } from "../api/apiSlice";
+interface ResponseError {
+  name: string[];
+  description: string[];
+  number_of_employees: string[];
+  website: string[];
+  phone: string[];
+}
 
 const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -21,6 +28,9 @@ const extendedApiSlice = apiSlice.injectEndpoints({
     }),
     updateCompanyProfile: builder.mutation({
       invalidatesTags: ["Profile"],
+      transformResponse: (result: { data: ResponseError }) => {
+        return result.data;
+      },
       query: ({
         phone,
         name,
