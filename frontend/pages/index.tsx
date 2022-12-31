@@ -4,9 +4,13 @@ import cookie from "cookie";
 import { verifyAuth } from "src/services/verifyAuth";
 import Header from "src/components/layout/Header/Header";
 import Footer from "src/components/layout/Footer/Footer";
+import { API } from "config";
+
 const HomePage: NextPage = () => {
     return (
         <>
+                  <h1 class="text-xl">api{API}</h1>
+
             <Home />
             <Footer />
         </>
