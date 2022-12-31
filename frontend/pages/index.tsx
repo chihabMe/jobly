@@ -9,7 +9,7 @@ import { API } from "config";
 const HomePage: NextPage = () => {
     return (
         <>
-                  <h1 class="text-xl">api{API}</h1>
+                  <h1 className="text-xl">api{API}</h1>
 
             <Home />
             <Footer />
