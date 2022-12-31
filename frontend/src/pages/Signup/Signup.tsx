@@ -49,35 +49,31 @@ const SignUp = () => {
   };
   return (
     <main className="w-full min-h-screen   ">
-      <div className="w-full mt-10 flex max-w-screen-xl min-h-[500px] mx-auto bg-primary rounded-2xl  ">
-        <div className="hidden md:flex md:w-1/2  min-h-full    ">
+      <div className="w-full mt-10 flex max-w-screen-xl min-h-[550px] mx-auto bg-primary rounded-2xl  ">
+        <div className="hidden md:flex md:w-1/2  min-h-full    bg-primary rounded-l-md">
           <div className="w-60 h-60 relative mx-auto my-auto ">
             <Image src="/images/svg/welcome.svg" layout="fill" />
           </div>
         </div>
-        <div className="w-full md:w-1/2  bg-white">
-          <div className="w-full h-full max-w-sm mx-auto flex flex-col justify-center gap-10">
+        <div className="w-full md:w-1/2  bg-bg dark:bg-gray-900 pt-6 rounded-r-md">
+          <div className="w-full h-full max-w-sm mx-auto flex flex-col justify-center gap-4">
             <h1 className="text-center text-2xl text-title dark:text-title-dark font-bold">
               Hello! Welcome back
             </h1>
             <Formik
               initialValues={initialState}
               validationSchema={loginSchema}
-              onSubmit={(values, actions) => {
-                signup(
+              onSubmit={async (values, actions) => {
+                const response = await signup(
                   values.username,
                   values.email,
                   values.password,
                   values.re_password
-                )
-                  .then((res) => res.json())
-                  .then((data) => {
-                    actions.setErrors(data);
-                  })
-                  .catch((error) => {})
-                  .finally(() => {
-                    actions.setSubmitting(false);
-                  });
+                );
+                const data = await response.json();
+                if (response.status != 201) actions.setErrors(data);
+                else router.push("/login");
+                actions.setSubmitting(false);
               }}
             >
               {(props) => (

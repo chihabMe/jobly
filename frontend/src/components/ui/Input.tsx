@@ -13,7 +13,7 @@ const Input = ({ type, name, label, placeholder }: Props) => {
       <label
         className={`font-medium ${
           meta.touched && meta.error && "text-red-400"
-        } text-title dark:text-title-dark`}
+        } text-title dark:text-title-dark font-medium text-lg`}
         htmlFor=""
       >
         {label}
@@ -28,7 +28,7 @@ const Input = ({ type, name, label, placeholder }: Props) => {
         <input
           placeholder={placeholder}
           type={type}
-          className={`w-full h-10 px-2 outline-none`}
+          className={`w-full h-11 px-2 outline-none`}
           {...field}
         />
       </div>
