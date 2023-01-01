@@ -23,6 +23,6 @@ export const registrationSchema = yup.object().shape({
     .required("a password field is required"),
   re_password: yup
     .string()
-    .oneOf([yup.ref("password"), "passwords must match"])
+    .oneOf([yup.ref("password"), null], "passwords must match")
     .required("a password confirmation field is required"),
 });

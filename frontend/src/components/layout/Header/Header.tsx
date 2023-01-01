@@ -56,13 +56,9 @@ const Header = () => {
       });
     }
   }, []);
-  useEffect(() => {
-    // dispatch(authActions.verify());
-    // dispatch(authActions.loadUser());
-  }, []);
   return (
     <>
-      <div className="py-4 bg-bg dark:bg-bg-dark z-20 text-title dark:text-title-dark   sticky top-0 px-2   flex  justify-between items-center  w-full">
+      <div className="py-4  shadow  bg-bg dark:bg-bg-dark z-20 text-title dark:text-title-dark   sticky top-0 px-4 rounded-md   flex  justify-between items-center  w-full">
         {/* logo */}
         <div className=" text-4xl    font-bold capitalize cursor-pointer">
           <Link href="/">

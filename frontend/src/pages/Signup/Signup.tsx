@@ -9,23 +9,20 @@ import useAppSelector from "src/hooks/useAppSelector";
 import useDispatchApp from "src/hooks/useAppDispatch";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import { Form, Formik, FormikValues } from "formik";
-import { loginSchema } from "src/helpers/schemas";
+import { loginSchema, registrationSchema } from "src/helpers/schemas";
 import Image from "next/image";
 import { CircleLoader, MoonLoader } from "react-spinners";
 import camelize from "camelize-ts";
 
 const SignUp = () => {
   const dispatch = useAppDispatch();
-  const { isLoading, registeredSuccessfully, hasErrors, errors } =
-    useAppSelector((state) => state.auth);
+  const [isLoading, setIsLoading] = useState(false);
   const signup = async (
     username: string,
     email: string,
     password: string,
     re_password: string
   ) => {
-    // request("POST", "/api/register", JSON.stringify(form));
-    // dispatch(authActions.signup({ username, email, password, re_password }));
     return await fetch("/api/register", {
       method: "post",
       headers: {
@@ -34,12 +31,6 @@ const SignUp = () => {
       body: JSON.stringify({ username, email, password, re_password }),
     });
   };
-  useEffect(() => {
-    if (registeredSuccessfully) {
-      router.push("/login");
-    }
-  }, [registeredSuccessfully]);
-
   const router = useRouter();
   const initialState = {
     username: "",
@@ -57,13 +48,15 @@ const SignUp = () => {
         </div>
         <div className="w-full md:w-1/2  bg-bg dark:bg-gray-900 pt-6 rounded-r-md">
           <div className="w-full h-full max-w-sm mx-auto flex flex-col justify-center gap-4">
-            <h1 className="text-center text-2xl text-title dark:text-title-dark font-bold">
-              Hello! Welcome back
+            <h1 className="text-center capitalize py-4 text-2xl text-title dark:text-title-dark font-bold">
+              Sing up
             </h1>
             <Formik
+              validateOnChange={false}
               initialValues={initialState}
-              validationSchema={loginSchema}
+              validationSchema={registrationSchema}
               onSubmit={async (values, actions) => {
+                setIsLoading(true);
                 const response = await signup(
                   values.username,
                   values.email,
@@ -74,10 +67,11 @@ const SignUp = () => {
                 if (response.status != 201) actions.setErrors(data);
                 else router.push("/login");
                 actions.setSubmitting(false);
+                setIsLoading(false);
               }}
             >
               {(props) => (
-                <Form className="flex flex-col gap-4 ">
+                <Form className="flex flex-col gap-6 ">
                   <Input
                     name="username"
                     type="text"
@@ -102,11 +96,6 @@ const SignUp = () => {
                     label="password confirmation"
                     placeholder="re enter your password"
                   />
-                  <div className="text-end">
-                    <span className="text-primary font-medium cursor-pointer">
-                      Reset Password
-                    </span>
-                  </div>
                   <Button className="w-full rounded-sm h-11 items-center  py-0 !capitalize bg-blue-300    flex justify-center text-sm font-medium  ">
                     {isLoading ? (
                       <MoonLoader size={20} color="white" />

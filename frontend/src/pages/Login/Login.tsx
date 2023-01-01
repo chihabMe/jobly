@@ -44,8 +44,8 @@ const Login = () => {
         </div>
         <div className="w-full md:w-1/2  bg-bg dark:bg-gray-900 pt-6 rounded-r-md">
           <div className="w-full h-full max-w-sm mx-auto flex flex-col justify-center gap-4">
-            <h1 className="text-center text-2xl text-title dark:text-title-dark font-bold">
-              Hello! Welcome back
+            <h1 className="text-center pb-4 text-2xl text-title dark:text-title-dark font-bold">
+              Login
             </h1>
             <Formik
               initialValues={initialState}
@@ -83,7 +83,7 @@ const Login = () => {
                       </>
                     )}
                   </div>
-                  <Button className="w-full rounded-sm h-11 items-center  py-0 !capitalize bg-blue-300    flex justify-center text-sm font-medium  ">
+                  <Button className="w-full rounded-md h-11 items-center  py-0 !capitalize bg-blue-300    flex justify-center text-sm font-medium  ">
                     {isLoading ? (
                       <MoonLoader size={20} color="white" />
                     ) : (
