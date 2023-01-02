@@ -56,6 +56,7 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
         required=False, source="location.name", read_only=False
     )
     jobs = serializers.SerializerMethodField()
+    slug = serializers.SlugField(required=False)
     number_of_applied_users = serializers.SerializerMethodField()
     rating = serializers.SerializerMethodField()
     number_of_raters = serializers.SerializerMethodField()
@@ -81,12 +82,21 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
             "created",
         )
 
+    def validate_number_of_employees(self, attrs):
+        if attrs < 1:
+            raise serializers.ValidationError("you have to have at lease 1 employee ")
+        return attrs
+
     def get_number_of_raters(self, company_profile):
         return company_profile.rates.count()
 
     def get_rating(self, company_profile):
         total = sum(rate.rate for rate in company_profile.rates.all())
-        res = total / company_profile.rates.count()
+        total_rates = company_profile.rates.count()
+        if total_rates > 0:
+            res = total / total_rates
+        else:
+            res = 0
         return float(format(res, ".1f"))
 
     def get_jobs(self, company_profile):

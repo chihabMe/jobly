@@ -21,7 +21,7 @@ const CompanyTopInfos = ({ profile }: { profile: CompanyUser }) => {
   return (
     <div className="flex gap-4 flex-col">
       <div className="w-full h-52 sm:h-64 md:h-72 relative">
-        <Image className="rounded-md" src={profile.image} layout="fill" />
+        <Image className="rounded-md" src={""} layout="fill" />
       </div>
       <div className="flex justify-between items-center py-2">
         {/* top-left */}

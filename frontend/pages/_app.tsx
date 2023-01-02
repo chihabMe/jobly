@@ -13,7 +13,6 @@ import { NextPageContext } from "next";
 
 import { apiSlice } from "../src/store/api/apiSlice";
 
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApiProvider api={apiSlice}>

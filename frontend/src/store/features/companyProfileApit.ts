@@ -2,7 +2,7 @@ import camelize from "camelize-ts";
 import CompanyUser from "src/models/CompanyUser";
 import Job from "src/models/Job";
 import { apiSlice } from "../api/apiSlice";
-interface ResponseError {
+export interface ResponseError {
   name: string[];
   description: string[];
   number_of_employees: string[];
@@ -16,6 +16,7 @@ const extendedApiSlice = apiSlice.injectEndpoints({
       query: () => "/me",
       providesTags: ["Profile"],
       transformResponse: (response: CompanyUser) => {
+        if (response.image == null) response.image = "";
         return camelize(response);
       },
     }),
@@ -29,8 +30,9 @@ const extendedApiSlice = apiSlice.injectEndpoints({
     updateCompanyProfile: builder.mutation({
       invalidatesTags: ["Profile"],
       transformResponse: (result: { data: ResponseError }) => {
-        return result.data;
+        return camelize(result);
       },
+
       query: ({
         phone,
         name,

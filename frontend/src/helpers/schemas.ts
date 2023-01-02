@@ -26,3 +26,22 @@ export const registrationSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "passwords must match")
     .required("a password confirmation field is required"),
 });
+
+export const companyProfileEditSchema = yup.object().shape({
+  name: yup.string(),
+  description: yup
+    .string()
+    .min(
+      100,
+      "you have to use more than 100 characters to describe your company"
+    )
+    .max(
+      500,
+      "you  can not use more than 500 characters to describe your company"
+    ),
+  numberOfEmployees: yup
+    .number()
+    .min(1, "your have to have more than one employee in your company"),
+  website: yup.string().url("you have to use a valid website link"),
+  phone: yup.string(),
+});
