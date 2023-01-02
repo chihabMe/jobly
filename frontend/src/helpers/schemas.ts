@@ -31,10 +31,7 @@ export const companyProfileEditSchema = yup.object().shape({
   name: yup.string(),
   description: yup
     .string()
-    .min(
-      100,
-      "you have to use more than 100 characters to describe your company"
-    )
+    .min(50, "you have to use more than 50 character to describe your company")
     .max(
       500,
       "you  can not use more than 500 characters to describe your company"

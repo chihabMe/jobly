@@ -1,6 +1,7 @@
 import camelize from "camelize-ts";
 import { Form, Formik, FormikBag, FormikErrors } from "formik";
 import React, { FormEvent, useEffect, useRef, useState } from "react";
+import Alert from "src/components/ui/Alert";
 import Button from "src/components/ui/Button";
 import Controller from "src/components/ui/Controller";
 import Input from "src/components/ui/Input";
@@ -14,7 +15,7 @@ import {
 } from "src/store/features/companyProfileApit";
 
 const CompanyProfileEditInfos = ({ profile }: { profile: CompanyUser }) => {
-  const [updateProfile, { isLoading, isError, error, data }] =
+  const [updateProfile, { isLoading, isError, error, data, isSuccess }] =
     useUpdateCompanyProfileMutation();
   const initialState = {
     name: profile?.name || "",
@@ -25,6 +26,7 @@ const CompanyProfileEditInfos = ({ profile }: { profile: CompanyUser }) => {
   };
   return (
     <div>
+      {!isLoading && isSuccess && <Alert body="saved successfully" />}
       <Formik
         validationSchema={companyProfileEditSchema}
         initialValues={initialState}
@@ -47,6 +49,11 @@ const CompanyProfileEditInfos = ({ profile }: { profile: CompanyUser }) => {
           >
             <Input type="text" label="company name" name="name" />
             {/* <TextInput placeholder="description" name="description" /> */}
+            <TextInput
+              label="company description"
+              placeholder="company description"
+              name="description"
+            />
             <Input
               type="url"
               label="company website"
