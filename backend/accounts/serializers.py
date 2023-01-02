@@ -130,10 +130,11 @@ class CompanySerializer(serializers.ModelSerializer):
 class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     re_password = serializers.CharField(write_only=True)
+    account_type = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ("username", "email", "password", "re_password")
+        fields = ("username", "email", "account_type", "password", "re_password")
 
     def validate(self, attrs):
         if attrs.get("password") != attrs.get("re_password"):
@@ -146,6 +147,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
         email = validated_data.get("email")
         password = validated_data.get("password")
         user = User(username=username, email=email)
+        ##checking for the account type
+        print(validated_data)
+        account_type: str = validated_data.get("account_type", User.Types.EMPLOYEE)
+        if account_type.lower() == "company":
+            user.type = User.Types.COMPANY
+        else:
+            user.type = User.Types.EMPLOYEE
         user.set_password(password)
         user.save()
         return user

@@ -16,12 +16,16 @@ def initializeLocations(request):
         i = 0
         for location in locations:
             i += 1
-            id = location.get("id")
-            lc = Location.objects.get(id=id)
-            lc.delete()
+            try:
+                id = location.get("id")
+                lc = Location.objects.get(id=id)
+                lc.delete()
+            except:
+                pass
             name = location.get("name")
             Location.objects.create(id=id, name=name, number=id, user=request.user)
         return HttpResponse(f"{i} locations")
+    return HttpResponse("unauthorized")
 
 
 class LocationsView(ListAPIView):
