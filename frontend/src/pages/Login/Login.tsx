@@ -42,7 +42,7 @@ const Login = () => {
             <Image src="/images/svg/welcome.svg" layout="fill" />
           </div>
         </div>
-        <div className="w-full md:w-1/2  bg-bg dark:bg-gray-900 pt-6 rounded-r-md">
+        <div className="w-full md:w-1/2  bg-bg dark:bg-gray-900 pt-6 rounded-r-md px-2">
           <div className="w-full h-full max-w-sm mx-auto flex flex-col justify-center gap-4">
             <h1 className="text-center pb-4 text-2xl text-title dark:text-title-dark font-bold">
               Login
@@ -100,7 +100,7 @@ const Login = () => {
               </h2>
               <ul className=" h-px py-px  bg-gray-800 w-1/3" />
             </div>
-            <div className="w-full">
+            <div className="w-full my-4">
               <ul className="flex justify-around">
                 <li className="w-8 h-8 relative    cursor-pointer">
                   <Image

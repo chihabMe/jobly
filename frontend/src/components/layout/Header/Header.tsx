@@ -60,7 +60,7 @@ const Header = () => {
     <>
       <div className="py-4  shadow  bg-bg dark:bg-bg-dark z-20 text-title dark:text-title-dark   sticky top-0 px-4 rounded-md   flex  justify-between items-center  w-full">
         {/* logo */}
-        <div className=" text-4xl    font-bold capitalize cursor-pointer">
+        <div className=" text-2xl sm:text-3xl md:text-4xl    font-bold capitalize cursor-pointer">
           <Link href="/">
             <span>
               job<span className="text-primary">ly</span>{" "}
@@ -101,10 +101,10 @@ const Header = () => {
           >
             <>
               {!showMobileMenu && (
-                <Bars3Icon className="w-10 cursor-pointer h-10 text-title dark:text-title-dark " />
+                <Bars3Icon className="w-8 cursor-pointer h-10 text-title dark:text-title-dark " />
               )}
               {showMobileMenu && (
-                <XMarkIcon className="w-10 cursor-pointer h-10 text-title dark:text-title-dark " />
+                <XMarkIcon className="w-8 cursor-pointer h-10 text-title dark:text-title-dark " />
               )}
             </>
           </Button>

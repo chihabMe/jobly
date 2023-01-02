@@ -94,10 +94,10 @@ const JobSearch = ({
         />
       </div>
       <Button
-        text="search"
-        className="rounded-lg flex  gap-2 items-center font-medium  hover:opacity-75 transition-all duration-150  bg-primary px-4  justify-center md:px-7 capitalize py-3 md:py-4 w-full md:w-auto"
+        text=""
+        className="rounded-sm  flex !capitalize  gap-2 items-center font-medium  hover:opacity-75 transition-all duration-150  bg-primary px-4  justify-center md:px-7 capitalize   w-full md:w-auto"
       >
-        <MagnifyingGlassIcon className="w-4 h-4 mt-1   " />
+        <MagnifyingGlassIcon className="w-6 h-6    " />
       </Button>
     </form>
   );
