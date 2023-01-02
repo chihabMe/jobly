@@ -32,13 +32,13 @@ const SignUp = () => {
             <h1 className="text-center capitalize py-4 text-2xl text-title dark:text-title-dark font-bold">
               Sing up
             </h1>
-            {true && (
+            {!isRegistered && (
               <>
                 <SignupForm setIsRegistered={setIsRegistered} />
                 <SignupWithSocialAccounts />
               </>
             )}
-            {!true && <RegistredDisplay />}
+            {isRegistered && <RegistredDisplay />}
 
             <div className="">
               <h1 className="text-center text-sm  font-medium flex justify-center gap-2 ">

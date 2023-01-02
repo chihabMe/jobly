@@ -15,7 +15,7 @@ interface FormTypes {
   email: string;
   password: string;
   re_password: string;
-  account_type: "employee" | "company";
+  account_type: string;
 }
 
 const SignupForm = ({ setIsRegistered }: Props) => {
@@ -33,7 +33,13 @@ const SignupForm = ({ setIsRegistered }: Props) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, email, password, re_password }),
+      body: JSON.stringify({
+        username,
+        email,
+        password,
+        re_password,
+        account_type,
+      }),
     });
   };
   const initialState: FormTypes = {

@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 interface Props {
   setChoice: (value: string) => void;
-  choice: "employee" | "company";
+  choice: string;
 }
 const AccountTypeChoices = ({ setChoice, choice }: Props) => {
   const setEmployeeChoice = () => {
