@@ -25,7 +25,7 @@ const baseQueryWithReAuth = async (
         "Content-Type": "application/json",
       },
     };
-    const response = await fetch("/api/refresh",config);
+    const response = await fetch("/api/refresh", config);
     const data = await response.json();
     if (response.status == 200) {
       result = await baseQuery(args, api, extraOptions);
@@ -38,6 +38,6 @@ const baseQueryWithReAuth = async (
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReAuth,
-  tagTypes: ["Profile","Job","CompanyJobs"],
+  tagTypes: ["Profile", "Job", "CompanyJobs", "CompanyReviews"],
   endpoints: (builder) => ({}),
 });

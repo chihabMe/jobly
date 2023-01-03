@@ -1,4 +1,5 @@
 import camelize from "camelize-ts";
+import CompanyReview from "src/models/CompanyReview";
 import CompanyUser from "src/models/CompanyUser";
 import Job from "src/models/Job";
 import { apiSlice } from "../api/apiSlice";
@@ -27,6 +28,22 @@ const extendedApiSlice = apiSlice.injectEndpoints({
       query: (company) => `profile/company/${company}/jobs`,
       providesTags: ["CompanyJobs"],
     }),
+    getCompanyReview: builder.query<CompanyReview[], string>({
+      providesTags: ["CompanyReviews"],
+      query: (companySlug) => `profile/company/${companySlug}/reviews`,
+    }),
+    updateCompanyReview: builder.mutation<
+      any,
+      { companySlug: string; rate: number; body: string }
+    >({
+      invalidatesTags: ["CompanyReviews"],
+      query: ({ companySlug, body, rate }) => ({
+        url: `profile/company/${companySlug}/reviews`,
+        method: "PUT",
+        body: { body, rate },
+      }),
+    }),
+
     changeCompanyProfileCover: builder.mutation({
       invalidatesTags: ["Profile"],
       transformResponse: (result: { data: ResponseError }) => {
@@ -76,4 +93,6 @@ export const {
   useUpdateCompanyProfileMutation,
   useGetCompanyJobsQuery,
   useChangeCompanyProfileCoverMutation,
+  useGetCompanyReviewQuery,
+  useUpdateCompanyReviewMutation,
 } = extendedApiSlice;
