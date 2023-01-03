@@ -50,6 +50,7 @@ class EmployeeProfileSerializer(serializers.ModelSerializer):
 
 class CompanyProfileSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
+    cover = serializers.ImageField(required=False)
     name = serializers.CharField(required=False)
     email = serializers.CharField(source="user.email", read_only=True)
     location = serializers.CharField(
@@ -67,6 +68,7 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
         fields = (
             "name",
             "image",
+            "cover",
             "rating",
             "website",
             "number_of_raters",
@@ -108,6 +110,7 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
     def update(self, instance: CompanyProfile, validated_data):
         instance.name = validated_data.get("name", instance.name)
         instance.image = validated_data.get("image", instance.image)
+        instance.cover = validated_data.get("cover", instance.cover)
         instance.description = validated_data.get("description", instance.description)
         instance.website = validated_data.get("website", instance.website)
         instance.number_of_employees = validated_data.get(

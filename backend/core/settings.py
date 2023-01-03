@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "accounts",
     "jobs",
     "locations",
+    "reviews",
     # 3d parties
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
