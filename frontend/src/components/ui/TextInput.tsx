@@ -16,7 +16,7 @@ const TextInput = ({ placeholder, name, label }: Props) => {
         {...field}
         error={meta.touched && meta.error != undefined}
         label={label}
-        className={`    text-title dark:text-title-dark `}
+        className={` bg-bg dark:bg-bg-dark   text-title dark:text-title-dark `}
       />
       {meta.error && meta.touched && (
         <span className="text-red-400 text-sm font-medium">{meta.error}</span>

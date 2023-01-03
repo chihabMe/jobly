@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Button from "src/components/ui/Button";
 import Link from "next/link";
+import CompanyWriteAReview from "./CompanyReviews/CompanyWriteAReview";
 
 const CompanyTopInfos = ({ profile }: { profile: CompanyUser }) => {
   const stars = [];
@@ -20,8 +21,8 @@ const CompanyTopInfos = ({ profile }: { profile: CompanyUser }) => {
   }
   return (
     <div className="flex gap-4 flex-col">
-      <div className="w-full h-52 sm:h-64 md:h-72 relative">
-        <Image className="rounded-md" src={""} layout="fill" />
+      <div className="w-full h-52 sm:h-64 md:h-[500px] relative">
+        <Image className="rounded-md" src={profile.cover} layout="fill" />
       </div>
       <div className="flex justify-between items-center py-2">
         {/* top-left */}
@@ -44,14 +45,12 @@ const CompanyTopInfos = ({ profile }: { profile: CompanyUser }) => {
         {/* top-right */}
         <div className=" flex gap-4 items-center">
           <Link href="/profile/edit">
-            <Button className="!px-6 !py-2 hover:!bg-primary hover:!text-white   !bg-bg dark:!bg-bg-dark  !text-primary ">
+            <Button className="!px-6 !py-2.5 rounded-sm  hover:!bg-primary hover:!text-white   !bg-bg dark:!bg-bg-dark  !text-primary ">
               <PencilSquareIcon className="w-6 h-6" />
             </Button>
           </Link>
-          <Button className="">follow</Button>
-          <Button className="!bg-bg shadow  shadow-gray-600  !text-title ">
-            write a review
-          </Button>
+          <Button className="!py-3.5 px-6 rounded-sm">follow</Button>
+          <CompanyWriteAReview />
         </div>
       </div>
     </div>

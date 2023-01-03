@@ -6,6 +6,7 @@ interface CompanyUser extends User {
   slug: string;
 
   image: string;
+  cover: string;
   website: string;
 
   rating: number;

@@ -5,6 +5,8 @@ import PageIsLoading from "src/components/ui/PageIsLoading";
 import TextInput from "src/components/ui/TextInput";
 import { useGetProfileQuery } from "src/store/features/companyProfileApit";
 import CompanyProfileEditInfos from "../Profile/CompanyProfile/CompanyProfileEditInfos";
+import CompanyCoverUpdate from "../Profile/CompanyProfile/CompnayCoverUpdate";
+import CompanyCover from "../Profile/CompanyProfile/CompnayCoverUpdate";
 import ProfileImage from "../Profile/EmployeeProfile/ProfileImage";
 
 const CompanyProfileEdit = () => {
@@ -13,8 +15,11 @@ const CompanyProfileEdit = () => {
   if (isError || !profile) return <h1>error</h1>;
 
   return (
-    <div className="flex  flex-col gap-4">
-      <ProfileImage user={profile} />
+    <div className="flex w-full max-w-2xl  mx-auto flex-col gap-4 pt-6">
+      <div className="flex  gap-2">
+        <ProfileImage user={profile} />
+        <CompanyCoverUpdate user={profile} />
+      </div>
       <CompanyProfileEditInfos profile={profile} />
     </div>
   );

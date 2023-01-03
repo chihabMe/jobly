@@ -27,6 +27,17 @@ const extendedApiSlice = apiSlice.injectEndpoints({
       query: (company) => `profile/company/${company}/jobs`,
       providesTags: ["CompanyJobs"],
     }),
+    changeCompanyProfileCover: builder.mutation({
+      invalidatesTags: ["Profile"],
+      transformResponse: (result: { data: ResponseError }) => {
+        return camelize(result);
+      },
+      query: (cover: FormData) => ({
+        url: "/profile/update",
+        method: "PUT",
+        body: cover,
+      }),
+    }),
     updateCompanyProfile: builder.mutation({
       invalidatesTags: ["Profile"],
       transformResponse: (result: { data: ResponseError }) => {
@@ -64,4 +75,5 @@ export const {
   useGetProfileQuery,
   useUpdateCompanyProfileMutation,
   useGetCompanyJobsQuery,
+  useChangeCompanyProfileCoverMutation,
 } = extendedApiSlice;

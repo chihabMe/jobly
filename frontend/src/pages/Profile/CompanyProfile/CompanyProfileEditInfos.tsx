@@ -43,10 +43,7 @@ const CompanyProfileEditInfos = ({ profile }: { profile: CompanyUser }) => {
         }}
       >
         {(props) => (
-          <Form
-            action=""
-            className="w-full max-w-2xl mx-auto flex flex-col gap-4"
-          >
+          <Form action="" className="w-full   flex flex-col gap-4">
             <Input type="text" label="company name" name="name" />
             {/* <TextInput placeholder="description" name="description" /> */}
             <TextInput
