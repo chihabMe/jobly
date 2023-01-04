@@ -18,6 +18,7 @@ export const jobDetailEndpoint = API + "api/v1/jobs/"; //+slug
 export const jobSearchEndpoint = API + "api/v1/jobs/"; //+queries
 
 //profile
-export const company = API + "api/v1/accounts/company/"; //+returns company open jobs
+export const companyEndpoint = API + "api/v1/accounts/company/"; //+returns company open jobs
 //reviews
 export const companyReviewsEndpoint = API + "api/v1/reviews/company/"; //+returns company reviews
+export const companyReviewEndpoint = API + "api/v1/reviews/company/"; //+returns company review

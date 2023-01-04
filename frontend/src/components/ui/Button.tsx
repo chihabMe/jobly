@@ -13,7 +13,7 @@ const Button: React.FC<{
       onClick={onClick}
       disabled={disabled}
       type="submit"
-      className={`${className}  lowercase text-white bg-primary    hover:shadow-sm  hover:opacity-90   transition-all duration-100 `}
+      className={`${className} rounded-md   lowercase text-white bg-primary    hover:shadow-sm  hover:opacity-90   transition-all duration-100 `}
     >
       {children}
       <span>{text}</span>

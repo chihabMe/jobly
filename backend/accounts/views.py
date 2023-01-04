@@ -1,15 +1,16 @@
-from accounts.models import CompanyProfile, Employee, EmployeeProfile
-from accounts.permissions import IsProfileOwner
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, render
-from jobs.models import Job
-from jobs.permissions import IsOwnerOrReadOnly
-from jobs.serializers import JobsListSerailizer
 from rest_framework import generics, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from rest_framework.response import Response
+
+from accounts.models import CompanyProfile, Employee, EmployeeProfile
+from accounts.permissions import IsProfileOwner
+from jobs.models import Job
+from jobs.permissions import IsOwnerOrReadOnly
+from jobs.serializers import JobsListSerailizer
 
 from .serializers import (
     CompanyProfileSerializer,
@@ -75,3 +76,10 @@ class CompanyJobs(generics.ListAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     lookup_field = "slug"
     pagination_class = PageNumberPagination
+
+
+# def company_profile_detail(request):
+class CompanyDetailView(generics.RetrieveAPIView):
+    queryset = CompanyProfile.objects.all()
+    lookup_field = "slug"
+    serializer_class = CompanyProfileSerializer

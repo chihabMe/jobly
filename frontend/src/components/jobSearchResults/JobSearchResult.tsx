@@ -27,7 +27,7 @@ const JobSearchResult = ({
   tags,
   currentJob,
 }: {
-  onClickHandler:(slug:string)=>void,
+  onClickHandler: (slug: string) => void;
   title: string;
   location: string;
   introduction: string;
@@ -37,10 +37,15 @@ const JobSearchResult = ({
   slug: string;
   company: string;
   tags: Tag[];
-  currentJob:boolean;
+  currentJob: boolean;
 }) => {
   return (
-    <div onClick={onClickHandler.bind(null,slug)} className={ ` flex w-full cursor-pointer  bg-bg dark:bg-bg-dark ${currentJob && "outline-primary outline"} hover:outline outline-2  outline-text py-6 px-3 rounded-md flex-col gap-4 `}>
+    <div
+      onClick={onClickHandler.bind(null, slug)}
+      className={` flex w-full cursor-pointer  bg-bg dark:bg-bg-dark ${
+        currentJob && "outline-primary outline"
+      } hover:outline outline-2  outline-text py-6 px-3 rounded-md flex-col gap-4 `}
+    >
       {/* top */}
       <div className="flex justify-between">
         <div className="flex flex-col  items-left ">
@@ -54,7 +59,7 @@ const JobSearchResult = ({
             {location}
           </h3>
         </div>
-          <JobBookMark bookMarked={bookMarked} slug={slug}  />
+        <JobBookMark bookMarked={bookMarked} slug={slug} />
       </div>
       {/* center */}
       <div className="flex flex-col gap-4">
@@ -81,7 +86,7 @@ const JobSearchResult = ({
             {tags?.map((item, index) => (
               <span
                 key={item.name + index}
-                className="bg-primary    text-title-dark text-xs px-1 py-1 rounded-sm cursor-pointer"
+                className="bg-primary    text-title-dark text-xs px-1 py-1  cursor-pointer"
               >
                 {item.name}
               </span>

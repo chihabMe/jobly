@@ -102,7 +102,7 @@ const SignupForm = ({ setIsRegistered }: Props) => {
             choice={props.values.account_type}
             setChoice={props.getFieldHelpers("account_type").setValue}
           />
-          <Button className="w-full rounded-sm h-11 items-center  py-0 !capitalize bg-blue-300    flex justify-center text-sm font-medium  ">
+          <Button className="w-full "" h-11 items-center  py-0 !capitalize bg-blue-300    flex justify-center text-sm font-medium  ">
             {isLoading ? <MoonLoader size={20} color="white" /> : "sign up"}
           </Button>
         </Form>

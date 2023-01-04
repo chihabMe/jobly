@@ -58,7 +58,7 @@ const CompanyCoverUpdate = ({ user }: { user: CompanyUser }) => {
             onClick={() => {
               fileInput.current?.click();
             }}
-            className=" rounded-sm hover:bg-bg border   bg-primary border-primary hover:text-primary  h-12 w-52       "
+            className="  hover:bg-bg border   bg-primary border-primary hover:text-primary  h-12 w-52       "
           >
             {!isLoading && "update the cover image"}
             {isLoading && <PageIsLoading size={20} color="white" />}

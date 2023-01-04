@@ -18,7 +18,7 @@ const AccountTypeChoices = ({ setChoice, choice }: Props) => {
         className="flex flex-col cursor-pointer items-center gap-2"
       >
         <div
-          className={` transition-all duration-150  rounded-sm  ${
+          className={` transition-all duration-150  ""  ${
             choice == "employee" && "bg-primary"
           } px-4 md:px-8 py-2`}
         >
@@ -35,7 +35,7 @@ const AccountTypeChoices = ({ setChoice, choice }: Props) => {
         className="flex flex-col cursor-pointer  items-center gap-2"
       >
         <div
-          className={` transition-all duration-150   rounded-sm ${
+          className={` transition-all duration-150   "" ${
             choice == "company" && "bg-primary"
           }   px-4 md:px-8 py-2`}
         >

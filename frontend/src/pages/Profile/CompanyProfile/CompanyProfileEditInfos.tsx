@@ -73,7 +73,7 @@ const CompanyProfileEditInfos = ({ profile }: { profile: CompanyUser }) => {
             />
             <Button
               disabled={props.isSubmitting}
-              className={`!capitalize !text-sm h-12 rounded-sm 
+              className={`!capitalize !text-sm h-12 "" 
                `}
             >
               {!isLoading && "save  "}

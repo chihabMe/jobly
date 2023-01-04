@@ -9,7 +9,7 @@ const RegistredDisplay = () => {
         please check your email for the verification email
       </h2>
       <Link href="/login">
-        <Button className="rounded-sm h-12 px-10">go to login</Button>
+        <Button className=""" h-12 px-10">go to login</Button>
       </Link>
     </div>
   );

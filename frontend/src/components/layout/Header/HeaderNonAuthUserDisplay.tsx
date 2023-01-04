@@ -6,13 +6,13 @@ const HeaderNonAuthUserDisplay = () => {
   return (
     <div className="flex  gap-4">
       <Link href="/login">
-        <Button className="!bg-bg  rounded-sm  px-2.5 py-2  md:px-10 md:py-3.5 !!capitalize  dark:!bg-bg-dark !text-title  hover:!text-title-dark  dark:!text-title-dark hover:!bg-primary">
+        <Button className="!bg-bg    px-2.5 py-2  md:px-10 md:py-3.5 !!capitalize  dark:!bg-bg-dark !text-title  hover:!text-title-dark  dark:!text-title-dark hover:!bg-primary">
           login
         </Button>
       </Link>
 
       <Link href="/signup">
-        <Button className="rounded-sm px-2  py-2.5  md:px-10 md:py-3.5 !capitalize  ">
+        <Button className=" px-2  py-2.5  md:px-10 md:py-3.5 !capitalize  ">
           sign up
         </Button>
       </Link>

@@ -5,7 +5,12 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 
-from .views import CompanyJobs, CurrentUserProfileView, RegistrationView
+from .views import (
+    CompanyDetailView,
+    CompanyJobs,
+    CurrentUserProfileView,
+    RegistrationView,
+)
 
 app_name = "accounts"
 
@@ -18,4 +23,5 @@ urlpatterns = [
     path("me/", CurrentUserProfileView.as_view(), name="current_employee_profile"),
     # company open jobs
     path("company/<slug:slug>/jobs/", CompanyJobs.as_view(), name="company_open_jobs"),
+    path("company/<slug:slug>/", CompanyDetailView.as_view(), name="company_open_jobs"),
 ]

@@ -1,11 +1,20 @@
 import { StarIcon } from "@heroicons/react/24/solid";
 import { Select, Option } from "@material-tailwind/react";
-import React from "react";
+import React, { FormEvent } from "react";
 
-const CompanyReviewStars = () => {
+const CompanyReviewStars = ({
+  setValue,
+  value,
+}: {
+  setValue: (value: string) => void;
+  value: number;
+}) => {
+  const handlerChange = (value: any) => {
+    setValue(value);
+  };
   return (
-    <Select>
-      <Option defaultChecked value="1">
+    <Select defaultValue={value.toString()} onChange={handlerChange}>
+      <Option value={"1"}>
         <StarsGenerator count={1} />
       </Option>
       <Option value="2">

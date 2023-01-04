@@ -45,11 +45,11 @@ const NestedSections = ({ profile }: { profile: CompanyUser }) => {
               key={item.title}
               className={({
                 selected,
-              }) => `'w-full font-bold capitalize px-2 md:px-4 rounded-sm py-2.5  text-xs sm:text-sm md:text-base  leading-5 hover:bg-primary hover:!text-white  
-                  ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'k
+              }) => `'w-full font-bold capitalize px-2 md:px-4 transition-all duration-400  rounded-md py-3.5  text-xs sm:text-sm md:text-base  leading-5 hover:bg-primary hover:!text-white  
+                  ring-white   w-full mx-1  ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'k
                 ${
                   selected
-                    ? "  bg-primary  !text-title-dark  shadow"
+                    ? "  bg-primary   !text-title-dark  shadow"
                     : "!text-title dark:!text-title-dark "
                 }
 

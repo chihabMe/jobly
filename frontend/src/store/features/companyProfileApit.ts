@@ -1,4 +1,4 @@
-import camelize from "camelize-ts";
+import camelize, { Camelize } from "camelize-ts";
 import CompanyReview from "src/models/CompanyReview";
 import CompanyUser from "src/models/CompanyUser";
 import Job from "src/models/Job";
@@ -28,19 +28,33 @@ const extendedApiSlice = apiSlice.injectEndpoints({
       query: (company) => `profile/company/${company}/jobs`,
       providesTags: ["CompanyJobs"],
     }),
-    getCompanyReview: builder.query<CompanyReview[], string>({
-      providesTags: ["CompanyReviews"],
+    getCompanyReviews: builder.query<CompanyReview[], string>({
+      transformResponse: (response: CompanyReview[]) => {
+        const res = response.map((item) => camelize(item));
+        return res as CompanyReview[];
+      },
+      providesTags: ["CompanyReview"],
       query: (companySlug) => `profile/company/${companySlug}/reviews`,
+    }),
+    getCompanyReview: builder.query<CompanyReview, string>({
+      transformResponse: (response: CompanyReview) => {
+        return camelize(response) as CompanyReview;
+      },
+      providesTags: ["CompanyReviews"],
+      query: (companySlug) => `profile/company/${companySlug}/review/`,
     }),
     updateCompanyReview: builder.mutation<
       any,
-      { companySlug: string; rate: number; body: string }
+      { companySlug: string; body: string }
     >({
-      invalidatesTags: ["CompanyReviews"],
-      query: ({ companySlug, body, rate }) => ({
+      invalidatesTags: ["CompanyReviews", "CompanyReview"],
+      transformResponse: (result: CompanyReview) => {
+        return camelize(result);
+      },
+      query: ({ companySlug, body }) => ({
         url: `profile/company/${companySlug}/reviews`,
         method: "PUT",
-        body: { body, rate },
+        body,
       }),
     }),
 
@@ -93,6 +107,7 @@ export const {
   useUpdateCompanyProfileMutation,
   useGetCompanyJobsQuery,
   useChangeCompanyProfileCoverMutation,
+  useGetCompanyReviewsQuery,
   useGetCompanyReviewQuery,
   useUpdateCompanyReviewMutation,
 } = extendedApiSlice;

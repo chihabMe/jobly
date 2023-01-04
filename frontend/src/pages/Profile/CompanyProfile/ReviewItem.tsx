@@ -32,10 +32,10 @@ const ReviewItem = ({ review }: { review: CompanyReview }) => {
           </h4>
           <div className="flex  gap-2 items-center">
             <Button className="px-5 py-1.5 !bg-transparent shadow-sm shadow-red-200  !text-red-400 flex gap-2">
-              <span>2</span>no
+              <span>{review.helpfulWithNo}</span>no
             </Button>
             <Button className="px-5 py-1.5 flex gap-2  ">
-              <span>55</span>yes
+              <span>{review.helpfulWithYes}</span>yes
             </Button>
           </div>
         </div>

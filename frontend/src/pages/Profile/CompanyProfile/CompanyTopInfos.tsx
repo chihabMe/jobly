@@ -45,12 +45,12 @@ const CompanyTopInfos = ({ profile }: { profile: CompanyUser }) => {
         {/* top-right */}
         <div className=" flex gap-4 items-center">
           <Link href="/profile/edit">
-            <Button className="!px-6 !py-2.5 rounded-sm  hover:!bg-primary hover:!text-white   !bg-bg dark:!bg-bg-dark  !text-primary ">
+            <Button className="!px-6 !py-2.5   hover:!bg-primary hover:!text-white   !bg-bg dark:!bg-bg-dark  !text-primary ">
               <PencilSquareIcon className="w-6 h-6" />
             </Button>
           </Link>
-          <Button className="!py-3.5 px-6 rounded-sm">follow</Button>
-          <CompanyWriteAReview />
+          <Button className="!py-3.5 px-6 ">follow</Button>
+          <CompanyWriteAReview companySlug={profile.slug} />
         </div>
       </div>
     </div>

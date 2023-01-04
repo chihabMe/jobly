@@ -75,7 +75,7 @@ const Header = () => {
         <div className="flex   min-w-[100px] gap-4 items-center">
           {user && user.type == "COMPANY" && (
             <Link href="/jobs/add">
-              <Button className=" px-4 !gap-0 md:!gap-2 rounded-sm flex justify-between items-center gap-2 bg-transparent bg-primary text-title dark:text-title-dark ">
+              <Button className=" px-4 !gap-0 md:!gap-2  flex justify-between items-center gap-2 bg-transparent bg-primary text-title dark:text-title-dark ">
                 <PlusIcon className="w-4 h-4 text-white " />
                 <span className="text-sm hidden md:block lowercase text-white">
                   post a job

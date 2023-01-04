@@ -29,6 +29,8 @@ class CompanyReviewSerializer(serializers.ModelSerializer):
         return review
 
     def update(self, instance, validated_data):
+        print(validated_data)
         instance.body = validated_data.get("body", instance.body)
         instance.rate = validated_data.get("rate", instance.rate)
+        instance.save()
         return instance
