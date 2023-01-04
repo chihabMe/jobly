@@ -15,10 +15,9 @@ const CompanyReviews = ({ companySlug }: { companySlug: string }) => {
   return (
     <section className="flex flex-col  gap-2 w-full  ">
       <div className=" gap-4  grid grid-cols-1 lg:grid-cols-2  w-full  ">
-        <ReviewItem />
-        {/* <ReviewItem /> */}
-        {/* <ReviewItem /> */}
-        {/* <ReviewItem /> */}
+        {reviews?.map((item) => (
+          <ReviewItem review={item} />
+        ))}
       </div>
     </section>
   );

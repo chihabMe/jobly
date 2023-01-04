@@ -27,7 +27,7 @@ const NestedSections = ({ profile }: { profile: CompanyUser }) => {
     },
     {
       title: "reviews",
-      component: <CompanyReviews companySlug={"s"} />,
+      component: <CompanyReviews companySlug={profile.slug} />,
       id: 4,
     },
     {

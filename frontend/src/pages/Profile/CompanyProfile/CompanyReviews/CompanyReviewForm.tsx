@@ -5,6 +5,7 @@ import TextInput from "src/components/ui/TextInput";
 import { Select, Option, Typography } from "@material-tailwind/react";
 import { StarIcon } from "@heroicons/react/24/solid";
 import CompanyReviewStars from "./CompanyReviewStars";
+import { useUpdateCompanyReviewMutation } from "src/store/features/companyProfileApit";
 interface InitialValues {
   body: string;
   stars: number;
@@ -17,6 +18,7 @@ const initialValues: InitialValues = {
   stars: 0,
 };
 const CompanyReviewForm = ({ closeModel }: Props) => {
+  const [updateReview] = useUpdateCompanyReviewMutation();
   const onSubmitHandler = (
     values: InitialValues,
     actions: FormikHelpers<InitialValues>
