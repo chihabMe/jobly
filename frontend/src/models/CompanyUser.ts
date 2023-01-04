@@ -8,6 +8,7 @@ interface CompanyUser extends User {
   image: string;
   cover: string;
   website: string;
+  owner: boolean;
 
   rating: number;
   numberOfRaters: number;

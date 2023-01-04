@@ -65,40 +65,41 @@ const CompanyReviewForm = ({ closeModel, companySlug }: Props) => {
       )}
       {isSuccess && <Alert body="reviewed successfully" />}
 
-      {!isReviewLoading && isReviewSuccess && review && (
-        <Formik
-          initialValues={{ body: review?.body, rate: review?.rate }}
-          onSubmit={onSubmitHandler}
-        >
-          {(props) => (
-            <Form className="  flex flex-col gap-4">
-              <TextInput name="body" label="Review" placeholder="" />
-              <div className="w-full max-w-[200px]">
-                <Typography className="capitalize text-title dark:text-title-dark  font-medium py-2">
-                  rate
-                </Typography>
-                <CompanyReviewStars
-                  value={props.values.rate}
-                  setValue={props.getFieldHelpers("rate").setValue}
-                />
-              </div>
-              <div className="flex justify-end gap-4">
-                <div
-                  onClick={closeModel}
-                  className="!bg-red-400 flex justify-center cursor-pointer items-center rounded-sm h-11 w-28 !capitalize "
-                >
-                  <span className="text-white text-xs font-bold">cancel</span>
+      {isError ||
+        (!isReviewLoading && isReviewSuccess && review && (
+          <Formik
+            initialValues={{ body: review?.body, rate: review?.rate }}
+            onSubmit={onSubmitHandler}
+          >
+            {(props) => (
+              <Form className="  flex flex-col gap-4">
+                <TextInput name="body" label="Review" placeholder="" />
+                <div className="w-full max-w-[200px]">
+                  <Typography className="capitalize text-title dark:text-title-dark  font-medium py-2">
+                    rate
+                  </Typography>
+                  <CompanyReviewStars
+                    value={props.values.rate}
+                    setValue={props.getFieldHelpers("rate").setValue}
+                  />
                 </div>
+                <div className="flex justify-end gap-4">
+                  <div
+                    onClick={closeModel}
+                    className="!bg-red-400 flex justify-center cursor-pointer items-center rounded-sm h-11 w-28 !capitalize "
+                  >
+                    <span className="text-white text-xs font-bold">cancel</span>
+                  </div>
 
-                <Button className="rounded-sm h-11 w-28 !capitalize ">
-                  {!isLoading && "review"}
-                  {isLoading && <PageIsLoading />}
-                </Button>
-              </div>
-            </Form>
-          )}
-        </Formik>
-      )}
+                  <Button className="rounded-sm h-11 w-28 !capitalize ">
+                    {!isLoading && "review"}
+                    {isLoading && <PageIsLoading />}
+                  </Button>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        ))}
     </div>
   );
 };

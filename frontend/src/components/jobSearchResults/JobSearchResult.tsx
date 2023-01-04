@@ -13,6 +13,7 @@ import {
 } from "@heroicons/react/24/solid";
 import Tag from "src/models/Tag";
 import JobBookMark from "./JobBookMark";
+import Link from "next/link";
 
 const JobSearchResult = ({
   onClickHandler,
@@ -26,6 +27,7 @@ const JobSearchResult = ({
   company,
   tags,
   currentJob,
+  companySlug,
 }: {
   onClickHandler: (slug: string) => void;
   title: string;
@@ -36,6 +38,7 @@ const JobSearchResult = ({
   bookMarked: boolean;
   slug: string;
   company: string;
+  companySlug: string;
   tags: Tag[];
   currentJob: boolean;
 }) => {
@@ -52,9 +55,11 @@ const JobSearchResult = ({
           <h1 className="text-title text-lg font-bold capitalize  dark:text-title-dark ">
             {title}
           </h1>
-          <h2 className="   font-medium   dark:text-text-dark  capitalize">
-            {company}
-          </h2>
+          <Link href={`/profile/company/${companySlug}`}>
+            <h2 className="   font-medium   dark:text-text-dark  capitalize">
+              {company}
+            </h2>
+          </Link>
           <h3 className="    font-medium   dark:text-text-dark  capitalize">
             {location}
           </h3>

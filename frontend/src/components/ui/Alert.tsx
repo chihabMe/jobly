@@ -16,7 +16,9 @@ const Alert = ({ body }: Props) => {
   if (!show) return <></>;
   return (
     <MtAlert className=" fixed bg-primary py-2.5   max-w-sm w-full  right-2 bottom-4">
-      <p className="text-white p-1 z-50  font-medium">{body}</p>
+      <p className="text-white p-1 z-50 text-sm md:text-base  font-medium">
+        {body}
+      </p>
     </MtAlert>
   );
 };

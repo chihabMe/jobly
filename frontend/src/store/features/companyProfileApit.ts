@@ -18,6 +18,7 @@ const extendedApiSlice = apiSlice.injectEndpoints({
       providesTags: ["Profile"],
       transformResponse: (response: CompanyUser) => {
         if (response.image == null) response.image = "";
+        if (response.cover == null) response.cover = "";
         return camelize(response);
       },
     }),

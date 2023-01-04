@@ -28,7 +28,7 @@ const CompanyWriteAReview = ({ companySlug }: { companySlug: string }) => {
       )}
       <Button
         onClick={showModel}
-        className="!bg-bg shadow   py-3.5 shadow-gray-600  !text-title "
+        className="!bg-bg shadow    !py-2 px-3 md:!py-3.5 md:px-6  shadow-gray-600  !text-title "
       >
         write a review
       </Button>

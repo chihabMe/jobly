@@ -10,6 +10,7 @@ import JobDetailApplyButton from "./JobDetailApplyButton";
 import { useGetJobDetailQuery } from "src/store/features/jobApi";
 import PageIsLoading from "../ui/PageIsLoading";
 import useAppSelector from "src/hooks/useAppSelector";
+import Link from "next/link";
 
 const JobDetail = ({ slug }: { slug: string }) => {
   const { user, isLogged } = useAppSelector((state) => state.auth);
@@ -25,21 +26,23 @@ const JobDetail = ({ slug }: { slug: string }) => {
           <h1 className=" text-title dark:text-title-dark font-bold text-2xl capitalize">
             {job.title}
           </h1>
-          <h3 className=" text-title dark:text-title-dark font-bold text-base capitalize">
-            {job.company}
-          </h3>
+          <Link href={`/profile/company/${job.companySlug}`}>
+            <h3 className="  text-primary font-bold text-base capitalize">
+              {job.company}
+            </h3>
+          </Link>
+
           <h4 className=" text-title dark:text-title-dark font-bold text-sm capitalize">
             {job.location}
           </h4>
         </div>
-            {(!isLogged || (user && user.type != "COMPANY")) && (
-        <div className="flex items-center   gap-2">
-          <div className="">
+        {(!isLogged || (user && user.type != "COMPANY")) && (
+          <div className="flex items-center   gap-2">
+            <div className="">
               <JobDetailApplyButton applied={job.applied} slug={slug} />
+            </div>
           </div>
-        
-          </div>
-            )}
+        )}
       </div>
       {/* center */}
       <div className=" flex     py-10 flex-col gap-4 ">

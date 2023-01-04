@@ -69,7 +69,7 @@ const JobSearch = ({
         editing && ""
       }  outline outline-primary  bg-bg flex  flex-col  px-4 py-3  md:flex-row gap-4  justify-between items-center  rounded-lg`}
     >
-      <div className="my-2  w-full md:w-auto  outline-primary outline outline-1    ">
+      <div className="my-2 rounded-md  w-full md:w-auto  outline-primary outline outline-1    ">
         <input
           value={form.query}
           onChange={onChangeQuery}
@@ -80,12 +80,12 @@ const JobSearch = ({
             setEditing(false);
           }}
           type="text"
-          className="w-full md:w-80  py-4 bg-transparent outline-none  px-4 text-title dark:text-title-dark"
+          className="w-full md:w-80   py-4 bg-transparent outline-none  px-4 text-title dark:text-title-dark"
           placeholder="job title or company..."
         />
       </div>
 
-      <div className="my-2 z-10  w-full md:w-80 py-4 px-4 outline-1 outline-primary outline ">
+      <div className="my-2 z-10 rounded-md  w-full md:w-80 py-4 px-4 outline-1 outline-primary outline ">
         <SelectMenu
           value={form.location}
           changeValue={changeLocation}
