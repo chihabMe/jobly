@@ -61,6 +61,7 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
     number_of_applied_users = serializers.SerializerMethodField()
     rating = serializers.SerializerMethodField()
     number_of_raters = serializers.SerializerMethodField()
+    owner = serializers.SerializerMethodField()
     type = serializers.CharField(source="user.type", read_only=True)
 
     class Meta:
@@ -80,8 +81,17 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
             "number_of_employees",
             "type",
             "email",
+            "owner",
             "location",
             "created",
+        )
+
+    def get_owner(self, profile):
+        user = self.context["request"].user
+        return (
+            user.is_authenticated
+            and user.type == user.Types.COMPANY
+            and user.company_profile == profile
         )
 
     def validate_number_of_employees(self, attrs):
@@ -160,8 +170,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
         email = validated_data.get("email")
         password = validated_data.get("password")
         user = User(username=username, email=email)
+        user.is_active = True
         ##checking for the account type
-        print(validated_data)
         account_type: str = validated_data.get("account_type", User.Types.EMPLOYEE)
         if account_type.lower() == "company":
             user.type = User.Types.COMPANY

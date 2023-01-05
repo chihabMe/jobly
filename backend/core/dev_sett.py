@@ -2,7 +2,7 @@ from datetime import timedelta
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "192.168.1.4"]
 SECRET_KEY = "django-insecure-e5bt%3$e**4%tl4zfs&hjcadmvhm3-t-ly+jy4f+a7z&g_$u##"
 
 DATABASES = {
@@ -16,6 +16,7 @@ DATABASES = {
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
+    "http://192.168.1.4:3000",
 ]
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),

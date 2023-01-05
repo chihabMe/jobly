@@ -28,6 +28,7 @@ const Login = () => {
   };
   useEffect(() => {
     if (!isLoading && isLogged) {
+      dispatch(authActions.loadUser());
       router.push("/");
     }
   }, [isLogged]);

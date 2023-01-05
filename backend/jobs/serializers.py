@@ -56,6 +56,7 @@ class JobsDetailsSerailizer(serializers.ModelSerializer):
     since = serializers.SerializerMethodField()
     applied = serializers.SerializerMethodField()
     company = serializers.CharField(source="company.name", required=False)
+    companySlug = serializers.CharField(source="company.slug", required=False)
     location = serializers.CharField(source="location.name", required=False)
 
     class Meta:
@@ -67,6 +68,7 @@ class JobsDetailsSerailizer(serializers.ModelSerializer):
             "book_marked",
             "since",
             "company",
+            "companySlug",
             "location",
             "introduction",
             "description",
