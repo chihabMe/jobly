@@ -1,24 +1,27 @@
+import { Textarea } from "@material-tailwind/react";
+import { useField } from "formik";
 import React, { FormEvent } from "react";
 
-const TextInput = ({
-  placeholder,
-  name,
-  onChange,
-  value,
-}: {
+interface Props {
   placeholder: string;
   name: string;
-  onChange: (e: FormEvent) => void;
-  value: string;
-}) => {
+  label: string;
+}
+const TextInput = ({ placeholder, name, label }: Props) => {
+  const [field, meta] = useField({ name, placeholder });
   return (
-    <textarea
-      className=" resize-none outline-none outline-1 outline-gray-500 focus:outline-primary  rounded-md h-52 block p-2.5                "
-      onChange={onChange}
-      name={name}
-      placeholder={placeholder}
-      value={value}
-    />
+    <div className="">
+      <Textarea
+        size="lg"
+        {...field}
+        error={meta.touched && meta.error != undefined}
+        label={label}
+        className={` bg-bg dark:bg-bg-dark   text-title dark:text-title-dark `}
+      />
+      {meta.error && meta.touched && (
+        <span className="text-red-400 text-sm font-medium">{meta.error}</span>
+      )}
+    </div>
   );
 };
 

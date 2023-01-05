@@ -1,15 +1,10 @@
-import { StarIcon ,ShareIcon,FlagIcon} from "@heroicons/react/24/solid";
+import { StarIcon, ShareIcon, FlagIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import Button from "src/components/ui/Button";
-const review = {
-  body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit minus similique, fuga provident nulla beatae esse, perferendis et ea cumque velit dolore sint ratione aperiam. Libero in voluptate doloribus porro.",
-  rating: 4,
-  username: "chihab",
-  date: new Date(),
-};
-const ReviewItem = () => {
+import CompanyReview from "src/models/CompanyReview";
+const ReviewItem = ({ review }: { review: CompanyReview }) => {
   const stars = [];
-  for (let i = 1; i <= review.rating; i++) {
+  for (let i = 1; i <= review.rate; i++) {
     stars.push(<StarIcon className="w-3 h-3 text-yellow-900" />);
   }
   return (
@@ -17,14 +12,13 @@ const ReviewItem = () => {
       {/* top */}
       <div className="flex gap-2 flex-col ">
         <h2 className="text-title font-bold capitalize dark:text-title-dark text-lg ">
-          {review.username}
+          {review.user}
         </h2>
         <div className="flex justify-between gap-4">
-        <div className="flex  items-center">{stars}</div>
-        <div className="text-text  font-medium capitalize dark:text-text-dark  ">
-          {review.date.toDateString()}
-        </div>
-
+          <div className="flex  items-center">{stars}</div>
+          <div className="text-text  font-medium capitalize dark:text-text-dark  ">
+            {new Date(review.created).toDateString()}
+          </div>
         </div>
       </div>
       {/* center */}
@@ -37,22 +31,25 @@ const ReviewItem = () => {
             Was this review helpful?
           </h4>
           <div className="flex  gap-2 items-center">
-            <Button className="px-5 py-1.5 !bg-transparent shadow-sm shadow-red-200  !text-red-400 flex gap-2"><span>2</span>no</Button>
-            <Button className="px-5 py-1.5 flex gap-2  "><span>55</span>yes</Button>
+            <Button className="px-5 py-1.5 !bg-transparent shadow-sm shadow-red-200  !text-red-400 flex gap-2">
+              <span>{review.helpfulWithNo}</span>no
+            </Button>
+            <Button className="px-5 py-1.5 flex gap-2  ">
+              <span>{review.helpfulWithYes}</span>yes
+            </Button>
           </div>
         </div>
       </div>
       {/* actions */}
       <div className="flex justify-end gap-4">
-            <Button className="  items-center  px-5 py-1.5 !bg-transparent shadow-sm   !text-title dark:!text-title-dark flex gap-2">
-                <FlagIcon className="w-3 h-3"/>
-                <span>report</span></Button>
-            <Button className=" items-center px-5 py-1.5 !bg-transparent shadow-sm   !text-title dark:!text-title-dark flex gap-2">
-                <ShareIcon className="w-3 h-3"/>
-                <span>
-                share
-                </span>
-                </Button>
+        <Button className="  items-center  px-5 py-1.5 !bg-transparent shadow-sm   !text-title dark:!text-title-dark flex gap-2">
+          <FlagIcon className="w-3 h-3" />
+          <span>report</span>
+        </Button>
+        <Button className=" items-center px-5 py-1.5 !bg-transparent shadow-sm   !text-title dark:!text-title-dark flex gap-2">
+          <ShareIcon className="w-3 h-3" />
+          <span>share</span>
+        </Button>
       </div>
     </div>
   );

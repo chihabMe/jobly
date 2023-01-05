@@ -21,12 +21,13 @@ import HeaderAuthDisplay from "./HeaderAuthDisplay";
 import { useTheme } from "next-themes";
 
 const categoriesLinks: linkObject[] = [
-  { name: "software engineer", path: "jobs/category?=software_engineer" },
-  { name: "web developer", path: "jobs/category?=web_developer" },
-  { name: "graphic designer", path: "jobs/category?=graphic_designer" },
+  { name: "software engineer", path: "search/query?=software_engineer" },
+  { name: "web developer", path: "search/query?=web developer" },
+  { name: "graphic designer", path: "search/query?=designer" },
 ];
 const links = [
-  <NavMenu key={1} text="job type" linksObjects={categoriesLinks} />,
+  // <NavMenu key={1} text="job type" linksObjects={categoriesLinks} />,
+  <NavMenu key={1} text="tips" linksObjects={categoriesLinks} />,
   <NavMenu key={2} text="employers" linksObjects={categoriesLinks} />,
   <NavMenu key={3} text="categories" linksObjects={categoriesLinks} />,
   <NavLink
@@ -56,15 +57,11 @@ const Header = () => {
       });
     }
   }, []);
-  useEffect(() => {
-    // dispatch(authActions.verify());
-    // dispatch(authActions.loadUser());
-  }, []);
   return (
     <>
-      <div className="py-4 bg-bg dark:bg-bg-dark z-20 text-title dark:text-title-dark   sticky top-0 px-2   flex  justify-between items-center  w-full">
+      <div className="py-4  shadow  bg-bg dark:bg-bg-dark z-20 text-title dark:text-title-dark   sticky top-0 px-4 rounded-md   flex  justify-between items-center  w-full">
         {/* logo */}
-        <div className=" text-4xl    font-bold capitalize cursor-pointer">
+        <div className=" text-2xl md:text-3xl lg:text-4xl    font-bold capitalize cursor-pointer">
           <Link href="/">
             <span>
               job<span className="text-primary">ly</span>{" "}
@@ -78,10 +75,12 @@ const Header = () => {
         {/* */}
         <div className="flex   min-w-[100px] gap-4 items-center">
           {user && user.type == "COMPANY" && (
-            <Link href="/job-post">
-              <Button className="p-2 flex justify-between items-center gap-2 bg-transparent bg-primary text-title dark:text-title-dark ">
+            <Link href="/jobs/add">
+              <Button className=" px-4 !gap-0 lg:!gap-2  flex justify-between items-center gap-2 bg-transparent bg-primary text-title dark:text-title-dark ">
                 <PlusIcon className="w-4 h-4 text-white " />
-                <span className="text-sm lowercase text-white">post a job</span>
+                <span className="text-sm hidden lg:block lowercase text-white">
+                  post a job
+                </span>
               </Button>
             </Link>
           )}
@@ -105,10 +104,10 @@ const Header = () => {
           >
             <>
               {!showMobileMenu && (
-                <Bars3Icon className="w-10 cursor-pointer h-10 text-title dark:text-title-dark " />
+                <Bars3Icon className="w-8 cursor-pointer h-10 text-title dark:text-title-dark " />
               )}
               {showMobileMenu && (
-                <XMarkIcon className="w-10 cursor-pointer h-10 text-title dark:text-title-dark " />
+                <XMarkIcon className="w-8 cursor-pointer h-10 text-title dark:text-title-dark " />
               )}
             </>
           </Button>

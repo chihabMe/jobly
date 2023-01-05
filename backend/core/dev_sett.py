@@ -5,20 +5,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 SECRET_KEY = "django-insecure-e5bt%3$e**4%tl4zfs&hjcadmvhm3-t-ly+jy4f+a7z&g_$u##"
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "jobly",
-#         "USER": "django_user",
-#         "PASSWORD": "pass",
-#         "HOST": "localhost",
-#         "PORT": "",
-#     }
-# }
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "testdb",  # This is where you put the name of the db file.
+        "NAME": "test.db",  # This is where you put the name of the db file.
         # If one doesn't exist, it will be created at migration time.
     }
 }

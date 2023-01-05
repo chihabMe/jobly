@@ -92,6 +92,10 @@ def imageFileNamer(instance, filename):
     return instance.user.username + "/profile_image/" + filename
 
 
+def coverFileNamer(instance, filename):
+    return instance.user.username + "/cover_image/" + filename
+
+
 class EmployeeProfile(models.Model):
 
     user = models.OneToOneField(
@@ -156,6 +160,7 @@ class CompanyProfile(models.Model):
     name = models.CharField(max_length=250)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to=imageFileNamer)
+    cover = models.ImageField(upload_to=coverFileNamer)
     created = models.DateTimeField(auto_now=False, auto_now_add=True)
     slug = models.SlugField(max_length=300)
     updated = models.DateTimeField(auto_now=True)
@@ -176,7 +181,9 @@ class CompanyProfile(models.Model):
         if not self.slug:
             self.slug = slugify(
                 str(self.id)
+                + "-"
                 + self.name
+                + "-"
                 + str(randint(100, 10000))
                 + str(randint(100, 10000))
                 + str(randint(100, 100000))

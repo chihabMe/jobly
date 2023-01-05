@@ -50,12 +50,14 @@ class EmployeeProfileSerializer(serializers.ModelSerializer):
 
 class CompanyProfileSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
+    cover = serializers.ImageField(required=False)
     name = serializers.CharField(required=False)
     email = serializers.CharField(source="user.email", read_only=True)
     location = serializers.CharField(
         required=False, source="location.name", read_only=False
     )
     jobs = serializers.SerializerMethodField()
+    slug = serializers.SlugField(required=False)
     number_of_applied_users = serializers.SerializerMethodField()
     rating = serializers.SerializerMethodField()
     number_of_raters = serializers.SerializerMethodField()
@@ -66,6 +68,7 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
         fields = (
             "name",
             "image",
+            "cover",
             "rating",
             "website",
             "number_of_raters",
@@ -81,12 +84,21 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
             "created",
         )
 
+    def validate_number_of_employees(self, attrs):
+        if attrs < 1:
+            raise serializers.ValidationError("you have to have at lease 1 employee ")
+        return attrs
+
     def get_number_of_raters(self, company_profile):
         return company_profile.rates.count()
 
     def get_rating(self, company_profile):
         total = sum(rate.rate for rate in company_profile.rates.all())
-        res = total / company_profile.rates.count()
+        total_rates = company_profile.rates.count()
+        if total_rates > 0:
+            res = total / total_rates
+        else:
+            res = 0
         return float(format(res, ".1f"))
 
     def get_jobs(self, company_profile):
@@ -98,6 +110,7 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
     def update(self, instance: CompanyProfile, validated_data):
         instance.name = validated_data.get("name", instance.name)
         instance.image = validated_data.get("image", instance.image)
+        instance.cover = validated_data.get("cover", instance.cover)
         instance.description = validated_data.get("description", instance.description)
         instance.website = validated_data.get("website", instance.website)
         instance.number_of_employees = validated_data.get(
@@ -130,10 +143,11 @@ class CompanySerializer(serializers.ModelSerializer):
 class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     re_password = serializers.CharField(write_only=True)
+    account_type = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ("username", "email", "password", "re_password")
+        fields = ("username", "email", "account_type", "password", "re_password")
 
     def validate(self, attrs):
         if attrs.get("password") != attrs.get("re_password"):
@@ -146,6 +160,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
         email = validated_data.get("email")
         password = validated_data.get("password")
         user = User(username=username, email=email)
+        ##checking for the account type
+        print(validated_data)
+        account_type: str = validated_data.get("account_type", User.Types.EMPLOYEE)
+        if account_type.lower() == "company":
+            user.type = User.Types.COMPANY
+        else:
+            user.type = User.Types.EMPLOYEE
         user.set_password(password)
         user.save()
         return user

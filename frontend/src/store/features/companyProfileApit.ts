@@ -1,8 +1,9 @@
-import camelize from "camelize-ts";
+import camelize, { Camelize } from "camelize-ts";
+import CompanyReview from "src/models/CompanyReview";
 import CompanyUser from "src/models/CompanyUser";
 import Job from "src/models/Job";
 import { apiSlice } from "../api/apiSlice";
-interface ResponseError {
+export interface ResponseError {
   name: string[];
   description: string[];
   number_of_employees: string[];
@@ -16,6 +17,8 @@ const extendedApiSlice = apiSlice.injectEndpoints({
       query: () => "/me",
       providesTags: ["Profile"],
       transformResponse: (response: CompanyUser) => {
+        if (response.image == null) response.image = "";
+        if (response.cover == null) response.cover = "";
         return camelize(response);
       },
     }),
@@ -26,11 +29,53 @@ const extendedApiSlice = apiSlice.injectEndpoints({
       query: (company) => `profile/company/${company}/jobs`,
       providesTags: ["CompanyJobs"],
     }),
+    getCompanyReviews: builder.query<CompanyReview[], string>({
+      transformResponse: (response: CompanyReview[]) => {
+        const res = response.map((item) => camelize(item));
+        return res as CompanyReview[];
+      },
+      providesTags: ["CompanyReview"],
+      query: (companySlug) => `profile/company/${companySlug}/reviews`,
+    }),
+    getCompanyReview: builder.query<CompanyReview, string>({
+      transformResponse: (response: CompanyReview) => {
+        return camelize(response) as CompanyReview;
+      },
+      providesTags: ["CompanyReviews"],
+      query: (companySlug) => `profile/company/${companySlug}/review/`,
+    }),
+    updateCompanyReview: builder.mutation<
+      any,
+      { companySlug: string; body: string }
+    >({
+      invalidatesTags: ["CompanyReviews", "CompanyReview"],
+      transformResponse: (result: CompanyReview) => {
+        return camelize(result);
+      },
+      query: ({ companySlug, body }) => ({
+        url: `profile/company/${companySlug}/reviews`,
+        method: "PUT",
+        body,
+      }),
+    }),
+
+    changeCompanyProfileCover: builder.mutation({
+      invalidatesTags: ["Profile"],
+      transformResponse: (result: { data: ResponseError }) => {
+        return camelize(result);
+      },
+      query: (cover: FormData) => ({
+        url: "/profile/update",
+        method: "PUT",
+        body: cover,
+      }),
+    }),
     updateCompanyProfile: builder.mutation({
       invalidatesTags: ["Profile"],
       transformResponse: (result: { data: ResponseError }) => {
-        return result.data;
+        return camelize(result);
       },
+
       query: ({
         phone,
         name,
@@ -62,4 +107,8 @@ export const {
   useGetProfileQuery,
   useUpdateCompanyProfileMutation,
   useGetCompanyJobsQuery,
+  useChangeCompanyProfileCoverMutation,
+  useGetCompanyReviewsQuery,
+  useGetCompanyReviewQuery,
+  useUpdateCompanyReviewMutation,
 } = extendedApiSlice;

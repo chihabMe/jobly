@@ -40,12 +40,11 @@ export const getServerSideProps = async (context: NextPageContext) => {
   const finalEndpoint = `${jobSearchEndpoint}?location=${location}&query=${query}`;
   // const response = await fetch(finalEndpoint, config);
   const refresh = cookie.parse(context?.req?.headers.cookie || "").refresh;
-  let a :ServerResponse<IncomingMessage>;
   const { status, data, newTokens } = await request({
     endpoint: finalEndpoint,
     config,
     refresh,
-    res:context?.res
+    res: context?.res,
   });
   const results: { count: number; next: boolean; results: Job[] } = data;
   if (status != 200) return { notFound: true };
