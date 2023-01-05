@@ -1,4 +1,5 @@
 interface CompanyReview {
+  id: number;
   body: string;
   rate: number;
   user: string;

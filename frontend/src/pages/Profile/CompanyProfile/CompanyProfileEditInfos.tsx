@@ -13,11 +13,18 @@ import {
   ResponseError,
   useUpdateCompanyProfileMutation,
 } from "src/store/features/companyProfileApit";
+interface InitialType {
+  name: string;
+  description: string;
+  numberOfEmployees: number;
+  website: string;
+  phone: string;
+}
 
 const CompanyProfileEditInfos = ({ profile }: { profile: CompanyUser }) => {
   const [updateProfile, { isLoading, isError, error, data, isSuccess }] =
     useUpdateCompanyProfileMutation();
-  const initialState = {
+  const initialState: InitialType = {
     name: profile?.name || "",
     description: profile?.description || "",
     numberOfEmployees: profile?.numberOfEmployees || 0,
@@ -34,8 +41,9 @@ const CompanyProfileEditInfos = ({ profile }: { profile: CompanyUser }) => {
           try {
             const res = await updateProfile(values).unwrap();
           } catch (err) {
-            const data = (err as { status: number; data: ResponseError })
-              .data as ResponseError;
+            const data = (
+              err as { status: number; data: FormikErrors<InitialType> }
+            ).data;
             actions.setErrors(camelize(data));
           } finally {
             actions.setSubmitting(false);

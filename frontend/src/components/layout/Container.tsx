@@ -8,9 +8,16 @@ import PageIsLoading from "../ui/PageIsLoading";
 
 const Container: React.FC<{ children: ReactNode }> = ({ children }) => {
   const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.auth);
   useEffect(() => {
     dispatch(authActions.verify());
   }, []);
+  if (isLoading)
+    return (
+      <div className="w-full h-screen">
+        <PageIsLoading />
+      </div>
+    );
   return <div className="mx-auto max-w-screen-2xl   ">{children}</div>;
 };
 

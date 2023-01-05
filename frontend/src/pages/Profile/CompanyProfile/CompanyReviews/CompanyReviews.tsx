@@ -24,7 +24,7 @@ const CompanyReviews = ({ companySlug }: { companySlug: string }) => {
           {!isLoading && isSuccess && (
             <>
               {reviews?.map((item: CompanyReview) => (
-                <ReviewItem review={item} />
+                <ReviewItem key={item.id} review={item} />
               ))}
             </>
           )}
