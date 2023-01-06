@@ -8,7 +8,8 @@ import dotenv
 
 def main():
     """Run administrative tasks."""
-    # dotenv.read_dotenv()
+    if os.getenv("MODE") != "PRODUCTIOn":
+        dotenv.read_dotenv()
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 
     try:
