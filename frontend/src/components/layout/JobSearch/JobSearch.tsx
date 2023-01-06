@@ -87,7 +87,7 @@ const JobSearch = ({
 
       <div className="my-2 z-10 rounded-md  w-full md:w-80 py-4 px-4 outline-1 outline-primary outline ">
         <SelectMenu
-          value={form.location}
+          value={form.location || []}
           changeValue={changeLocation}
           fields={locations}
           Icon={MapPinIcon}

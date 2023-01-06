@@ -12,28 +12,27 @@ import useAppDispatch from "src/hooks/useAppDispatch";
 import { Form, Formik, FormikValues } from "formik";
 import { loginSchema } from "src/helpers/schemas";
 import Image from "next/image";
-import { CircleLoader, MoonLoader } from "react-spinners";
+import { MoonLoader } from "react-spinners";
+import UseFetch from "src/hooks/use-fetch";
 
 const Login = () => {
   const router = useRouter();
+  const { data, error, isLoading, request, status } = UseFetch();
+  const { registeredEmail } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
-  const { isLogged, registeredEmail, isLoading, loggingFailed } =
-    useAppSelector((state) => state.auth);
   useEffect(() => {
-    dispatch(authActions.consumeEmailAfterEnteringTheLoggingPage());
-  }, []);
+    if (!isLoading && status == 200) {
+      dispatch(authActions.consumeEmailAfterEnteringTheLoggingPage());
+      dispatch(authActions.loadUser());
+      router.push("/");
+    }
+  }, [isLoading, status]);
   const initialState = {
     email: registeredEmail,
     password: "",
   };
-  useEffect(() => {
-    if (!isLoading && isLogged) {
-      dispatch(authActions.loadUser());
-      router.push("/");
-    }
-  }, [isLogged]);
   const login = (email: string, password: string) => {
-    dispatch(authActions.login({ email, password }));
+    request("POST", "api/login/", JSON.stringify({ email, password }));
   };
   return (
     <main className="w-full min-h-screen   ">
@@ -75,7 +74,7 @@ const Login = () => {
                     </span>
                   </div>
                   <div>
-                    {loggingFailed && (
+                    {data && status != 200 && (
                       <>
                         <span className="text-red-400">
                           please make sure that you are using a valid email and
