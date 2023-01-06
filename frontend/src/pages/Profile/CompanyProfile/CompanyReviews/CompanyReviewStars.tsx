@@ -13,8 +13,8 @@ const CompanyReviewStars = ({
     setValue(value);
   };
   return (
-    <Select defaultValue={value.toString()} onChange={handlerChange}>
-      <Option value={"1"}>
+    <Select onChange={handlerChange}>
+      <Option aria-selected value={"1"}>
         <StarsGenerator count={1} />
       </Option>
       <Option value="2">

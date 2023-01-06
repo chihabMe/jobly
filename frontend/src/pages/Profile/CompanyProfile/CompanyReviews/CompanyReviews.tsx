@@ -20,7 +20,9 @@ const CompanyReviews = ({ companySlug }: { companySlug: string }) => {
     <section className="flex  mt-10  ">
       <div className="flex-col w-full lg:w-3/4  max-w-screen-lg   gap-4  items-center ">
         <div className=" mt-8 w-full flex flex-col gap-4    ">
-          <CompanyReviewsFilters />
+          <Typography className="text-lg !text-title dark:!text-title-dark">
+            Reviews
+          </Typography>
           {!isLoading && isSuccess && (
             <>
               {reviews?.map((item: CompanyReview) => (

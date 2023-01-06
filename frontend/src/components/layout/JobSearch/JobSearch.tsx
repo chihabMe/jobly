@@ -47,7 +47,9 @@ const JobSearch = ({
     e.preventDefault();
     const query = {
       location:
-        form.location.name.toLowerCase() == "chose" ? "" : form.location.name,
+        form.location.name.toString().toLowerCase() == "chose"
+          ? ""
+          : form.location.name,
       query: form.query,
     };
 
