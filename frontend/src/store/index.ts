@@ -1,12 +1,11 @@
 import { Action, configureStore, getDefaultMiddleware, ThunkAction } from "@reduxjs/toolkit";
 import { authReducer } from "./slices/authSlice";
-import { searchReducer } from "./slices/searchSlice";
 import { apiSlice } from "./api/apiSlice";
 
 export const store = configureStore({
     reducer: {
         [apiSlice.reducerPath]:apiSlice.reducer,
-        search: searchReducer,
+ 
         auth: authReducer,
     },
     middleware:getDefaultMiddleware().concat(apiSlice.middleware)
