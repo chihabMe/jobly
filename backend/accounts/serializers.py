@@ -49,8 +49,10 @@ class EmployeeProfileSerializer(serializers.ModelSerializer):
 
 
 class CompanyProfileSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField(required=False)
-    cover = serializers.ImageField(required=False)
+    # image = serializers.ImageField(required=False)
+    # cover = serializers.ImageField(required=False)
+    image = serializers.SerializerMethodField()
+    cover = serializers.SerializerMethodField()
     name = serializers.CharField(required=False)
     email = serializers.CharField(source="user.email", read_only=True)
     location = serializers.CharField(
@@ -85,6 +87,16 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
             "location",
             "created",
         )
+
+    def get_image(self, profile: CompanyProfile):
+        if profile.image:
+            return profile.image.url
+        return ""
+
+    def get_cover(self, profile: CompanyProfile):
+        if profile.cover:
+            return profile.cover.url
+        return ""
 
     def get_owner(self, profile):
         user = self.context["request"].user

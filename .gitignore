@@ -5,7 +5,9 @@
 backend/__pycache__
 backend/__pycache__/*
 backend/core/__pycache__
+backend/test.db
 backend/core/__pycache__/*
+backend/test.db
 
 backend/db.sqlite3
 backend/htmlcov
