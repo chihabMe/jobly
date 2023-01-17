@@ -21,6 +21,7 @@ specifiers:
   next-connect: ^0.13.0
   next-http-proxy-middleware: ^1.2.4
   next-themes: ^0.2.1
+  nextjs: ^0.0.3
   nextjs-progressbar: ^0.0.14
   postcss: ^8.4.16
   react: 18.2.0
@@ -43,6 +44,7 @@ dependencies:
   next: 12.3.1_biqbaboplfbrettd7655fr4n2y
   next-connect: 0.13.0
   next-themes: 0.2.1_azq6kxkn3od7qdylwkyksrwopy
+  nextjs: 0.0.3
   nextjs-progressbar: 0.0.14_next@12.3.1+react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -2044,6 +2046,11 @@ packages:
       nprogress: 0.2.0
       prop-types: 15.8.1
       react: 18.2.0
+    dev: false
+
+  /nextjs/0.0.3:
+    resolution: {integrity: sha512-mYbDUo4/sRAZ8TqK63PCpYnFiLg7BICG/ot9+guOrUKd4/Fo71ZmEQ41IZbH6nqbQvG7SXTBuofJXAIWfNho0w==}
+    engines: {node: '>=0.8.21'}
     dev: false
 
   /node-releases/2.0.6:
