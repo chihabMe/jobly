@@ -178,16 +178,18 @@ class CompanyProfile(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        self.name = self.user.username
         if not self.slug:
-            self.slug = slugify(
-                str(self.id)
-                + "-"
-                + self.name
-                + "-"
-                + str(randint(100, 10000))
-                + str(randint(100, 10000))
-                + str(randint(100, 100000))
-            )
+            self.slug = slugify(self.name)
+            # self.slug = slugify(
+            #     str(self.id)
+            #     + "-"
+            #     + self.name
+            #     + "-"
+            #     + str(randint(100, 10000))
+            #     + str(randint(100, 10000))
+            #     + str(randint(100, 100000))
+            # )
         super().save(*args, **kwargs)
 
 
