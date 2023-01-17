@@ -149,6 +149,9 @@ DJOSER = {
     # 'SERIALIZERS': {},
     "SEND_ACTIVATION_EMAIL": True,
     "USER_CREATE_PASSWORD_RETYPE": True,
+    "SERIALIZERS": {
+        "current_user": "authentication.serializers.UserSerializer",
+    },
 }
 if os.getenv("MODE") == "PRODUCTION":
     from .pro_sett import *

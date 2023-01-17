@@ -20,7 +20,7 @@ urlpatterns = [
     path("token/verify/", TokenVerifyView.as_view(), name="token_verify"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # current user profile
-    path("me/", CurrentUserProfileView.as_view(), name="current_employee_profile"),
+    path("profile/", CurrentUserProfileView.as_view(), name="current_employee_profile"),
     # company open jobs
     path("company/<slug:slug>/jobs/", CompanyJobs.as_view(), name="company_open_jobs"),
     path("company/<slug:slug>/", CompanyDetailView.as_view(), name="company_open_jobs"),

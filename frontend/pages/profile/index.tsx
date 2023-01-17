@@ -1,4 +1,4 @@
-import { currentUserEndpoint } from "config";
+import { currentUserEndpoint, currentUserProfileEndpoint } from "config";
 import { NextPageContext } from "next";
 import Head from "next/head";
 import React from "react";
@@ -28,7 +28,7 @@ export default ProfilePage;
 export const getServerSideProps = async (context: NextPageContext) => {
   const config = generateAuthConfig("GET", context.req?.headers.cookie || "");
   const refresh = cookie.parse(context?.req?.headers.cookie || "").refresh;
-  const finalEndpoint = currentUserEndpoint;
+  const finalEndpoint = currentUserProfileEndpoint;
   try {
     const {
       status,
@@ -40,14 +40,13 @@ export const getServerSideProps = async (context: NextPageContext) => {
       refresh,
       res: context?.res,
     });
-    console.log(status);
     if (status != 200) return { notFound: true };
     return {
       props: {
         profile,
       },
     };
-  } catch {
+  } catch (err) {
     return { notFound: true };
   }
 };
