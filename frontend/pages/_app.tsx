@@ -12,8 +12,14 @@ import { ThemeProvider as NextThemeProvider } from "next-themes";
 import { NextPageContext } from "next";
 
 import { apiSlice } from "../src/store/api/apiSlice";
+import { ReactNode } from "react";
+type ComponentWithPageLayout = AppProps & {
+  Component: AppProps["Component"] & {
+    PageLayout?: React.ComponentType<{ children: ReactNode }>;
+  };
+};
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: ComponentWithPageLayout) {
   return (
     <ApiProvider api={apiSlice}>
       <Provider store={store}>
@@ -22,7 +28,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Container>
             <ThemeProvider>
               <Header />
-              <Component {...pageProps} />
+              {Component.PageLayout ? (
+                <Component.PageLayout>
+                  <Component {...pageProps} />
+                </Component.PageLayout>
+              ) : (
+                <Component {...pageProps} />
+              )}
             </ThemeProvider>
           </Container>
         </NextThemeProvider>

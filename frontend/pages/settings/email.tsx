@@ -1,12 +1,10 @@
 import React from "react";
 import SettingsLayout from "src/pages/Settings/SettingsLayout";
 
-const email = () => {
-  return (
-    <div>
-      <SettingsLayout>email settings</SettingsLayout>
-    </div>
-  );
+const Email = () => {
+  return <div>hello world</div>;
 };
 
-export default email;
+Email.PageLayout = SettingsLayout;
+
+export default Email;

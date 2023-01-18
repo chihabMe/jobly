@@ -1,6 +1,7 @@
 import { InboxIcon, UserIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
+import PageIsLoading from "src/components/ui/PageIsLoading";
 interface Props {
   children: ReactNode;
 }
