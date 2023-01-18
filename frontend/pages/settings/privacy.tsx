@@ -1,12 +1,12 @@
 import React from "react";
 import SettingsLayout from "src/pages/Settings/SettingsLayout";
 
-const Settings = () => {
+const privacy = () => {
   return (
     <div>
-      <SettingsLayout>accounts settings</SettingsLayout>
+      <SettingsLayout>privacy settings</SettingsLayout>
     </div>
   );
 };
 
-export default Settings;
+export default privacy;

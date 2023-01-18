@@ -1,12 +1,12 @@
 import React from "react";
 import SettingsLayout from "src/pages/Settings/SettingsLayout";
 
-const Settings = () => {
+const email = () => {
   return (
     <div>
-      <SettingsLayout>accounts settings</SettingsLayout>
+      <SettingsLayout>email settings</SettingsLayout>
     </div>
   );
 };
 
-export default Settings;
+export default email;
