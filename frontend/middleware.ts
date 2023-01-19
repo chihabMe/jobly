@@ -1,14 +1,14 @@
-import { NextResponse } from "next/server";
+import { NextMiddleware, NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import cookie from "cookie";
+import { verifyAuth } from "src/libs/auth/verifyAuth";
 
-// export function middleware(req: NextRequest) {
-//   console.log("run middleware");
-//   const cookies = req.cookies;
-//   console.log(cookies);
-//   //   const access = cookie.parse(cookies || "").access;
-//   return NextResponse.next();
-// }
+export async function middleware(req: NextRequest) {
+  const access = req.cookies.get("access");
+  const verify = await verifyAuth({ access });
+  if (!verify) return NextResponse.redirect(new URL("/login", req.url));
+  return NextResponse.next();
+}
 export const config = {
-  matcher: ["/"],
+  matcher: ["/profile", "/profile/edit", "/settings"],
 };
