@@ -19,19 +19,19 @@ const AccountSettings = () => {
         fieldName="account type"
         currentValue={user?.type ?? ""}
         buttonText="change account type"
-        href=""
+        href="/settings/change/account-type"
       />
       <SettingsItemField
         fieldName="email"
         currentValue={user?.email ?? ""}
         buttonText="change email"
-        href=""
+        href="/settings/change/email"
       />
       <SettingsItemField
         fieldName="password"
         currentValue={"********"}
         buttonText="change password"
-        href=""
+        href="/settings/change/password"
       />
       {user && user.type == "COMPANY" && <CompanySettings />}
       {user && user.type == "EMPLOYEE" && <EmployeeSettings />}
