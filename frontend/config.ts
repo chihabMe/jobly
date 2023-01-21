@@ -29,3 +29,6 @@ export const companyEndpoint = API + "api/v1/accounts/company/"; //+returns comp
 //reviews
 export const companyReviewsEndpoint = API + "api/v1/reviews/company/"; //+returns company reviews
 export const companyReviewEndpoint = API + "api/v1/reviews/company/"; //+returns company review
+//
+export const userTypeChangeEndpoint =
+  API + "api/v1/accounts/profile/type/change/"; //+ change the user type

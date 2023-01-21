@@ -31,17 +31,33 @@ class RegistrationView(generics.CreateAPIView):
 @permission_classes([IsAuthenticated])
 def user_account_type_change(request):
     user: CustomUser = request.user
-    type: str = request.data.get("type")
+    type: str = request.data.get("type", None)
     res_status = status.HTTP_400_BAD_REQUEST
-    if user.type == User.Types.COMPANY and type.upper() == User.Types.EMPLOYEE:
+    data = {}
+    data["message"] = "you are already a  " + type
+    if (
+        type is not None
+        and user.type == User.Types.COMPANY
+        and type.upper() == User.Types.EMPLOYEE
+    ):
         user.type = User.Types.EMPLOYEE
-        profile = EmployeeProfile.objects.create(user=user)
+        if not EmployeeProfile.objects.filter(user=user).exists():
+            profile = EmployeeProfile.objects.create(user=user)
         res_status = status.HTTP_200_OK
-    elif user.type == User.Types.EMPLOYEE and type.upper == User.Types.COMPANY:
+        data["message"] = "change to a " + type
+        user.save()
+    elif (
+        type is not None
+        and user.type == User.Types.EMPLOYEE
+        and type.upper() == User.Types.COMPANY
+    ):
         user.type = User.Types.COMPANY
-        profile = CompanyProfile.objects.create(user=user)
+        if not CompanyProfile.objects.filter(user=user).exists():
+            profile = CompanyProfile.objects.create(user=user)
+        data["message"] = "change to a " + type
         res_status = status.HTTP_200_OK
-    return Response(status=res_status)
+        user.save()
+    return Response(status=res_status, data=data)
 
 
 class CurrentUserProfileView(generics.RetrieveUpdateAPIView):
