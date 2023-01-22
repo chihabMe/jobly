@@ -42,3 +42,20 @@ export const companyProfileEditSchema = yup.object().shape({
   website: yup.string().url("you have to use a valid website link"),
   phone: yup.string(),
 });
+
+export const changePasswordSchema = yup.object().shape({
+  new_password: yup
+    .string()
+    .notOneOf(
+      [yup.ref("current_password"), null],
+      "your new password must not be the same as your current password"
+    )
+    .min(6, "please use more than 6 characters")
+    .required("this field is required"),
+  re_new_password: yup
+    .string()
+    .min(6, "please use more than 6 characters")
+    .oneOf([yup.ref("new_password"), null], "password don't match")
+    .required("this field is required"),
+  current_password: yup.string().required("this field is required"),
+});
