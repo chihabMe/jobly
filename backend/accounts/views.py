@@ -33,6 +33,9 @@ def user_account_type_change(request):
     user: CustomUser = request.user
     type: str = request.data.get("type", None)
     res_status = status.HTTP_400_BAD_REQUEST
+    if type is None:
+        return Response(status=res_status)
+
     data = {}
     data["message"] = "you are already a  " + type
     if (
