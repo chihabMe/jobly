@@ -28,8 +28,10 @@ INSTALLED_APPS = [
     "jobs",
     "locations",
     "reviews",
+    "authentication",
     # 3d parties
     "rest_framework",
+    "djoser",
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
     "phonenumber_field",
@@ -115,7 +117,7 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
+        # "rest_framework.authentication.SessionAuthentication",
     ],
     "PAGE_SIZE": 10,
 }
@@ -140,6 +142,17 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
+DJOSER = {
+    # 'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    # 'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
+    "ACTIVATION_URL": "#/activate/{uid}/{token}",
+    # 'SERIALIZERS': {},
+    "SEND_ACTIVATION_EMAIL": True,
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "SERIALIZERS": {
+        "current_user": "authentication.serializers.UserSerializer",
+    },
+}
 if os.getenv("MODE") == "PRODUCTION":
     from .pro_sett import *
 else:

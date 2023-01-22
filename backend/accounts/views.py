@@ -1,16 +1,16 @@
+from accounts.models import CompanyProfile, CustomUser, Employee, EmployeeProfile
+from accounts.permissions import IsProfileOwner
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, render
+from jobs.models import Job
+from jobs.permissions import IsOwnerOrReadOnly
+from jobs.serializers import JobsListSerailizer
 from rest_framework import generics, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
-from accounts.models import CompanyProfile, Employee, EmployeeProfile
-from accounts.permissions import IsProfileOwner
-from jobs.models import Job
-from jobs.permissions import IsOwnerOrReadOnly
-from jobs.serializers import JobsListSerailizer
 
 from .serializers import (
     CompanyProfileSerializer,
@@ -18,7 +18,7 @@ from .serializers import (
     RegistrationSerializer,
 )
 
-User = get_user_model()
+User: CustomUser = get_user_model()
 
 
 # Create your views here.
@@ -27,21 +27,42 @@ class RegistrationView(generics.CreateAPIView):
     serializer_class = RegistrationSerializer
 
 
-# class CompanyProfileView(generics.RetrieveUpdateAPIView):
-#     queryset = CompanyProfile.objects.all()
-#     serializer_class=CompanyProfileSerializer
-#     permission_classes=[IsProfileOwner]
-#     parser_classes = [MultiPartParser,FormParser]
-#     def get_object(self):
-#         obj = get_object_or_404(self.queryset,user=self.request.user)
-#         self.check_object_permissions(self.request,obj)
-#         return obj
-#     def retrieve(self,request,*args, **kwargs):
-#         if request.user.type!=User.Types.COMPANY:
-#             return Response(status=status.HTTP_404_NOT_FOUND)
-#         return super().retrieve(request,*args, **kwargs)
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def user_account_type_change(request):
+    user: CustomUser = request.user
+    type: str = request.data.get("type", None)
+    res_status = status.HTTP_400_BAD_REQUEST
+    if type is None:
+        return Response(status=res_status)
 
-# class based view that handles (company/employee  base on the user type attr )
+    data = {}
+    data["message"] = "you are already a  " + type
+    if (
+        type is not None
+        and user.type == User.Types.COMPANY
+        and type.upper() == User.Types.EMPLOYEE
+    ):
+        user.type = User.Types.EMPLOYEE
+        if not EmployeeProfile.objects.filter(user=user).exists():
+            profile = EmployeeProfile.objects.create(user=user)
+        res_status = status.HTTP_200_OK
+        data["message"] = "change to a " + type
+        user.save()
+    elif (
+        type is not None
+        and user.type == User.Types.EMPLOYEE
+        and type.upper() == User.Types.COMPANY
+    ):
+        user.type = User.Types.COMPANY
+        if not CompanyProfile.objects.filter(user=user).exists():
+            profile = CompanyProfile.objects.create(user=user)
+        data["message"] = "change to a " + type
+        res_status = status.HTTP_200_OK
+        user.save()
+    return Response(status=res_status, data=data)
+
+
 class CurrentUserProfileView(generics.RetrieveUpdateAPIView):
     # queryset = EmployeeProfile.objects.all()
     permission_classes = [IsProfileOwner]

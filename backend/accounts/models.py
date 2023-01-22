@@ -31,7 +31,8 @@ class CustomManager(BaseUserManager):
             raise ValueError("the password is required")
         user = CustomUser(username=username, email=email, *args, **kwargs)
         user.set_password(password)
-        return user.save()
+        user.save()
+        return user
 
     def create_superuser(self, email, username, password, *args, **kwargs):
         kwargs.setdefault("is_staff", True)
