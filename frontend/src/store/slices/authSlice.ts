@@ -66,11 +66,10 @@ const refresh = createAsyncThunk("auth/refresh", async (data, thunkApi) => {
   if (response.status == 200) {
     thunkApi.dispatch(verify());
     thunkApi.fulfillWithValue(true);
-    return;
+  } else {
+    thunkApi.dispatch(logout());
+    thunkApi.rejectWithValue(false);
   }
-  thunkApi.dispatch(logout());
-  thunkApi.rejectWithValue(false);
-  return;
 });
 const logout = createAsyncThunk("auth/logout", async (data, thunkApi) => {
   const config = generateAConfig("POST", "");
@@ -93,6 +92,7 @@ const authSlice = createSlice({
     // builder.addCase(login.pending, (state) => {}),
     builder.addCase(logout.fulfilled, (state, action) => {
       state.isLogged = false;
+      state.isLoading = false;
       state.user = null;
     });
     //verify
@@ -101,7 +101,6 @@ const authSlice = createSlice({
     }),
       builder.addCase(verify.rejected, (state) => {
         state.verifyFailed = true;
-        state.isLoading = false;
       }),
       builder.addCase(verify.fulfilled, (state) => {
         state.isLogged = true;
@@ -110,6 +109,7 @@ const authSlice = createSlice({
       //refresh
       builder.addCase(refresh.rejected, (state) => {
         state.refreshFailed = true;
+        state.isLoading = false;
       }),
       builder.addCase(refresh.pending, (state) => {}),
       builder.addCase(refresh.fulfilled, (state) => {

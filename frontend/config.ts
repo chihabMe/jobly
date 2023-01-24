@@ -32,3 +32,5 @@ export const companyReviewEndpoint = API + "api/v1/reviews/company/"; //+returns
 //
 export const userTypeChangeEndpoint =
   API + "api/v1/accounts/profile/type/change/"; //+ change the user type
+export const userPasswordChangeEndpoint =
+  API + "api/v1/auth/users/set_password/"; //+ change the user password
