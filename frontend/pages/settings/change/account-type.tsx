@@ -8,7 +8,7 @@ import UseFetch from "src/hooks/use-fetch";
 import useAppSelector from "src/hooks/useAppSelector";
 import AccountTypeChoices from "src/pages/Signup/AccountTypeChoices";
 
-const accountType = () => {
+const AccountType = () => {
   const { user } = useAppSelector((state) => state.auth);
   const [accountType, setAccountType] = useState("");
   const { data, status, request, error, isLoading } = UseFetch();
@@ -61,4 +61,4 @@ const accountType = () => {
   );
 };
 
-export default accountType;
+export default AccountType;
