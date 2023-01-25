@@ -4,27 +4,28 @@ import cookie from "cookie";
 import { verifyAuth } from "src/libs/auth/verifyAuth";
 import { ServerResponse } from "http";
 import { URL } from "url";
+import { accessTokenAge, refreshTokenAge } from "config";
 
 export async function middleware(req: NextRequest, res: NextResponse) {
   // const access = req.cookies.get("access");
   // const refresh = req.cookies.get("refresh");
-  // console.log("access", access);
-  // console.log("refresh", refresh);
   // const { valid, newTokens } = await verifyAuth({
   //   access,
   //   refresh,
   // });
-  // console.log(valid, newTokens);
   // const url = req.nextUrl.clone();
   // url.pathname = "/login";
   // if (!valid) return NextResponse.redirect(url);
   const response = NextResponse.next();
   // if (newTokens) {
-  //   response.cookies.set("access", newTokens.access);
+  //   const headers = new Headers(req.headers);
+  //   console.log(headers);
   //   response.cookies.set("refresh", newTokens.refresh);
+  //   response.cookies.set("access", newTokens.access);
+  //   console.log(response.headers);
   // }
   return response;
 }
 export const config = {
-  matcher: ["/profile", "/profile/edit", "/settings"],
+  matcher: ["/profile"],
 };

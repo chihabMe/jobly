@@ -33,6 +33,7 @@ export default ProfilePage;
 export const getServerSideProps = async (context: NextPageContext) => {
   const config = generateAuthConfig("GET", context.req?.headers.cookie || "");
   const refresh = cookie.parse(context?.req?.headers.cookie || "").refresh;
+  const access = cookie.parse(context?.req?.headers.cookie || "").access;
   const finalEndpoint = currentUserProfileEndpoint;
   try {
     const {
@@ -46,7 +47,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
       res: context?.res,
     });
     if (status != 200) {
-      return { props: {}, redirect: { destination: "/login" } };
+      return { props: {}, redirect: { destination: "/signup" } };
     }
     return {
       props: {

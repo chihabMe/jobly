@@ -16,20 +16,15 @@ const request = async ({
   refresh: string;
   res?: ServerResponse<IncomingMessage>;
 }) => {
-  console.log("refresh=>", refresh);
   let response = await fetch(endpoint, config);
+  console.log("original status");
   let newTokens: { access: string; refresh: string } | undefined;
 
   if (!response.ok) {
     const { data, status } = await refreshAuth(refresh);
     newTokens = data;
 
-    console.log("refreshed");
-    console.log(status);
-    console.log(newTokens);
-    console.log("refreshed");
     if (status == 200 && newTokens) {
-      console.log("step 1 ");
       if (res && newTokens)
         setAuthCookies({
           access: newTokens?.access,
@@ -37,20 +32,18 @@ const request = async ({
           res,
         });
       if (newTokens) {
-        console.log("step 2");
-        config.headers["Authorization"] = `bearer ${newTokens.access}`;
+        config.headers["Authorization"] = `Bearer ${newTokens.access}`;
         response = await fetch(endpoint, config);
-        console.log(newTokens.access);
-        console.log(response.status);
-        console.log(response.statusText);
+        console.log("tokens status", status);
       }
     } else {
-      console.log("step 3");
       delete config.headers["Authorization"];
       response = await fetch(endpoint, config);
+      console.log("none tokens status", status);
     }
   }
   const data = await response.json();
+  console.log("the stauts", response.status);
   return { status: response.status, data, newTokens };
 };
 export default request;

@@ -30,14 +30,15 @@ export const verifyAuth = async ({
     const { status, newTokens } = await request({
       endpoint: verifyEndpoint,
       refresh,
-      res,
       config,
     });
-    console.log("verify auth -------------");
+    console.log("test ----------");
     console.log(status);
-    console.log("verify auth -------------");
+    console.log(newTokens);
+    console.log("test ----------");
     return { valid: status == 200, newTokens };
   } catch {
+    console.log("catched");
     return { valid: false, newTokens: undefined };
   }
 };
