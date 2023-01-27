@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FulfilledActionFromAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
+import {
+  currentUserEndpoint,
+  refreshEndpoint,
+  verifyEndpoint,
+} from "config/constances";
 import User from "src/models/User";
 import { AppThunk, RootState } from "..";
 export type authSliceState = {
@@ -33,7 +38,7 @@ const generateAConfig = (method: string, credentials: string) => {
 };
 const loadUser = createAsyncThunk("auth/loadUser", async (d, thunkApi) => {
   const config = generateAConfig("GET", "");
-  const response = await fetch("/api/me", {
+  const response = await fetch(currentUserEndpoint, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
@@ -46,6 +51,7 @@ const loadUser = createAsyncThunk("auth/loadUser", async (d, thunkApi) => {
 });
 const verify = createAsyncThunk("auth/verify", async (data, thunkApi) => {
   const config = generateAConfig("POST", "");
+  console.log("/api/verify");
   const response = await fetch("/api/verify", config);
   if (response.status == 200) {
     thunkApi.dispatch(loadUser());
@@ -66,11 +72,10 @@ const refresh = createAsyncThunk("auth/refresh", async (data, thunkApi) => {
   if (response.status == 200) {
     thunkApi.dispatch(verify());
     thunkApi.fulfillWithValue(true);
-    return;
+  } else {
+    thunkApi.dispatch(logout());
+    thunkApi.rejectWithValue(false);
   }
-  thunkApi.dispatch(logout());
-  thunkApi.rejectWithValue(false);
-  return;
 });
 const logout = createAsyncThunk("auth/logout", async (data, thunkApi) => {
   const config = generateAConfig("POST", "");
@@ -93,6 +98,7 @@ const authSlice = createSlice({
     // builder.addCase(login.pending, (state) => {}),
     builder.addCase(logout.fulfilled, (state, action) => {
       state.isLogged = false;
+      state.isLoading = false;
       state.user = null;
     });
     //verify
@@ -101,7 +107,6 @@ const authSlice = createSlice({
     }),
       builder.addCase(verify.rejected, (state) => {
         state.verifyFailed = true;
-        state.isLoading = false;
       }),
       builder.addCase(verify.fulfilled, (state) => {
         state.isLogged = true;
@@ -110,6 +115,7 @@ const authSlice = createSlice({
       //refresh
       builder.addCase(refresh.rejected, (state) => {
         state.refreshFailed = true;
+        state.isLoading = false;
       }),
       builder.addCase(refresh.pending, (state) => {}),
       builder.addCase(refresh.fulfilled, (state) => {

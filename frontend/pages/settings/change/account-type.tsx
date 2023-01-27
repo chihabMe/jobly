@@ -1,5 +1,5 @@
 import { Typography } from "@material-tailwind/react";
-import { userTypeChangeEndpoint } from "config";
+import { userTypeChangeEndpoint } from "config/constances";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Button from "src/components/ui/Button";
@@ -8,7 +8,7 @@ import UseFetch from "src/hooks/use-fetch";
 import useAppSelector from "src/hooks/useAppSelector";
 import AccountTypeChoices from "src/pages/Signup/AccountTypeChoices";
 
-const accountType = () => {
+const AccountType = () => {
   const { user } = useAppSelector((state) => state.auth);
   const [accountType, setAccountType] = useState("");
   const { data, status, request, error, isLoading } = UseFetch();
@@ -34,13 +34,7 @@ const accountType = () => {
             change your account type
           </Typography>
           <AccountTypeChoices choice={accountType} setChoice={setAccountType} />
-          <div className="flex gap-4 py-2  ">
-            <Button
-              onClick={submitProfileTypeChange}
-              className="w-24 text-center"
-            >
-              {isLoading ? <PageIsLoading size={10} /> : "change"}
-            </Button>
+          <div className="flex items-center justify-end gap-4 py-2  ">
             <Button
               onClick={() => {
                 router.push("/settings");
@@ -48,6 +42,12 @@ const accountType = () => {
               className="!bg-red-300 text-white"
             >
               cancel
+            </Button>
+            <Button
+              onClick={submitProfileTypeChange}
+              className="w-24 text-center"
+            >
+              {isLoading ? <PageIsLoading size={10} /> : "change"}
             </Button>
           </div>
           {error && (
@@ -61,4 +61,4 @@ const accountType = () => {
   );
 };
 
-export default accountType;
+export default AccountType;

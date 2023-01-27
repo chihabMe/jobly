@@ -5,7 +5,7 @@ import React from "react";
 import cookie from "cookie";
 import CompanyUser from "src/models/CompanyUser";
 import CompanyProfile from "src/pages/Profile/CompanyProfile/CompanyProfile";
-import { companyEndpoint } from "config";
+import { companyEndpoint } from "config/config";
 import request from "src/services/request";
 
 const ProfilePage = ({ profile }: { profile: CompanyUser }) => {
@@ -25,7 +25,6 @@ export const getServerSideProps = async (context: NextPageContext) => {
   const refresh = cookie.parse(context?.req?.headers.cookie || "").refresh;
   const companySlug = context.query.slug as string[];
   const finalEndpoint = companyEndpoint + companySlug[1] + "/";
-  console.log(finalEndpoint);
   try {
     const {
       status,

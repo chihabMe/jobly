@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import generateAuthConfig from "src/libs/generateAuthConfig";
 import cookie from "cookie";
 import request from "../../../../../src/services/request";
-import { companyEndpoint } from "config";
+import { companyEndpoint } from "config/config";
 
 const CompanyJobs = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method == "GET") {

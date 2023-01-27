@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
-import { verifyEndpoint } from "config";
+import { verifyEndpoint } from "config/constances";
 
 const verifyApiRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method == "POST") {

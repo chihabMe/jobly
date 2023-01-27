@@ -68,22 +68,27 @@ const Login = () => {
                     label="Password"
                     placeholder="Enter your password"
                   />
-                  <div className="text-end">
-                    <span className="text-primary font-medium cursor-pointer">
-                      Reset Password
-                    </span>
-                  </div>
                   <div>
-                    {data && status != 200 && (
+                    {!isLoading && data && status != 200 && (
                       <>
-                        <span className="text-red-400">
+                        <span className="text-red-400 text-sm">
                           please make sure that you are using a valid email and
                           password{" "}
                         </span>
                       </>
                     )}
+                    <div className="text-end">
+                      <span className="text-primary font-medium cursor-pointer">
+                        Reset Password
+                      </span>
+                    </div>
                   </div>
-                  <Button className="w-full rounded-md h-11 items-center  py-0 !capitalize bg-blue-300    flex justify-center text-sm font-medium  ">
+                  <Button
+                    disabled={isLoading}
+                    className={`w-full ${
+                      isLoading && "opacity-90"
+                    } rounded-md h-11 items-center  py-0 !capitalize bg-blue-300    flex justify-center text-sm font-medium  `}
+                  >
                     {isLoading ? (
                       <MoonLoader size={20} color="white" />
                     ) : (

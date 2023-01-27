@@ -16,6 +16,7 @@ const UseFetch = () => {
     setStatus(0);
     setIsLoading(true);
     let response;
+    let resData;
     const config: {
       method: string;
       headers?: any;
@@ -31,7 +32,7 @@ const UseFetch = () => {
     try {
       response = await fetch(url, config);
 
-      const resData = await response.json();
+      resData = await response.json();
       setData(resData);
       if (!response.ok) {
         setError(resData);
@@ -40,6 +41,7 @@ const UseFetch = () => {
     } catch (error) {}
     setIsLoading(false);
     setStatus(response?.status);
+    return { response, resData };
   };
   return { request, data, status, isLoading, error };
 };

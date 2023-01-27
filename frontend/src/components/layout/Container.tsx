@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 import useAppDispatch from "src/hooks/useAppDispatch";
 import { authActions } from "src/store/slices/authSlice";
@@ -8,9 +8,13 @@ import PageIsLoading from "../ui/PageIsLoading";
 
 const Container: React.FC<{ children: ReactNode }> = ({ children }) => {
   const dispatch = useAppDispatch();
+  const trigged = useRef(false);
   const { isLoading } = useAppSelector((state) => state.auth);
   useEffect(() => {
-    dispatch(authActions.verify());
+    if (!trigged.current) {
+      dispatch(authActions.verify());
+      trigged.current = true;
+    }
   }, []);
   if (isLoading)
     return (

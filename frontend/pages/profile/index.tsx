@@ -1,5 +1,5 @@
-import { currentUserEndpoint, currentUserProfileEndpoint } from "config";
-import { NextPageContext } from "next";
+import { currentUserEndpoint, currentUserProfileEndpoint } from "config/config";
+import { GetServerSideProps, NextPageContext } from "next";
 import Head from "next/head";
 import React from "react";
 import useAppSelector from "src/hooks/useAppSelector";
@@ -10,16 +10,21 @@ import ProtectedRoute from "src/wrappers/ProtectedRoute";
 import request from "src/services/request";
 import cookie from "cookie";
 import CompanyUser from "src/models/CompanyUser";
+import EmployeeUser from "src/models/EmployeeUser";
 
-const ProfilePage = ({ profile }: { profile: CompanyUser }) => {
+const ProfilePage = ({ profile }: { profile: CompanyUser | EmployeeUser }) => {
   const { isLoading, isLogged, user } = useAppSelector((state) => state.auth);
   return (
     <>
       <Head>
         <title>{user?.name} profile</title>
       </Head>
-      {user && user?.type == "EMPLOYEE" && <EmployeeProfile />}
-      {user && user?.type == "COMPANY" && <CompanyProfile profile={profile} />}
+      {user && user?.type == "EMPLOYEE" && (
+        <EmployeeProfile profile={profile as EmployeeUser} />
+      )}
+      {user && user?.type == "COMPANY" && (
+        <CompanyProfile profile={profile as CompanyUser} />
+      )}
     </>
   );
 };
@@ -28,6 +33,7 @@ export default ProfilePage;
 export const getServerSideProps = async (context: NextPageContext) => {
   const config = generateAuthConfig("GET", context.req?.headers.cookie || "");
   const refresh = cookie.parse(context?.req?.headers.cookie || "").refresh;
+  const access = cookie.parse(context?.req?.headers.cookie || "").access;
   const finalEndpoint = currentUserProfileEndpoint;
   try {
     const {
@@ -40,7 +46,9 @@ export const getServerSideProps = async (context: NextPageContext) => {
       refresh,
       res: context?.res,
     });
-    if (status != 200) return { notFound: true };
+    if (status != 200) {
+      return { props: {}, redirect: { destination: "/signup" } };
+    }
     return {
       props: {
         profile,

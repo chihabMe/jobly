@@ -65,7 +65,7 @@ def user_account_type_change(request):
 
 class CurrentUserProfileView(generics.RetrieveUpdateAPIView):
     # queryset = EmployeeProfile.objects.all()
-    permission_classes = [IsProfileOwner]
+    permission_classes = [IsAuthenticated, IsProfileOwner]
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def get_serializer_class(self, *args, **kwargs):

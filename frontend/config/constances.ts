@@ -1,4 +1,4 @@
-export const API = process.env.API;
+export const API = process.env.API ?? "http://127.0.0.1:8000/";
 //
 export const accessTokenAge = 60 * 60 * 60;
 export const refreshTokenAge = 60 * 60 * 60 * 24 * 35;
@@ -32,3 +32,5 @@ export const companyReviewEndpoint = API + "api/v1/reviews/company/"; //+returns
 //
 export const userTypeChangeEndpoint =
   API + "api/v1/accounts/profile/type/change/"; //+ change the user type
+export const userPasswordChangeEndpoint =
+  API + "api/v1/auth/users/set_password/"; //+ change the user password

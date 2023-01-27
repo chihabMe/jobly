@@ -1,11 +1,10 @@
-import { API, currentUserEndpoint } from "config";
+import { API, currentUserEndpoint } from "config/constances";
 import { NextApiRequest, NextApiResponse } from "next";
 import httpProxyMiddleWare from "next-http-proxy-middleware";
 import cookie from "cookie";
 
 // const apiRoute = nextConnect({
 //     onError(error,req:NextApiRequest,res:NextApiResponse){
-//         console.log(error)
 //         res.status(501).json({error:`something went wrong ${error.message} `})
 //     },
 //     onNoMatch(req:NextApiRequest,res:NextApiResponse){
@@ -17,9 +16,6 @@ import cookie from "cookie";
 // }
 // apiRoute.use(multer().any())
 // apiRoute.put((req:MulterRequest,res:NextApiResponse)=>{
-//     console.log(req.files)
-//     console.log("--------")
-//     console.log(req.body)
 //     return res.status(200).json({message:"good"})
 
 // })

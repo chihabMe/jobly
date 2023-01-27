@@ -18,15 +18,26 @@ const request = async ({
 }) => {
   let response = await fetch(endpoint, config);
   let newTokens: { access: string; refresh: string } | undefined;
+
   if (!response.ok) {
     const { data, status } = await refreshAuth(refresh);
-    if (status == 200) {
-      config.headers["Authorization"] = `bearer ${data.access}`;
-      if (res && data)
-        setAuthCookies({ access: data.access, refresh: data.refresh, res });
+    newTokens = data;
+
+    if (status == 200 && newTokens) {
+      if (res && newTokens)
+        setAuthCookies({
+          access: newTokens?.access,
+          refresh: newTokens?.refresh,
+          res,
+        });
+      if (newTokens) {
+        config.headers["Authorization"] = `Bearer ${newTokens.access}`;
+        response = await fetch(endpoint, config);
+      }
+    } else {
+      delete config.headers["Authorization"];
+      response = await fetch(endpoint, config);
     }
-    delete config.headers["Authorization"];
-    response = await fetch(endpoint, config);
   }
   const data = await response.json();
   return { status: response.status, data, newTokens };

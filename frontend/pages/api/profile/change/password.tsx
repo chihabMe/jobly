@@ -2,11 +2,14 @@ import camelize from "camelize-ts";
 import {
   userPasswordChangeEndpoint,
   userTypeChangeEndpoint,
-} from "config/constances";
+} from "config/config";
 import { NextApiRequest, NextApiResponse } from "next";
 import generateAuthConfig from "src/libs/generateAuthConfig";
 
-const profileChangeType = async (req: NextApiRequest, res: NextApiResponse) => {
+const profileChangePassword = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   if (req.method == "POST") {
     const body = req.body;
     const config = generateAuthConfig(
@@ -14,11 +17,16 @@ const profileChangeType = async (req: NextApiRequest, res: NextApiResponse) => {
       req.headers.cookie || "",
       JSON.stringify(body)
     );
-    const response = await fetch(userPasswordChangeEndpoint, config);
-    const data = camelize(await response.json());
-    return res.status(response.status).json(data);
+    try {
+      const response = await fetch(userPasswordChangeEndpoint, config);
+      const data = camelize(await response.json());
+      return res.status(response.status).json(data);
+    } catch (err) {
+      console.error(err);
+      return res.status(403).json({ message: "bad request" });
+    }
   } else {
     return res.status(405).json({ message: "this method is not allowed" });
   }
 };
-export default profileChangeType;
+export default profileChangePassword;

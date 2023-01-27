@@ -26,7 +26,6 @@ const ProfileImage = ({ user }: { user: User }) => {
   const [image, setImage] = useState<File | null>(null);
   // const dispatch = useAppDispatch()
   const imageChangeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
-    // console.log(e.target.files)
     // if(e.target.files)setImage(e.target.files[0])
     const formData = new FormData();
     if (e.target.files) {
@@ -34,15 +33,11 @@ const ProfileImage = ({ user }: { user: User }) => {
       // request("PUT","api/profile/update",formData,null)
       try {
         await changeProfile(formData).unwrap();
-      } catch {
-        console.log("error");
-      }
+      } catch {}
     }
   };
   // useEffect(()=>{
   // if(!isLoading && status==200)dispatch(authActions.loadUser())
-  // console.log(!isLoading)
-  // console.log(status)
   // },[status,isLoading])
   return (
     <section className="flex flex-col items-center gap-4">

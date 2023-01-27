@@ -4,6 +4,7 @@ import {
   FetchArgs,
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
+import { refreshEndpoint } from "config/constances";
 import { authActions } from "../slices/authSlice";
 
 const baseQuery = fetchBaseQuery({
@@ -18,14 +19,13 @@ const baseQueryWithReAuth = async (
 ) => {
   let result = await baseQuery(args, api, extraOptions);
   if (result.error?.status == 401) {
-    console.log("refreshing");
     const config = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     };
-    const response = await fetch("/api/refresh", config);
+    const response = await fetch(refreshEndpoint, config);
     const data = await response.json();
     if (response.status == 200) {
       result = await baseQuery(args, api, extraOptions);
