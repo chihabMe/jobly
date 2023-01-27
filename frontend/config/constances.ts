@@ -1,4 +1,4 @@
-export const API = process.env.API;
+export const API = process.env.API ?? "http://127.0.0.1:8000/";
 //
 export const accessTokenAge = 60 * 60 * 60;
 export const refreshTokenAge = 60 * 60 * 60 * 24 * 35;

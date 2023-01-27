@@ -1,4 +1,4 @@
-import { currentUserEndpoint } from "config";
+import { currentUserEndpoint } from "config/constances";
 import { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
 

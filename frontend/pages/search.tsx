@@ -1,4 +1,8 @@
-import { accessTokenAge, jobSearchEndpoint, refreshTokenAge } from "config";
+import {
+  accessTokenAge,
+  jobSearchEndpoint,
+  refreshTokenAge,
+} from "config/config";
 import { NextApiResponse, NextPageContext } from "next";
 import React from "react";
 import Header from "src/components/layout/Header/Header";

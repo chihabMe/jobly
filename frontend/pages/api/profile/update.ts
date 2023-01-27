@@ -1,4 +1,4 @@
-import { API, currentUserEndpoint } from "config";
+import { API, currentUserEndpoint } from "config/constances";
 import { NextApiRequest, NextApiResponse } from "next";
 import httpProxyMiddleWare from "next-http-proxy-middleware";
 import cookie from "cookie";

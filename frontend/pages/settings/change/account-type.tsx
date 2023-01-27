@@ -1,5 +1,5 @@
 import { Typography } from "@material-tailwind/react";
-import { userTypeChangeEndpoint } from "config";
+import { userTypeChangeEndpoint } from "config/constances";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Button from "src/components/ui/Button";

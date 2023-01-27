@@ -1,4 +1,4 @@
-import { currentUserEndpoint, currentUserProfileEndpoint } from "config";
+import { currentUserEndpoint, currentUserProfileEndpoint } from "config/config";
 import { GetServerSideProps, NextPageContext } from "next";
 import Head from "next/head";
 import React from "react";

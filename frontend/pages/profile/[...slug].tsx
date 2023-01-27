@@ -5,7 +5,7 @@ import React from "react";
 import cookie from "cookie";
 import CompanyUser from "src/models/CompanyUser";
 import CompanyProfile from "src/pages/Profile/CompanyProfile/CompanyProfile";
-import { companyEndpoint } from "config";
+import { companyEndpoint } from "config/config";
 import request from "src/services/request";
 
 const ProfilePage = ({ profile }: { profile: CompanyUser }) => {
