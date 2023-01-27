@@ -9,7 +9,6 @@ interface Props {
 }
 const SettingsLayout = ({ children }: Props) => {
   const current = useRouter().pathname;
-  console.log(current == "/settings");
   return (
     <main className="w-full min-h-screen  flex     max-w-screen-2xl mx-auto container">
       {/* menu */}

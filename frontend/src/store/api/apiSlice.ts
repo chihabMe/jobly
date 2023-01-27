@@ -18,7 +18,6 @@ const baseQueryWithReAuth = async (
 ) => {
   let result = await baseQuery(args, api, extraOptions);
   if (result.error?.status == 401) {
-    console.log("refreshing");
     const config = {
       method: "POST",
       headers: {

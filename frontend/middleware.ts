@@ -19,10 +19,8 @@ export async function middleware(req: NextRequest, res: NextResponse) {
   const response = NextResponse.next();
   // if (newTokens) {
   //   const headers = new Headers(req.headers);
-  //   console.log(headers);
   //   response.cookies.set("refresh", newTokens.refresh);
   //   response.cookies.set("access", newTokens.access);
-  //   console.log(response.headers);
   // }
   return response;
 }

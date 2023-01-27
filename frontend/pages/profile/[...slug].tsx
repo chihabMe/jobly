@@ -25,7 +25,6 @@ export const getServerSideProps = async (context: NextPageContext) => {
   const refresh = cookie.parse(context?.req?.headers.cookie || "").refresh;
   const companySlug = context.query.slug as string[];
   const finalEndpoint = companyEndpoint + companySlug[1] + "/";
-  console.log(finalEndpoint);
   try {
     const {
       status,

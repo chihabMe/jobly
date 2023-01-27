@@ -20,7 +20,6 @@ const profileChangePassword = async (
       return res.status(response.status).json(data);
     } catch (err) {
       console.error(err);
-      console.log();
       return res.status(403).json({ message: "bad request" });
     }
   } else {

@@ -17,7 +17,6 @@ const request = async ({
   res?: ServerResponse<IncomingMessage>;
 }) => {
   let response = await fetch(endpoint, config);
-  console.log("original status");
   let newTokens: { access: string; refresh: string } | undefined;
 
   if (!response.ok) {
@@ -34,16 +33,13 @@ const request = async ({
       if (newTokens) {
         config.headers["Authorization"] = `Bearer ${newTokens.access}`;
         response = await fetch(endpoint, config);
-        console.log("tokens status", status);
       }
     } else {
       delete config.headers["Authorization"];
       response = await fetch(endpoint, config);
-      console.log("none tokens status", status);
     }
   }
   const data = await response.json();
-  console.log("the stauts", response.status);
   return { status: response.status, data, newTokens };
 };
 export default request;

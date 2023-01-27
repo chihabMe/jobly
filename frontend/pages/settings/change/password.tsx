@@ -1,6 +1,7 @@
 import { Typography } from "@material-tailwind/react";
 import camelize from "camelize-ts";
 import { Form, Formik } from "formik";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import Button from "src/components/ui/Button";
@@ -59,9 +60,16 @@ const Password = () => {
                 type="password"
                 label="current password"
               />
-              <Button className="w-full h-10">
-                {isLoading ? <PageIsLoading size={10} /> : "change"}
-              </Button>
+              <div className="py-4 flex gap-4 items-center justify-end">
+                <Link href={"/settings"}>
+                  <Typography className="   !bg-red-400   shadow  text-center  rounded-md cursor-pointer font-bold h-10 text-xs flex justify-center items-center  w-24 text-white">
+                    cancel
+                  </Typography>
+                </Link>
+                <Button className="w-24 text-center">
+                  {isLoading ? <PageIsLoading size={10} /> : "change"}
+                </Button>
+              </div>
             </Form>
           )}
         </Formik>

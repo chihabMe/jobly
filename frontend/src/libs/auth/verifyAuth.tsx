@@ -32,13 +32,8 @@ export const verifyAuth = async ({
       refresh,
       config,
     });
-    console.log("test ----------");
-    console.log(status);
-    console.log(newTokens);
-    console.log("test ----------");
     return { valid: status == 200, newTokens };
   } catch {
-    console.log("catched");
     return { valid: false, newTokens: undefined };
   }
 };

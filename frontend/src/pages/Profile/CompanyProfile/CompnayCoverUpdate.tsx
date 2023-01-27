@@ -31,9 +31,7 @@ const CompanyCoverUpdate = ({ user }: { user: CompanyUser }) => {
       formData.append("cover", e.target.files[0]);
       try {
         await changeProfile(formData).unwrap();
-      } catch {
-        console.log("error");
-      }
+      } catch {}
     }
   };
   return (

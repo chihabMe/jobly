@@ -34,13 +34,7 @@ const AccountType = () => {
             change your account type
           </Typography>
           <AccountTypeChoices choice={accountType} setChoice={setAccountType} />
-          <div className="flex gap-4 py-2  ">
-            <Button
-              onClick={submitProfileTypeChange}
-              className="w-24 text-center"
-            >
-              {isLoading ? <PageIsLoading size={10} /> : "change"}
-            </Button>
+          <div className="flex items-center justify-end gap-4 py-2  ">
             <Button
               onClick={() => {
                 router.push("/settings");
@@ -48,6 +42,12 @@ const AccountType = () => {
               className="!bg-red-300 text-white"
             >
               cancel
+            </Button>
+            <Button
+              onClick={submitProfileTypeChange}
+              className="w-24 text-center"
+            >
+              {isLoading ? <PageIsLoading size={10} /> : "change"}
             </Button>
           </div>
           {error && (
