@@ -5,7 +5,7 @@ import camelize from "camelize-ts";
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProfile: builder.query<EmployeeUser, void>({
-      query: () => "/me",
+      query: () => "/profile",
       providesTags: ["Profile"],
       transformResponse: (response: EmployeeUser) => {
         return camelize(response);

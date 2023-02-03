@@ -44,7 +44,6 @@ const Phone = () => {
           validationSchema={phoneSchema}
           onSubmit={async (values, actions) => {
             const resData = await handleChangeSubmit(values);
-            console.log("error=", resData);
             //@ts-ignore
             actions.setErrors(resData?.error.data);
           }}

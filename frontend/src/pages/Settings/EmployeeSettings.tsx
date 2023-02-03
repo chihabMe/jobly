@@ -3,7 +3,9 @@ import { useGetProfileQuery } from "src/store/features/employeeProfileApi";
 import SettingsItemField from "./SettingsItemField";
 
 const EmployeeSettings = () => {
-  const { data: profile } = useGetProfileQuery();
+  const { data: profile, isLoading } = useGetProfileQuery();
+  console.log(isLoading);
+  console.log("profle=>", profile);
   return (
     <>
       <SettingsItemField

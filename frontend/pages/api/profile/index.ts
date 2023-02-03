@@ -1,0 +1,29 @@
+import { currentUserProfileEndpoint } from "config";
+import { NextApiRequest, NextApiResponse } from "next";
+import cookie from "cookie";
+
+const profile = async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method == "GET") {
+    let data;
+    const cookies = req.headers.cookie;
+    const access = cookie.parse(cookies || "").access;
+    try {
+      const response = await fetch(currentUserProfileEndpoint, {
+        method: "GET",
+        headers: {
+          "Content-Type": "applications/json",
+          Authorization: `Bearer ${access}`,
+        },
+      });
+      data = await response.json();
+      if (response.status == 200) return res.status(200).json(data);
+      throw new Error(data);
+    } catch {}
+    return res.status(405).json(data);
+  } else {
+    return res
+      .status(405)
+      .json({ message: `method ${req.method} is not allowed ` });
+  }
+};
+export default profile;

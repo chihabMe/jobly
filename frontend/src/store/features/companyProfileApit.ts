@@ -14,7 +14,7 @@ export interface ResponseError {
 const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProfile: builder.query<CompanyUser, void>({
-      query: () => "/me",
+      query: () => "/profile",
       providesTags: ["Profile"],
       transformResponse: (response: CompanyUser) => {
         if (response.image == null) response.image = "";
