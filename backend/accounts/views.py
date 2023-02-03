@@ -69,6 +69,7 @@ class CurrentUserProfileView(generics.RetrieveUpdateAPIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def get_serializer_class(self, *args, **kwargs):
+        print("fuck of ")
         # checking for the user type and returning a proper serializer to handle it
         if self.request.user.type == User.Types.COMPANY:
             return CompanyProfileSerializer

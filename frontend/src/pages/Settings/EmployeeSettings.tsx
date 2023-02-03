@@ -10,13 +10,13 @@ const EmployeeSettings = () => {
         fieldName="phone number"
         currentValue={profile?.phone ?? ""}
         buttonText="change phone number"
-        href=""
+        href="/settings/change/phone"
       />
       <SettingsItemField
         fieldName="location"
         currentValue={profile?.location ?? ""}
         buttonText="change  location"
-        href=""
+        href="settings/change/location"
       />
     </>
   );

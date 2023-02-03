@@ -7,12 +7,21 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     getProfile: builder.query<EmployeeUser, void>({
       query: () => "/me",
       providesTags: ["Profile"],
-      transformResponse:(response:EmployeeUser)=>{
-        return camelize(response)
-      }
+      transformResponse: (response: EmployeeUser) => {
+        return camelize(response);
+      },
     }),
     uploadCv: builder.mutation({
-      query: (data:FormData) => ({
+      invalidatesTags: ["Profile"],
+      query: (data: FormData) => ({
+        url: "/profile/update",
+        method: "PUT",
+        body: data,
+      }),
+    }),
+    updatePhoneNumber: builder.mutation({
+      invalidatesTags: ["Profile"],
+      query: ({ data }: { data: FormData }) => ({
         url: "/profile/update",
         method: "PUT",
         body: data,
@@ -21,5 +30,8 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetProfileQuery, useUploadCvMutation } =
-  extendedApiSlice;
+export const {
+  useGetProfileQuery,
+  useUploadCvMutation,
+  useUpdatePhoneNumberMutation,
+} = extendedApiSlice;

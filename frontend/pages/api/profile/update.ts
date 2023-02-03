@@ -1,4 +1,4 @@
-import { API, currentUserEndpoint } from "config";
+import { API, currentUserEndpoint, currentUserProfileEndpoint } from "config";
 import { NextApiRequest, NextApiResponse } from "next";
 import httpProxyMiddleWare from "next-http-proxy-middleware";
 import cookie from "cookie";
@@ -23,7 +23,7 @@ import cookie from "cookie";
 export default (req: NextApiRequest, res: NextApiResponse) => {
   const access = cookie.parse(req.headers.cookie || "").access;
   httpProxyMiddleWare(req, res, {
-    target: currentUserEndpoint,
+    target: currentUserProfileEndpoint,
     ignorePath: true,
     headers: {
       Authorization: `Bearer ${access}`,

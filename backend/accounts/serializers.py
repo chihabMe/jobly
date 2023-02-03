@@ -12,7 +12,7 @@ class EmployeeProfileSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
     cv = serializers.FileField(required=False, validators=[validate_file_extension])
     name = serializers.CharField(required=False)
-    email = serializers.CharField(source="user.email", read_only=True)
+    email = serializers.CharField(source="user.email", read_only=True, required=False)
     type = serializers.CharField(source="user.type", read_only=True)
     location = serializers.CharField(
         required=False, source="location.name", read_only=False
@@ -41,9 +41,11 @@ class EmployeeProfileSerializer(serializers.ModelSerializer):
         return profile.book_marked_jobs.count()
 
     def update(self, instance, validated_data):
+        print("run update")
         instance.cv = validated_data.get("cv", instance.cv)
         instance.name = validated_data.get("name", instance.name)
         instance.image = validated_data.get("image", instance.image)
+        instance.phone = validated_data.get("phone", instance.phone)
         instance.save()
         return instance
 

@@ -1,5 +1,4 @@
-import { Typography } from "@material-tailwind/react";
-import camelize from "camelize-ts";
+import { CardBody, CardHeader, Typography } from "@material-tailwind/react";
 import { Form, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -8,7 +7,11 @@ import Button from "src/components/ui/Button";
 import Input from "src/components/ui/Input";
 import PageIsLoading from "src/components/ui/PageIsLoading";
 import { changePasswordSchema } from "src/helpers/schemas";
+import { Card } from "@material-tailwind/react";
 import UseFetch from "src/hooks/use-fetch";
+import SettingsChangeTitle from "src/pages/Settings/SettingsChangeTitle";
+import SettingsChangeCardWrapper from "src/pages/Settings/SettingsChangeCardWrapper";
+import SettingsChangeLayout from "src/pages/Settings/SettingsChangeLayout";
 const initialsValues = {
   newPassword: "",
   reNewPassword: "",
@@ -32,11 +35,11 @@ const Password = () => {
     if (isLoading && status == 204) router.push("/settings");
   }, [isLoading]);
   return (
-    <main className="pt-10">
-      <section className="w-full mt-10 flex flex-col gap-4 p-2 max-w-sm mx-auto">
-        <Typography className="font-bold text-lg py-2 capitalize text-title dark:text-title-dark">
-          change your password
-        </Typography>
+    <SettingsChangeCardWrapper>
+      <CardHeader>
+        <SettingsChangeTitle title="password" />
+      </CardHeader>
+      <CardBody>
         <Formik
           onSubmit={async (values, actions) => {
             const { response, resData } = await handleChangeSubmit(values);
@@ -48,7 +51,7 @@ const Password = () => {
           initialValues={initialsValues}
         >
           {(props) => (
-            <Form className="flex flex-col gap-4">
+            <Form className="flex w-full  flex-col gap-4">
               <Input name="newPassword" type="password" label="new password" />
               <Input
                 name="reNewPassword"
@@ -73,9 +76,10 @@ const Password = () => {
             </Form>
           )}
         </Formik>
-      </section>
-    </main>
+      </CardBody>
+    </SettingsChangeCardWrapper>
   );
 };
+Password.PageLayout = SettingsChangeLayout;
 
 export default Password;

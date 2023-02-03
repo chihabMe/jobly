@@ -1,4 +1,4 @@
-import { Typography } from "@material-tailwind/react";
+import { CardBody, CardHeader, Typography } from "@material-tailwind/react";
 import { userTypeChangeEndpoint } from "config";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -7,6 +7,10 @@ import PageIsLoading from "src/components/ui/PageIsLoading";
 import UseFetch from "src/hooks/use-fetch";
 import useAppSelector from "src/hooks/useAppSelector";
 import AccountTypeChoices from "src/pages/Signup/AccountTypeChoices";
+import { Card } from "@material-tailwind/react";
+import SettingsChangeTitle from "src/pages/Settings/SettingsChangeTitle";
+import SettingsChangeCardWrapper from "src/pages/Settings/SettingsChangeCardWrapper";
+import SettingsChangeLayout from "src/pages/Settings/SettingsChangeLayout";
 
 const AccountType = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -27,38 +31,37 @@ const AccountType = () => {
     if (!isLoading && status == 200) router.push("/settings");
   }, [isLoading]);
   return (
-    <div className="flex flex-col pt-10 items-center min-h-screen ">
-      <div className="w-full   mt-10  max-w-md bg-white dark:bg-bg-dark p-4 rounded-lg">
-        <div className="px-4 flex flex-col gap-6">
-          <Typography className="text-xl py-4 border-b border-b-gray-300 font-bold text-title dark:text-title-dark capitalize">
-            change your account type
-          </Typography>
-          <AccountTypeChoices choice={accountType} setChoice={setAccountType} />
-          <div className="flex items-center justify-end gap-4 py-2  ">
-            <Button
-              onClick={() => {
-                router.push("/settings");
-              }}
-              className="!bg-red-300 text-white"
-            >
-              cancel
-            </Button>
-            <Button
-              onClick={submitProfileTypeChange}
-              className="w-24 text-center"
-            >
-              {isLoading ? <PageIsLoading size={10} /> : "change"}
-            </Button>
-          </div>
-          {error && (
-            <div className="py-2 text-red-400 font-medium">
-              there was an error please try again
-            </div>
-          )}
+    <SettingsChangeCardWrapper>
+      <CardHeader>
+        <SettingsChangeTitle title="account type" />
+      </CardHeader>
+
+      <CardBody>
+        <AccountTypeChoices choice={accountType} setChoice={setAccountType} />
+        <div className="flex items-center justify-end gap-4 py-2 mt-2  ">
+          <Button
+            onClick={() => {
+              router.push("/settings");
+            }}
+            className="!bg-red-300 text-white"
+          >
+            cancel
+          </Button>
+          <Button
+            onClick={submitProfileTypeChange}
+            className="w-24 text-center"
+          >
+            {isLoading ? <PageIsLoading size={10} /> : "change"}
+          </Button>
         </div>
-      </div>
-    </div>
+        {error && (
+          <div className="py-2 text-red-400 font-medium">
+            there was an error please try again
+          </div>
+        )}
+      </CardBody>
+    </SettingsChangeCardWrapper>
   );
 };
-
+AccountType.PageLayout = SettingsChangeLayout;
 export default AccountType;

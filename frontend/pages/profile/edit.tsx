@@ -10,14 +10,12 @@ const ProfileEditPage = () => {
   const { user } = useAppSelector((state) => state.auth);
   return (
     <>
-    <Head>
-      <title>{user?.name} profile edit</title>
-    </Head>
+      <Head>
+        <title>{user?.name} profile edit</title>
+      </Head>
       <main>
-        <ProtectedRoute>
-          {user && user.type == "COMPANY" && <CompanyProfileEdit />}
-          {user && user.type == "EMPLOYEE" && <EmployeeProfileEdit />}
-        </ProtectedRoute>
+        {user && user.type == "COMPANY" && <CompanyProfileEdit />}
+        {user && user.type == "EMPLOYEE" && <EmployeeProfileEdit />}
       </main>
     </>
   );

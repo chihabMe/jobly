@@ -1,37 +1,31 @@
 import * as yup from "yup";
 
 export const loginSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("please use a valid email")
-    .required("an email field is required"),
+  email: yup.string().email("Invalid email").required("Required"),
   password: yup
     .string()
-    .min(6, "you must use more than 6 characters ")
-    .required("a password field is required"),
+    .min(6, " use more than 6 characters ")
+    .required("Required"),
 });
 
 export const registrationSchema = yup.object().shape({
-  username: yup.string().required("a username field is required"),
-  email: yup
-    .string()
-    .email("please use a valid email")
-    .required("an email field is required"),
+  username: yup.string().required("Required"),
+  email: yup.string().email("Invalid email").required("Required"),
   password: yup
     .string()
-    .min(6, "you must use more than 6 characters ")
-    .required("a password field is required"),
+    .min(6, "use more than 6 characters ")
+    .required("Required"),
   re_password: yup
     .string()
     .oneOf([yup.ref("password"), null], "passwords must match")
-    .required("a password confirmation field is required"),
+    .required("Required"),
 });
 
 export const companyProfileEditSchema = yup.object().shape({
   name: yup.string(),
   description: yup
     .string()
-    .min(50, "you have to use more than 50 character to describe your company")
+    .min(50, "  use more than 50 character to describe your company")
     .max(
       500,
       "you  can not use more than 500 characters to describe your company"
@@ -50,12 +44,20 @@ export const changePasswordSchema = yup.object().shape({
       [yup.ref("currentPassword"), null],
       "your new password must not be the same as your current password"
     )
-    .min(6, "please use more than 6 characters")
-    .required("this field is required"),
+    .min(6, " use more than 6 characters")
+    .required("Required"),
   reNewPassword: yup
     .string()
-    .min(6, "please use more than 6 characters")
+    .min(6, " use more than 6 characters")
     .oneOf([yup.ref("newPassword"), null], "password don't match")
-    .required("this field is required"),
-  currentPassword: yup.string().required("this field is required"),
+    .required("Required"),
+  currentPassword: yup.string().required("Required"),
+});
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+export const phoneSchema = yup.object().shape({
+  phone: yup
+    .string()
+    .required("Required")
+    .matches(phoneRegExp, "Invalid number"),
 });
