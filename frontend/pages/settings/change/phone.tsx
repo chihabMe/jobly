@@ -1,7 +1,7 @@
 import { CardBody, CardHeader, Typography } from "@material-tailwind/react";
 import Input from "src/components/ui/Input";
 import { Form, Formik } from "formik";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { phoneSchema } from "src/helpers/schemas";
 import SettingsChangeCardWrapper from "src/pages/Settings/SettingsChangeCardWrapper";
 import SettingsChangeLayout from "src/pages/Settings/SettingsChangeLayout";
@@ -11,17 +11,35 @@ import Link from "next/link";
 import PageIsLoading from "src/components/ui/PageIsLoading";
 import UseFetch from "src/hooks/use-fetch";
 import { useRouter } from "next/router";
-import { useUpdatePhoneNumberMutation } from "src/store/features/employeeProfileApi";
-
-const initialValues = {
-  phone: "",
-};
+import {
+  useGetEmployeeProfileQuery,
+  useUpdatePhoneNumberMutation,
+} from "src/store/features/employeeProfileApi";
+import useAppSelector from "src/hooks/useAppSelector";
+import EmployeeUser from "src/models/EmployeeUser";
+interface InitialValueInterface {
+  phone: string;
+}
 const Phone = () => {
   // const { data, request, status, isLoading, error } = UseFetch();
+  const [currentPhone, setCurrentPhone] = useState("");
+  const {
+    data: profile,
+    isSuccess: isProfileSuccess,
+    isLoading: isProfileLoading,
+  } = useGetEmployeeProfileQuery(undefined, {
+    refetchOnFocus: false,
+    refetchOnMountOrArgChange: false,
+  });
+
+  const initialValue: InitialValueInterface = {
+    phone: profile?.phone ?? "",
+  };
+
   const [updatePhone, { data, error, isLoading, isSuccess }] =
     useUpdatePhoneNumberMutation();
   const router = useRouter();
-  const handleChangeSubmit = async (body: typeof initialValues) => {
+  const handleChangeSubmit = async (body: InitialValueInterface) => {
     const data = new FormData();
     data.append("phone", body.phone);
     return await updatePhone({
@@ -32,7 +50,12 @@ const Phone = () => {
     if (!isLoading && isSuccess) router.push("/settings");
   }, [isLoading]);
   console.log("data", data);
-  console.log("error", error);
+  if (isProfileLoading)
+    return (
+      <div className="w-full h-72 flex justify-center items-center">
+        <PageIsLoading />
+      </div>
+    );
   return (
     <SettingsChangeCardWrapper>
       <CardHeader>
@@ -40,7 +63,7 @@ const Phone = () => {
       </CardHeader>
       <CardBody>
         <Formik
-          initialValues={initialValues}
+          initialValues={initialValue}
           validationSchema={phoneSchema}
           onSubmit={async (values, actions) => {
             const resData = await handleChangeSubmit(values);

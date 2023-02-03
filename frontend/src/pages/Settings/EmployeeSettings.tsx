@@ -1,9 +1,9 @@
 import React from "react";
-import { useGetProfileQuery } from "src/store/features/employeeProfileApi";
+import { useGetEmployeeProfileQuery } from "src/store/features/employeeProfileApi";
 import SettingsItemField from "./SettingsItemField";
 
 const EmployeeSettings = () => {
-  const { data: profile, isLoading } = useGetProfileQuery();
+  const { data: profile, isLoading } = useGetEmployeeProfileQuery();
   console.log(isLoading);
   console.log("profle=>", profile);
   return (

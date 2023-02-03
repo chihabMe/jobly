@@ -4,7 +4,7 @@ import camelize from "camelize-ts";
 
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getProfile: builder.query<EmployeeUser, void>({
+    getEmployeeProfile: builder.query<EmployeeUser, void>({
       query: () => "/profile",
       providesTags: ["Profile"],
       transformResponse: (response: EmployeeUser) => {
@@ -31,7 +31,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-  useGetProfileQuery,
+  useGetEmployeeProfileQuery,
   useUploadCvMutation,
   useUpdatePhoneNumberMutation,
 } = extendedApiSlice;

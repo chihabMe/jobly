@@ -8,7 +8,7 @@ import ProfileImage from "./ProfileImage";
 import JobSeeking from "./JobSeeking";
 import PageIsLoading from "src/components/ui/PageIsLoading";
 import useAppSelector from "src/hooks/useAppSelector";
-import { useGetProfileQuery } from "src/store/features/employeeProfileApi";
+import { useGetEmployeeProfileQuery } from "src/store/features/employeeProfileApi";
 import EmployeeUser from "src/models/EmployeeUser";
 
 const EmployeeProfile = ({ profile }: { profile: EmployeeUser }) => {
