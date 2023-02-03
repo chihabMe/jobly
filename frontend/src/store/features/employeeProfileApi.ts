@@ -27,6 +27,14 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    updateLocation: builder.mutation({
+      invalidatesTags: ["Profile"],
+      query: ({ location }: { location: FormData }) => ({
+        url: "/profile/update",
+        method: "PUT",
+        body: location,
+      }),
+    }),
   }),
 });
 
@@ -34,4 +42,5 @@ export const {
   useGetEmployeeProfileQuery,
   useUploadCvMutation,
   useUpdatePhoneNumberMutation,
+  useUpdateLocationMutation,
 } = extendedApiSlice;

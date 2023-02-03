@@ -9,7 +9,6 @@ import SettingsChangeTitle from "src/pages/Settings/SettingsChangeTitle";
 import Button from "src/components/ui/Button";
 import Link from "next/link";
 import PageIsLoading from "src/components/ui/PageIsLoading";
-import UseFetch from "src/hooks/use-fetch";
 import { useRouter } from "next/router";
 import {
   useGetEmployeeProfileQuery,
@@ -21,8 +20,6 @@ interface InitialValueInterface {
   phone: string;
 }
 const Phone = () => {
-  // const { data, request, status, isLoading, error } = UseFetch();
-  const [currentPhone, setCurrentPhone] = useState("");
   const {
     data: profile,
     isSuccess: isProfileSuccess,

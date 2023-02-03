@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from locations.models import Location
 from pkg_resources import require
 from rest_framework import serializers
 
@@ -40,14 +41,27 @@ class EmployeeProfileSerializer(serializers.ModelSerializer):
     def get_book_marked_jobs(self, profile):
         return profile.book_marked_jobs.count()
 
-    def update(self, instance, validated_data):
-        print("run update")
+    def validate_location(self, attrs):
+        try:
+            location = self.__get_location_by_name(attrs)
+            return location
+        except:
+            raise serializers.ValidationError("Invalid location")
+
+    def update(self, instance: EmployeeProfile, validated_data):
         instance.cv = validated_data.get("cv", instance.cv)
         instance.name = validated_data.get("name", instance.name)
         instance.image = validated_data.get("image", instance.image)
         instance.phone = validated_data.get("phone", instance.phone)
+        lc = validated_data.get("location")
+        if lc is not None:
+            instance.location = lc.get("name")
         instance.save()
         return instance
+
+    def __get_location_by_name(self, name: str) -> Location:
+        lc = Location.objects.get(name__icontains=name)
+        return lc
 
 
 class CompanyProfileSerializer(serializers.ModelSerializer):
