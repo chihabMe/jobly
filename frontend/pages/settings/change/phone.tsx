@@ -24,7 +24,7 @@ const Phone = () => {
   const handleChangeSubmit = async (body: typeof initialValues) => {
     const data = new FormData();
     data.append("phone", body.phone);
-    return updatePhone({
+    return await updatePhone({
       data,
     });
   };
@@ -43,10 +43,10 @@ const Phone = () => {
           initialValues={initialValues}
           validationSchema={phoneSchema}
           onSubmit={async (values, actions) => {
-            handleChangeSubmit(values);
-            // if (response && response.status != 200) {
-            // actions.setErrors(resData);
-            // }
+            const resData = await handleChangeSubmit(values);
+            console.log("error=", resData);
+            //@ts-ignore
+            actions.setErrors(resData?.error.data);
           }}
         >
           {(props) => (

@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import "yup-phone";
 
 export const loginSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Required"),
@@ -59,5 +60,6 @@ export const phoneSchema = yup.object().shape({
   phone: yup
     .string()
     .required("Required")
-    .matches(phoneRegExp, "Invalid number"),
+    .phone(undefined, false, "The phone number entered is not valid"),
+  // .matches(phoneRegExp, "The phone number entered is not valid."),
 });
