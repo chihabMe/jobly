@@ -14,6 +14,7 @@ import { loginSchema } from "src/helpers/schemas";
 import Image from "next/image";
 import { MoonLoader } from "react-spinners";
 import UseFetch from "src/hooks/use-fetch";
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 const Login = () => {
   const router = useRouter();
@@ -36,10 +37,14 @@ const Login = () => {
   };
   return (
     <main className="w-full min-h-screen   ">
-      <div className="w-full mt-10 flex max-w-screen-xl min-h-[550px] mx-auto  rounded-2xl p-2 ">
+      <div className="w-full mt-10 flex max-w-[1000px] min-h-[450px] mx-auto  rounded-2xl p-2 ">
         <div className="hidden md:flex md:w-1/2  min-h-full    bg-primary rounded-l-md">
           <div className="w-60 h-60 relative mx-auto my-auto ">
-            <Image src="/images/svg/welcome.svg" layout="fill" />
+            <Image
+              alt="login image"
+              src="/images/svg/welcome.svg"
+              layout="fill"
+            />
           </div>
         </div>
         <div className="w-full md:w-1/2  bg-bg dark:bg-gray-900 pt-6 rounded-r-md px-2">

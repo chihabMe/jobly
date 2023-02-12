@@ -123,3 +123,4 @@ backend/!.vscode/tasks.json
 backend/!.vscode/launch.json
 backend/!.vscode/extensions.json
 backend/.history
+../backend/test.db

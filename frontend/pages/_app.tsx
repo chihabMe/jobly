@@ -16,6 +16,7 @@ import { ReactNode } from "react";
 type ComponentWithPageLayout = AppProps & {
   Component: AppProps["Component"] & {
     PageLayout?: React.ComponentType<{ children: ReactNode }>;
+    hideHeader?: boolean;
   };
 };
 
@@ -27,7 +28,7 @@ function MyApp({ Component, pageProps }: ComponentWithPageLayout) {
         <NextThemeProvider attribute="class">
           <Container>
             <ThemeProvider>
-              <Header />
+              {Component.hideHeader ? null : <Header />}
               {Component.PageLayout ? (
                 <Component.PageLayout>
                   <Component {...pageProps} />
