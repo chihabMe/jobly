@@ -1,4 +1,4 @@
-import { verifyEndpoint } from "config/config";
+import { verifyEndpoint } from "config/constances";
 import { IncomingMessage, ServerResponse } from "http";
 import request from "src/services/request";
 interface ReturnProps {

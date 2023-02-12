@@ -1,4 +1,3 @@
-import { jobDetailEndpoint } from "config/config";
 import { NextPageContext } from "next";
 import JobDetail from "src/components/jobSearchResults/JobDetail";
 import generateAuthConfig from "src/libs/generateAuthConfig";

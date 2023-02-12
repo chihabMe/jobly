@@ -1,8 +1,3 @@
-import {
-  accessTokenAge,
-  jobSearchEndpoint,
-  refreshTokenAge,
-} from "config/config";
 import { NextApiResponse, NextPageContext } from "next";
 import React from "react";
 import Header from "src/components/layout/Header/Header";
@@ -16,6 +11,7 @@ import Search from "src/pages/Search/Search";
 import request from "src/services/request";
 import cookie from "cookie";
 import { IncomingMessage, ServerResponse } from "http";
+import { jobSearchEndpoint } from "config/constances";
 
 const SearchPage = ({
   results,

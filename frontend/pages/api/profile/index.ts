@@ -1,6 +1,6 @@
-import { currentUserProfileEndpoint } from "config";
 import { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
+import { currentUserProfileEndpoint } from "config/constances";
 
 const profile = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method == "GET") {

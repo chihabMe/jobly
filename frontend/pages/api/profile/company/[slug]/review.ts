@@ -1,6 +1,6 @@
+import { companyReviewEndpoint } from "config/constances";
 import { NextApiRequest, NextApiResponse } from "next";
 import generateAuthConfig from "src/libs/generateAuthConfig";
-import { companyReviewEndpoint, companyReviewsEndpoint } from "config/config";
 
 const CompanyReview = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method == "GET") {

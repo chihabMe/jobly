@@ -1,4 +1,4 @@
-import { jobSearchEndpoint } from "config/config";
+import { jobSearchEndpoint } from "config/constances";
 import { NextApiRequest, NextApiResponse } from "next";
 import generateAuthConfig from "src/libs/generateAuthConfig";
 

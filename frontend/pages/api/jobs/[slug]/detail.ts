@@ -1,5 +1,5 @@
 import camelize from "camelize-ts";
-import { jobDetailEndpoint } from "config/config";
+import { jobDetailEndpoint } from "config/constances";
 import { NextApiRequest, NextApiResponse } from "next";
 import generateAuthConfig from "src/libs/generateAuthConfig";
 

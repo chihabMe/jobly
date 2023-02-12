@@ -1,8 +1,5 @@
 import camelize from "camelize-ts";
-import {
-  userPasswordChangeEndpoint,
-  userTypeChangeEndpoint,
-} from "config/config";
+import { userPasswordChangeEndpoint } from "config/constances";
 import { NextApiRequest, NextApiResponse } from "next";
 import generateAuthConfig from "src/libs/generateAuthConfig";
 

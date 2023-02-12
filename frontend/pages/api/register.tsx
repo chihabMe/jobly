@@ -1,4 +1,4 @@
-import { API, registrationsEndpoint } from "config/config";
+import { registrationsEndpoint } from "config/constances";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const registerApiRoute = async (req: NextApiRequest, res: NextApiResponse) => {

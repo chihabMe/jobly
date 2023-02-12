@@ -1,4 +1,3 @@
-import { currentUserEndpoint, currentUserProfileEndpoint } from "config/config";
 import { GetServerSideProps, NextPageContext } from "next";
 import Head from "next/head";
 import React from "react";
@@ -11,6 +10,7 @@ import request from "src/services/request";
 import cookie from "cookie";
 import CompanyUser from "src/models/CompanyUser";
 import EmployeeUser from "src/models/EmployeeUser";
+import { currentUserProfileEndpoint } from "config/constances";
 
 const ProfilePage = ({ profile }: { profile: CompanyUser | EmployeeUser }) => {
   const { isLoading, isLogged, user } = useAppSelector((state) => state.auth);

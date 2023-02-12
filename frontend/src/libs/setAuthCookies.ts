@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import cookie from "cookie";
-import { accessTokenAge, refreshTokenAge } from "config/config";
 import { IncomingMessage, ServerResponse } from "http";
+import { accessTokenAge, refreshTokenAge } from "config/constances";
 
 const setAuthCookies = ({
   access,

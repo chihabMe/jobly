@@ -4,7 +4,6 @@ import cookie from "cookie";
 import { verifyAuth } from "src/libs/auth/verifyAuth";
 import { ServerResponse } from "http";
 import { URL } from "url";
-import { accessTokenAge, refreshTokenAge } from "config/config";
 
 export async function middleware(req: NextRequest, res: NextResponse) {
   // const access = req.cookies.get("access");
