@@ -1,7 +1,7 @@
-import { API, currentUserEndpoint, currentUserProfileEndpoint } from "config";
 import { NextApiRequest, NextApiResponse } from "next";
 import httpProxyMiddleWare from "next-http-proxy-middleware";
 import cookie from "cookie";
+import { currentUserProfileEndpoint } from "config/constances";
 
 // const apiRoute = nextConnect({
 //     onError(error,req:NextApiRequest,res:NextApiResponse){

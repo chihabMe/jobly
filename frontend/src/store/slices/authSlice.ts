@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FulfilledActionFromAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
+import {
+  currentUserEndpoint,
+  refreshEndpoint,
+  verifyEndpoint,
+} from "config/constances";
 import User from "src/models/User";
 import { AppThunk, RootState } from "..";
 export type authSliceState = {
@@ -33,7 +38,7 @@ const generateAConfig = (method: string, credentials: string) => {
 };
 const loadUser = createAsyncThunk("auth/loadUser", async (d, thunkApi) => {
   const config = generateAConfig("GET", "");
-  const response = await fetch("/api/me", {
+  const response = await fetch(currentUserEndpoint, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
@@ -46,6 +51,7 @@ const loadUser = createAsyncThunk("auth/loadUser", async (d, thunkApi) => {
 });
 const verify = createAsyncThunk("auth/verify", async (data, thunkApi) => {
   const config = generateAConfig("POST", "");
+  console.log("/api/verify");
   const response = await fetch("/api/verify", config);
   if (response.status == 200) {
     thunkApi.dispatch(loadUser());

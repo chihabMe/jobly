@@ -14,6 +14,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import Field from "src/models/Field";
+import { locationsEndpoint } from "config/constances";
 
 const getIndex = (array: Field[], value: string) => {
   array.forEach((item) => {
@@ -37,7 +38,7 @@ const JobSearch = ({
     query: query || "",
   });
   useEffect(() => {
-    fetch("/api/locations")
+    fetch(locationsEndpoint)
       .then((res) => res.json())
       .then((data) => {
         setLocations(data);

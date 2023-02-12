@@ -1,4 +1,4 @@
-import { refreshEndpoint } from "config";
+import { refreshEndpoint } from "config/constances";
 
 export const refreshAuth = async (refresh: string) => {
   const config = {

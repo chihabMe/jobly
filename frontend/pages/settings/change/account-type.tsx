@@ -1,5 +1,4 @@
-import { CardBody, CardHeader, Typography } from "@material-tailwind/react";
-import { userTypeChangeEndpoint } from "config";
+import { CardBody, CardHeader } from "@material-tailwind/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Button from "src/components/ui/Button";

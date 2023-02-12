@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { refreshAuth } from "src/services/refreshAuth";
 import cookie from "cookie";
-import { accessTokenAge, refreshTokenAge } from "config";
+import { accessTokenAge, API, refreshTokenAge } from "config/constances";
 
 const refreshApiRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method == "POST") {
@@ -14,14 +14,14 @@ const refreshApiRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       res.setHeader("Set-Cookie", [
         cookie.serialize("refresh", response.data.refresh, {
           httpOnly: true,
-          path: "/",
+          path: API,
           sameSite: "strict",
           secure: process.env.mode != "devMode",
           maxAge: refreshTokenAge,
         }),
-        cookie.serialize("access", response.data.access, {
+        cookie.serialize("Authorization", response.data.access, {
           httpOnly: true,
-          path: "/",
+          path: API,
           sameSite: "strict",
           secure: process.env.mode != "devMode",
           maxAge: accessTokenAge,
